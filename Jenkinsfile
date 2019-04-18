@@ -6,11 +6,15 @@ pipeline {
   }
   stages {
     stage('Verify') {
-      sh 'docker-compose --version'
-      sh 'which docker-compose'
+      steps {
+        sh 'docker-compose --version'
+        sh 'which docker-compose'
+      }
     }
     stage('Deploy') {
-      sh 'docker-compose up -d --force-recreate'
+      steps {
+        sh 'docker-compose up -d --force-recreate'
+      }
     }
   }
   post {
