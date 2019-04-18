@@ -2,7 +2,7 @@ pipeline {
   agent any
   options {
     disableCurrentBuilds()
-    timeout(time: 10, unit: 'MINUTES'
+    timeout(time: 10, unit: 'MINUTES')
   }
   stages {
     stage('Verify') {
