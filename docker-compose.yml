@@ -1,0 +1,135 @@
+version: 3.6
+services:
+
+  # Docker Image Automatic Updater
+  watchtower:
+    container_name: watchtower
+    image: v2tec/watchtower
+    restart: always
+    # Update everyday at 4 AM
+    command: --schedule "0 0 4 * * *" --cleanup
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  # Web UI for Docker Containers
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    restart: always
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - 6000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${USERDIR}/docker/portainer/data:/data
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - TZ=${TZ}
+      
+  # Movie Downloader and Manager
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr
+    restart: always
+    ports:
+      - 6022:7878
+    volumes:
+      - ${USERDIR}/docker/radarr:/config
+      - ${USERDIR}/Downloads/completed:/downloads
+      - ${USERDIR}/media/movies:/movies
+      - /etc/localtime:/etc/localtime:ro
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      
+  # Serie Downloader and Manager
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    restart: always
+    ports:
+        - 6023:8989
+    volumes:
+      - ${USERDIR}/docker/sonarr:/config
+      - ${USERDIR}/downloads/completed:/downloads
+      - ${USERDIR}/media/tvshows:/tv
+      - /etc/localtime:/etc/localtime:ro
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+
+  # Media Server
+  plex:
+    container_name: plex
+    image: linuxserver/plex
+    restart: always
+    network_mode: host
+    ports:
+      - 6010:32400
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - VERSION=docker
+    volumes:
+      - /mediaplex:/config
+      - /media/plextranscode:/transcode
+      - /media/:/data
+ 
+  #Plex Monitor
+  tautulli:
+    container_name: tautulli
+    image: linuxserver/tautulli
+    restart: always
+    ports:
+      - 6011:8181
+    volumes:
+      - ${USERDIR}/docker/tautulli/config:/config
+      - ${USERDIR}/docker/tautulli/logs:/logs:ro
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      
+  # Torrent Client
+  deluge:
+    image: linuxserver/deluge
+    container_name: Deluge
+    restart: always
+    ports:
+      - 6020:8112
+    volumes:
+      - ${USERDIR}/docker/deluge:/config
+      - /media/downloads:/downloads
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      
+  # Proxy Server for Sonarr/Radarr search queries
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    restart: always
+    ports:
+      - 6021:9117
+    volumes:
+      - ${USERDIR}/docker/jackett:/config
+      - ${USERDIR}/downloads/completed:/downloads
+      - /etc/localtime:/etc/localtime:ro
+      - ${USERDIR}/docker/shared:/shared
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.60.0.0/24
