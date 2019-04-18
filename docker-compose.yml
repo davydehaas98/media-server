@@ -46,8 +46,8 @@ services:
       
   # Serie Downloader and Manager
   sonarr:
-    image: linuxserver/sonarr
     container_name: sonarr
+    image: linuxserver/sonarr
     restart: always
     ports:
         - 6023:8989
