@@ -67,7 +67,6 @@ services:
     container_name: plex
     image: linuxserver/plex
     restart: always
-    network_mode: host
     ports:
       - 6010:32400
     environment:
