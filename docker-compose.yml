@@ -1,4 +1,4 @@
-version: "3.6"
+version: '3.6'
 services:
 
   # Docker Image Automatic Updater
@@ -125,11 +125,11 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-networks:
-  default:
-    driver: bridge
-    name: media-server
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.60.0.0/24
+# networks:
+#   default:
+#     driver: bridge
+#     name: media-server
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: 172.60.0.0/24
