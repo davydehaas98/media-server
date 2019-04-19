@@ -96,8 +96,8 @@ services:
       
   # Torrent Client
   deluge:
+    container_name: deluge
     image: linuxserver/deluge
-    container_name: Deluge
     restart: always
     ports:
       - 6020:8112
@@ -111,8 +111,8 @@ services:
       
   # Proxy Server for Sonarr/Radarr search queries
   jackett:
-    image: linuxserver/jackett
     container_name: jackett
+    image: linuxserver/jackett
     restart: always
     ports:
       - 6021:9117
