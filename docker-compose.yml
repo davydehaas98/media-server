@@ -126,7 +126,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
 networks:
-  default
+  default:
     name: media-server
     driver: bridge
     ipam:
