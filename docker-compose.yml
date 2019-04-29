@@ -5,7 +5,7 @@ services:
   watchtower:
     container_name: watchtower
     image: v2tec/watchtower
-    restart: always
+    restart: unless-stopped
     # Update everyday at 4 AM
     command: --schedule "0 0 4 * * *" --cleanup
     volumes:
@@ -15,7 +15,7 @@ services:
   portainer:
     container_name: portainer
     image: portainer/portainer
-    restart: always
+    restart: unless-stopped
     command: -H unix:///var/run/docker.sock
     ports:
       - "6000:9000"
@@ -30,7 +30,7 @@ services:
   radarr:
     container_name: radarr
     image: linuxserver/radarr
-    restart: always
+    restart: unless-stopped
     ports:
       - "6022:7878"
     volumes:
@@ -48,7 +48,7 @@ services:
   sonarr:
     container_name: sonarr
     image: linuxserver/sonarr
-    restart: always
+    restart: unless-stopped
     ports:
         - "6023:8989"
     volumes:
@@ -66,7 +66,7 @@ services:
   plex:
     container_name: plex
     image: linuxserver/plex
-    restart: always
+    restart: unless-stopped
     ports:
       - "6010:32400"
     environment:
@@ -82,7 +82,7 @@ services:
   tautulli:
     container_name: tautulli
     image: linuxserver/tautulli
-    restart: always
+    restart: unless-stopped
     ports:
       - "6011:8181"
     volumes:
@@ -98,7 +98,7 @@ services:
   deluge:
     container_name: deluge
     image: linuxserver/deluge
-    restart: always
+    restart: unless-stopped
     ports:
       - "6020:8112"
     volumes:
@@ -113,7 +113,7 @@ services:
   jackett:
     container_name: jackett
     image: linuxserver/jackett
-    restart: always
+    restart: unless-stopped
     ports:
       - "6021:9117"
     volumes:
