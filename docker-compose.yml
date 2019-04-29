@@ -35,7 +35,7 @@ services:
       - "6022:7878"
     volumes:
       - ${USERDIR}/docker/radarr:/config
-      - ${USERDIR}/Downloads/completed:/downloads
+      - ${USERDIR}/downloads/completed:/downloads
       - ${USERDIR}/media/movies:/movies
       - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/docker/shared:/shared
@@ -54,7 +54,7 @@ services:
     volumes:
       - ${USERDIR}/docker/sonarr:/config
       - ${USERDIR}/downloads/completed:/downloads
-      - ${USERDIR}/media/tvshows:/tv
+      - ${USERDIR}/media/series:/tv
       - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/docker/shared:/shared
     environment:
