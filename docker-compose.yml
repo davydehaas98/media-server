@@ -1,29 +1,36 @@
 version: '3.6'
 services:
 
-  # Docker Image Automatic Updater
-  watchtower:
-    container_name: watchtower
-    image: v2tec/watchtower
+  # Media Server
+  plex:
+    container_name: plex
+    image: linuxserver/plex
     restart: unless-stopped
-    # Update everyday at 4 AM
-    command: --schedule "0 0 4 * * *" --cleanup
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-  
-  # Web UI for Docker Containers
-  portainer:
-    container_name: portainer
-    image: portainer/portainer
-    restart: unless-stopped
-    command: -H unix:///var/run/docker.sock
     ports:
-      - "6000:9000"
+      - "6000:32400"
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - VERSION=docker
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${USERDIR}/docker/portainer/data:/data
+      - /mediaplex:/config
+      - /media/plextranscode:/transcode
+      - /media/:/data
+ 
+  #Plex Monitor
+  tautulli:
+    container_name: tautulli
+    image: linuxserver/tautulli
+    restart: unless-stopped
+    ports:
+      - "6001:8181"
+    volumes:
+      - ${USERDIR}/docker/tautulli/config:/config
+      - ${USERDIR}/docker/tautulli/logs:/logs:ro
       - ${USERDIR}/docker/shared:/shared
     environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
       - TZ=${TZ}
       
   # Movie Downloader and Manager
@@ -32,7 +39,7 @@ services:
     image: linuxserver/radarr
     restart: unless-stopped
     ports:
-      - "6022:7878"
+      - "6010:7878"
     volumes:
       - ${USERDIR}/docker/radarr:/config
       - ${USERDIR}/downloads/completed:/downloads
@@ -50,44 +57,29 @@ services:
     image: linuxserver/sonarr
     restart: unless-stopped
     ports:
-        - "6023:8989"
+        - "6011:8989"
     volumes:
       - ${USERDIR}/docker/sonarr:/config
       - ${USERDIR}/downloads/completed:/downloads
-      - ${USERDIR}/media/series:/tv
+      - ${USERDIR}/media/tv:/tv
       - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/docker/shared:/shared
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-
-  # Media Server
-  plex:
-    container_name: plex
-    image: linuxserver/plex
+      
+  # Proxy Server for Sonarr/Radarr search queries
+  jackett:
+    container_name: jackett
+    image: linuxserver/jackett
     restart: unless-stopped
     ports:
-      - "6010:32400"
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - VERSION=docker
+      - "6012:9117"
     volumes:
-      - /mediaplex:/config
-      - /media/plextranscode:/transcode
-      - /media/:/data
- 
-  #Plex Monitor
-  tautulli:
-    container_name: tautulli
-    image: linuxserver/tautulli
-    restart: unless-stopped
-    ports:
-      - "6011:8181"
-    volumes:
-      - ${USERDIR}/docker/tautulli/config:/config
-      - ${USERDIR}/docker/tautulli/logs:/logs:ro
+      - ${USERDIR}/docker/jackett:/config
+      - ${USERDIR}/downloads/completed:/downloads
+      - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/docker/shared:/shared
     environment:
       - PUID=${PUID}
@@ -100,7 +92,7 @@ services:
     image: linuxserver/deluge
     restart: unless-stopped
     ports:
-      - "6020:8112"
+      - "6013:8112"
     volumes:
       - ${USERDIR}/docker/deluge:/config
       - /media/downloads:/downloads
@@ -108,23 +100,32 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      
-  # Proxy Server for Sonarr/Radarr search queries
-  jackett:
-    container_name: jackett
-    image: linuxserver/jackett
+
+  # Docker Image Automatic Updater
+  watchtower:
+    container_name: watchtower
+    image: v2tec/watchtower
     restart: unless-stopped
-    ports:
-      - "6021:9117"
+    # Update everyday at 4 AM
+    command: --schedule "0 0 4 * * *" --cleanup
     volumes:
-      - ${USERDIR}/docker/jackett:/config
-      - ${USERDIR}/downloads/completed:/downloads
-      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+  
+  # Web UI for Docker Containers
+  portainer:
+    container_name: portainer
+    image: portainer/portainer
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "8081:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${USERDIR}/docker/portainer/data:/data
       - ${USERDIR}/docker/shared:/shared
     environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
       - TZ=${TZ}
+      
 networks:
   default:
     name: media-server
