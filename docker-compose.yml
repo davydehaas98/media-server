@@ -12,6 +12,7 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - VERSION=docker
+      - UMASK_SET=022 #optional
     volumes:
       - /mediaplex:/config
       - /media/plextranscode:/transcode
