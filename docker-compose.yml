@@ -134,6 +134,7 @@ services:
       
 networks:
   media-server-network:
+    driver: default # bridge
     ipam:
       driver: default # bridge
       config:
