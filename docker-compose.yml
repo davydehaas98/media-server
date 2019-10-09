@@ -7,7 +7,6 @@ services:
     restart: unless-stopped
     ports:
       - "6002:32400"
-      - "6002:32400"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
