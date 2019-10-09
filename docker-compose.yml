@@ -38,6 +38,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.3
       
   # Movie Downloader and Manager
   radarr:
@@ -56,6 +59,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.4
       
   # Serie Downloader and Manager
   sonarr:
@@ -74,6 +80,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.5
       
   # Proxy Server for Sonarr/Radarr search queries
   jackett:
@@ -91,6 +100,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.6
       
   # Torrent Client
   deluge:
@@ -106,6 +118,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.7
 
   # Docker Image Automatic Updater
   watchtower:
@@ -116,6 +131,9 @@ services:
     command: --schedule "0 0 4 * * *" --cleanup
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      default:
+        ipv4_address: 172.60.0.8
   
   # Web UI for Docker Containers. Usefull for managing the server
   # Not needed if you already have a Portainer installation on your server
@@ -132,6 +150,9 @@ services:
       - ${USERDIR}/docker/shared:/shared
     environment:
       - TZ=${TZ}
+    networks:
+      default:
+        ipv4_address: 172.60.0.9
       
 networks:
   default:
