@@ -6,14 +6,14 @@ services:
     image: linuxserver/plex
     restart: unless-stopped
     ports:
-      - "6000:32400"
+      - "6002:32400"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
       # Go to plex.tv/claim/ to claim your server
-      - PLEX_CLAIM=
+      - PLEX_CLAIM=claim-xysVtQEsNezWnsdS3oG9
       - UMASK_SET=022 #optional
     volumes:
       - /docker/plex/config:/config
@@ -29,7 +29,7 @@ services:
     image: linuxserver/tautulli
     restart: unless-stopped
     ports:
-      - "6001:8181"
+      - "6003:8181"
     volumes:
       - ${USERDIR}/docker/tautulli/config:/config
       - ${USERDIR}/docker/tautulli/logs:/logs:ro
@@ -48,7 +48,7 @@ services:
     image: linuxserver/radarr
     restart: unless-stopped
     ports:
-      - "6010:7878"
+      - "6004:7878"
     volumes:
       - ${USERDIR}/docker/radarr:/config
       - ${USERDIR}/downloads/completed:/downloads
@@ -69,7 +69,7 @@ services:
     image: linuxserver/sonarr
     restart: unless-stopped
     ports:
-        - "6011:8989"
+        - "6005:8989"
     volumes:
       - ${USERDIR}/docker/sonarr:/config
       - ${USERDIR}/downloads/completed:/downloads
@@ -90,7 +90,7 @@ services:
     image: linuxserver/jackett
     restart: unless-stopped
     ports:
-      - "6012:9117"
+      - "6006:9117"
     volumes:
       - ${USERDIR}/docker/jackett:/config
       - ${USERDIR}/downloads/completed:/downloads
@@ -110,7 +110,7 @@ services:
     image: linuxserver/deluge
     restart: unless-stopped
     ports:
-      - "6013:8112"
+      - "6007:8112"
     volumes:
       - ${USERDIR}/docker/deluge:/config
       - ${USERDIR}/downloads:/downloads
@@ -143,7 +143,7 @@ services:
     restart: unless-stopped
     command: -H unix:///var/run/docker.sock
     ports:
-      - "8081:9000"
+      - "6009:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${USERDIR}/docker/portainer/data:/data
