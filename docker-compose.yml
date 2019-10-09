@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     ports:
       - "6002:32400"
+      - "6002:32400"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -33,9 +34,9 @@ services:
     ports:
       - "6003:8181"
     volumes:
-      - ${USERDIR}/docker/tautulli/config:/config
-      - ${USERDIR}/docker/tautulli/logs:/logs:ro
-      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/mediaserver/tautulli/config:/config
+      - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
+      - ${USERDIR}/mediaserver/shared:/shared
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -54,11 +55,11 @@ services:
     ports:
       - "6004:7878"
     volumes:
-      - ${USERDIR}/docker/radarr:/config
+      - ${USERDIR}/mediaserver/radarr:/config
       - ${USERDIR}/downloads/completed:/downloads
       - ${USERDIR}/media/movies:/movies
       - /etc/localtime:/etc/localtime:ro
-      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/mediaserver/shared:/shared
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -77,11 +78,11 @@ services:
     ports:
         - "6005:8989"
     volumes:
-      - ${USERDIR}/docker/sonarr:/config
+      - ${USERDIR}/mediaserver/sonarr:/config
       - ${USERDIR}/downloads/completed:/downloads
       - ${USERDIR}/media/tv:/tv
       - /etc/localtime:/etc/localtime:ro
-      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/mediaserver/shared:/shared
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -100,10 +101,10 @@ services:
     ports:
       - "6006:9117"
     volumes:
-      - ${USERDIR}/docker/jackett:/config
+      - ${USERDIR}/mediaserver/jackett:/config
       - ${USERDIR}/downloads/completed:/downloads
       - /etc/localtime:/etc/localtime:ro
-      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/mediaserver/shared:/shared
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -122,7 +123,7 @@ services:
     ports:
       - "6007:8112"
     volumes:
-      - ${USERDIR}/docker/deluge:/config
+      - ${USERDIR}/mediaserver/deluge:/config
       - ${USERDIR}/downloads:/downloads
     environment:
       - PUID=${PUID}
@@ -160,8 +161,8 @@ services:
       - "6009:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${USERDIR}/docker/portainer/data:/data
-      - ${USERDIR}/docker/shared:/shared
+      - ${USERDIR}/mediaserver/portainer/data:/data
+      - ${USERDIR}/mediaserver/shared:/shared
     environment:
       - TZ=${TZ}
     networks:
