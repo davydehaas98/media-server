@@ -16,9 +16,9 @@ services:
       - PLEX_CLAIM=claim-z5sqmWXuUWKP_ybQRqqo
       - UMASK_SET=022 #optional
     volumes:
-      - /docker/plex/config:/config
-      - /docker/plex/transcode:/transcode
-      - /docker/plex/data:/data
+      - ${USERDIR}/mediaserver/plex/config:/config
+      - ${USERDIR}/mediaserver/plex/transcode:/transcode
+      - ${USERDIR}/mediaserver/plex/data:/data
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
