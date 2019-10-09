@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'docker-compose up -d -p media-server --force-recreate'
+        sh 'docker-compose -p media-server up -d --force-recreate'
       }
     }
   }
