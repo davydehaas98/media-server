@@ -138,4 +138,3 @@ networks:
       driver: default # bridge
       config:
         - subnet: 172.60.0.0/24
-        - gateway: 172.60.0.1
