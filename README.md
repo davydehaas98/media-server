@@ -1,4 +1,5 @@
-<h1>Set some environmental variables such as timezone, user id, user group, etc. that all the docker containers in the media-server should use.</h1>
+<h1>Media Server for Personal Use</h1>
+<h2>Set some environmental variables such as timezone, user id, user group, etc. that all the docker containers in the media-server should use.</h2>
 <h3>Create and edit the environmental variables file using the following command:</h3>
 <p>sudo nano /etc/environment</p>
 
