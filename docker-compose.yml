@@ -1,6 +1,6 @@
 version: '3.6'
 services:
-  # Media Server
+  # Plex Media Server
   plex:
     container_name: plex
     image: linuxserver/plex
@@ -19,6 +19,8 @@ services:
       - /docker/plex/config:/config
       - /docker/plex/transcode:/transcode
       - /docker/plex/data:/data
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.2
@@ -38,6 +40,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.3
@@ -59,6 +63,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.4
@@ -80,6 +86,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.5
@@ -100,6 +108,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.6
@@ -118,6 +128,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+    labels:
+      - com.centurylinklabs.watchtower.enable: "true"
     networks:
       default:
         ipv4_address: 172.60.0.7
@@ -127,10 +139,12 @@ services:
     container_name: watchtower
     image: v2tec/watchtower
     restart: unless-stopped
-    # Update everyday at 4 AM
-    command: --schedule "0 0 4 * * *" --cleanup
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    # Update everyday at 4 AM
+    command: --schedule "0 0 4 * * *" --cleanup
+    # Watch containers where the com.centurylinklabs.watchtower.enable label is set to true
+    command: --label-enable
     networks:
       default:
         ipv4_address: 172.60.0.8
