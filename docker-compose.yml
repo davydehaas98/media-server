@@ -23,7 +23,7 @@ services:
       default:
         ipv4_address: 172.60.0.2
  
-  #Plex Monitor
+  # Plex Monitor
   tautulli:
     container_name: tautulli
     image: linuxserver/tautulli
@@ -117,7 +117,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
   
-  # Web UI for Docker Containers
+  # Web UI for Docker Containers. Usefull for managing the server
+  # Not needed if you already have a Portainer installation on your server
   portainer:
     container_name: portainer
     image: portainer/portainer
