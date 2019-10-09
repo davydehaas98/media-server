@@ -133,11 +133,9 @@ services:
       - TZ=${TZ}
       
 networks:
-  default:
-    name: media-server
-    driver: bridge
+  media-server-network:
     ipam:
-      driver: default
+      driver: default # bridge
       config:
         - subnet: 172.60.0.0/24
-          gateway: 172.60.0.1
+        - gateway: 172.60.0.1
