@@ -133,8 +133,8 @@ services:
       - TZ=${TZ}
       
 networks:
-  media-server-network:
-    name: media-server-network # Use name instead of media-server_master_media-server
+  default:
+    name: media-server-network
     ipam:
       config:
         - subnet: 172.60.0.0/24
