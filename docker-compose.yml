@@ -12,6 +12,8 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
       - VERSION=docker
+      # Go to plex.tv/claim/ to claim your server
+      - PLEX_CLAIM=
       - UMASK_SET=022 #optional
     volumes:
       - /docker/plex/config:/config
