@@ -14,7 +14,7 @@ services:
       - TZ=${TZ}
       - VERSION=docker
       # Go to plex.tv/claim/ to claim your server
-      - PLEX_CLAIM=claim-xysVtQEsNezWnsdS3oG9
+      - PLEX_CLAIM=claim-z5sqmWXuUWKP_ybQRqqo
       - UMASK_SET=022 #optional
     volumes:
       - /docker/plex/config:/config
