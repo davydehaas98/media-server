@@ -170,7 +170,7 @@ services:
 
 networks:
   default:
-    name: media-server-network
+    name: media-server
     ipam:
       config:
         - subnet: 172.60.0.0/24
