@@ -20,7 +20,7 @@ services:
       - /docker/plex/transcode:/transcode
       - /docker/plex/data:/data
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.2
@@ -41,7 +41,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.3
@@ -64,7 +64,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.4
@@ -87,7 +87,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.5
@@ -109,7 +109,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.6
@@ -129,7 +129,7 @@ services:
       - PGID=${PGID}
       - TZ=${TZ}
     labels:
-      - com.centurylinklabs.watchtower.enable: "true"
+      - "com.centurylinklabs.watchtower.enable=true"
     networks:
       default:
         ipv4_address: 172.60.0.7
@@ -167,7 +167,7 @@ services:
     networks:
       default:
         ipv4_address: 172.60.0.9
-      
+
 networks:
   default:
     name: media-server-network
