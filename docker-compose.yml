@@ -134,8 +134,9 @@ services:
       
 networks:
   media-server-network:
-    driver: default # bridge
+    name: media-server-network # Use name instead of media-server_master_media-server
+    driver: bridge
     ipam:
-      driver: default # bridge
+      driver: bridge
       config:
         - subnet: 172.60.0.0/24
