@@ -1,6 +1,5 @@
 version: '3.6'
 services:
-
   # Media Server
   plex:
     container_name: plex
@@ -11,12 +10,13 @@ services:
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
+      - TZ=${TZ}
       - VERSION=docker
       - UMASK_SET=022 #optional
     volumes:
-      - /mediaplex:/config
-      - /media/plextranscode:/transcode
-      - /media/:/data
+      - /docker/plex/config:/config
+      - /docker/plex/transcode:/transcode
+      - /docker/plex/data:/data
  
   #Plex Monitor
   tautulli:
@@ -96,7 +96,7 @@ services:
       - "6013:8112"
     volumes:
       - ${USERDIR}/docker/deluge:/config
-      - /media/downloads:/downloads
+      - ${USERDIR}/downloads:/downloads
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
