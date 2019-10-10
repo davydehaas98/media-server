@@ -7,6 +7,20 @@ services:
     restart: unless-stopped
     ports:
       - "6002:32400"
+      - "3005:3005"
+      - "8324:8324"
+      - "32469:32469"
+      #- "32469:32469/udp"
+      - "1900:1900"
+      #- "1900:1900/udp"
+      - "32410:32410"
+      #- "32410:32410/udp"
+      - "32412:32412"
+      #- "32412:32412/udp"
+      - "32413:32413"
+      #- "32413:32413/udp"
+      - "32414:32414"
+      #- "32414:32414/udp"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -57,8 +71,8 @@ services:
       - ${USERDIR}/mediaserver/radarr:/config
       - ${USERDIR}/downloads/completed:/downloads
       - ${USERDIR}/media/movies:/movies
-      - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/mediaserver/shared:/shared
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -80,8 +94,8 @@ services:
       - ${USERDIR}/mediaserver/sonarr:/config
       - ${USERDIR}/downloads/completed:/downloads
       - ${USERDIR}/media/tv:/tv
-      - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/mediaserver/shared:/shared
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -102,8 +116,8 @@ services:
     volumes:
       - ${USERDIR}/mediaserver/jackett:/config
       - ${USERDIR}/downloads/completed:/downloads
-      - /etc/localtime:/etc/localtime:ro
       - ${USERDIR}/mediaserver/shared:/shared
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -159,9 +173,9 @@ services:
     ports:
       - "6009:9000"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - ${USERDIR}/mediaserver/portainer/data:/data
       - ${USERDIR}/mediaserver/shared:/shared
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=${TZ}
     networks:
