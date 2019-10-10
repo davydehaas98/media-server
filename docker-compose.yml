@@ -6,21 +6,23 @@ services:
     image: linuxserver/plex
     restart: unless-stopped
     ports:
+      # Plex Media Server
       - "6002:32400"
-      - "3005:3005"
-      - "8324:8324"
+      # Plex DLNA Server
+      - "1900:1900/udp"
       - "32469:32469"
-      #- "32469:32469/udp"
-      - "1900:1900"
-      #- "1900:1900/udp"
-      - "32410:32410"
-      #- "32410:32410/udp"
-      - "32412:32412"
-      #- "32412:32412/udp"
-      - "32413:32413"
-      #- "32413:32413/udp"
-      - "32414:32414"
-      #- "32414:32414/udp"
+      # Plex Home Theater via Plex Companion
+      - "3005:3005"
+      # Older Bonjour/Avahi network discovery
+      - "5353:5353/udp"
+      # Plex for Roku via Plex Companion
+      - "8324:8324"
+      # GDM network discovery
+      - "32469:32469/udp"
+      - "32410:32410/udp"
+      - "32412:32412/udp"
+      - "32413:32413/udp"
+      - "32414:32414/udp"
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
@@ -28,6 +30,8 @@ services:
       - VERSION=docker
       # Go to plex.tv/claim/ to claim your server
       - PLEX_CLAIM=claim-PsxkX1stSBtWjiKQMaFg
+      # The additional IPs on which the server may be found
+      - ADVERTISE_IP=http://davydehaas.nl:6002
       - UMASK_SET=022 #optional
     volumes:
       - ${USERDIR}/mediaserver/plex/config:/config
