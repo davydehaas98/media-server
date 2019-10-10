@@ -29,7 +29,7 @@ services:
       - TZ=${TZ}
       - VERSION=docker
       # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
-      - PLEX_CLAIM=claim-PhtVGz9ThFnfzsQ9Fsst
+      - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
       # The additional IPs on which the server may be found
       - ADVERTISE_IP=http://davydehaas.nl:6002
       - UMASK_SET=022 #optional
