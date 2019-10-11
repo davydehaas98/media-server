@@ -32,7 +32,8 @@ services:
       - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
       # The additional IPs on which the server may be found
       - ADVERTISE_IP=http://davydehaas.nl:6002
-      - UMASK_SET=022 #optional
+      # This will give the service full file handling permissions on the server
+      - UMASK_SET=022
     volumes:
       - ${USERDIR}/mediaserver/plex/config:/config
       - ${USERDIR}/mediaserver/plex/transcode:/transcode
@@ -146,6 +147,8 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      # This will give the service full file handling permissions on the server
+      - UMASK_SET=022
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
