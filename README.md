@@ -4,10 +4,10 @@
 <p>sudo nano /etc/environment</p>
 
 <h3>Add the following as separate lines at the end of the file:</h3>
-<p>PUID=0</p>
-<p>PGID=113</p>
+<p>PUID=1000</p>
+<p>PGID=1000</p>
 <p>TZ="America/New_York"</p>
-<p>USERDIR="/home/USER"</p>
+<p>USERDIR="/home/[USER]"</p>
 <p>MYSQL_ROOT_PASSWORD="password"</p>
 
 <h3>Use this command to get the PUID (USER) and PGID (docker):</h3>
