@@ -142,7 +142,8 @@ services:
       - "6007:8112"
     volumes:
       - ${USERDIR}/mediaserver/deluge:/config
-      - ${USERDIR}/downloads:/downloads
+      - ${USERDIR}/downloads:/data
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
