@@ -1,205 +1,247 @@
 version: '3.6'
 services:
-  # Plex Media Server
-  plex:
-    container_name: plex
-    image: linuxserver/plex:latest
-    restart: unless-stopped
-    ports:
-      # Plex Media Server
-      - "6002:32400"
-      # Plex DLNA Server
-      - "1900:1900/udp"
-      - "32469:32469"
-      # Plex Home Theater via Plex Companion
-      - "3005:3005"
-      # Older Bonjour/Avahi network discovery
-      - "5353:5353/udp"
-      # Plex for Roku via Plex Companion
-      - "8324:8324"
-      # GDM network discovery
-      - "32469:32469/udp"
-      - "32410:32410/udp"
-      - "32412:32412/udp"
-      - "32413:32413/udp"
-      - "32414:32414/udp"
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      - VERSION=docker
-      # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
-      - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
-      # The additional IPs on which the server may be found
-      - ADVERTISE_IP=http://davydehaas.nl:6002
-      # This will give the service full file handling permissions on the server
-      - UMASK_SET=022
-    volumes:
-      - ${USERDIR}/mediaserver/plex/config:/config
-      - ${USERDIR}/mediaserver/plex/transcode:/transcode
-      - ${USERDIR}/mediaserver/plex/data:/data
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.2
- 
-  # Plex Monitor
-  tautulli:
-    container_name: tautulli
-    image: linuxserver/tautulli:latest
-    restart: unless-stopped
-    ports:
-      - "6003:8181"
-    volumes:
-      - ${USERDIR}/mediaserver/tautulli/config:/config
-      - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
-      - ${USERDIR}/mediaserver/shared:/shared
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.3
-      
-  # Movie Downloader and Manager
-  radarr:
-    container_name: radarr
-    image: linuxserver/radarr:latest
-    restart: unless-stopped
-    ports:
-      - "6004:7878"
-    volumes:
-      - ${USERDIR}/mediaserver/radarr:/config
-      - ${USERDIR}/mediaserver/downloads/completed:/downloads
-      - ${USERDIR}/mediaserver/movies:/movies
-      - ${USERDIR}/mediaserver/shared:/shared
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.4
-      
-  # Serie Downloader and Manager
-  sonarr:
-    container_name: sonarr
-    image: linuxserver/sonarr:latest
-    restart: unless-stopped
-    ports:
-        - "6005:8989"
-    volumes:
-      - ${USERDIR}/mediaserver/sonarr:/config
-      - ${USERDIR}/mediaserver/downloads/completed:/downloads
-      - ${USERDIR}/mediaserver/tv:/tv
-      - ${USERDIR}/mediaserver/shared:/shared
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.5
-      
-  # Proxy Server for Sonarr/Radarr search queries
-  jackett:
-    container_name: jackett
-    image: linuxserver/jackett:latest
-    restart: unless-stopped
-    ports:
-      - "6006:9117"
-    volumes:
-      - ${USERDIR}/mediaserver/jackett:/config
-      - ${USERDIR}/mediaserver/downloads/completed:/downloads
-      - ${USERDIR}/mediaserver/shared:/shared
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.6
-      
-  # Torrent Client
-  deluge:
-    container_name: deluge
-    image: linuxserver/deluge:latest
-    restart: unless-stopped
-    ports:
-      # Web UI
-      - "6007:8112"
-      # Incoming Connections (Used for seeding)
-      - "53160:53160"
-      - "53160:53160/udp"
-      # Daemon remote port (Used for GTK applications)
-      - "58846:58846"
-    volumes:
-      - ${USERDIR}/mediaserver/deluge:/config
-      - ${USERDIR}/mediaserver/downloads:/root/Downloads
-      - /etc/localtime:/etc/localtime:ro
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TZ}
-      # This will give the service full file handling permissions on the server
-      - UMASK_SET=022
-      - DELUGE_LOGLEVEL=error
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-    networks:
-      default:
-        ipv4_address: 172.60.0.7
+    # Plex Media Server
+    plex:
+        container_name: plex
+        image: linuxserver/plex:latest
+        restart: unless-stopped
+        ports:
+            # Plex Media Server
+            - "6002:32400"
+            # Plex DLNA Server
+            - "1900:1900/udp"
+            - "32469:32469"
+            # Plex Home Theater via Plex Companion
+            - "3005:3005"
+            # Older Bonjour/Avahi network discovery
+            - "5353:5353/udp"
+            # Plex for Roku via Plex Companion
+            - "8324:8324"
+            # GDM network discovery
+            - "32469:32469/udp"
+            - "32410:32410/udp"
+            - "32412:32412/udp"
+            - "32413:32413/udp"
+            - "32414:32414/udp"
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - VERSION=docker
+            # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
+            - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
+            # The additional IPs on which the server may be found
+            - ADVERTISE_IP=http://davydehaas.nl:6002
+            # This will give the service full file handling permissions on the server
+            - UMASK_SET=022
+        volumes:
+            - ${USERDIR}/mediaserver/plex/config:/config
+            - ${USERDIR}/mediaserver/plex/transcode:/transcode
+            - ${USERDIR}/mediaserver/plex/data:/data
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.2
+    
+    # Plex Monitor
+    tautulli:
+        container_name: tautulli
+        image: linuxserver/tautulli:latest
+        restart: unless-stopped
+        ports:
+            - "6003:8181"
+        volumes:
+            - ${USERDIR}/mediaserver/tautulli/config:/config
+            - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
+            - ${USERDIR}/mediaserver/shared:/shared
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.3
+        
+    # Movie Downloader and Manager
+    radarr:
+        container_name: radarr
+        image: linuxserver/radarr:latest
+        restart: unless-stopped
+        ports:
+            - "6004:7878"
+        volumes:
+            - ${USERDIR}/mediaserver/radarr:/config
+            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/movies:/movies
+            - ${USERDIR}/mediaserver/shared:/shared
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.4
+        
+    # Serie Downloader and Manager
+    sonarr:
+        container_name: sonarr
+        image: linuxserver/sonarr:latest
+        restart: unless-stopped
+        ports:
+            - "6005:8989"
+        volumes:
+            - ${USERDIR}/mediaserver/sonarr:/config
+            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/tv:/tv
+            - ${USERDIR}/mediaserver/shared:/shared
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.5
+        
+    # Proxy Server for Sonarr/Radarr search queries
+    jackett:
+        container_name: jackett
+        image: linuxserver/jackett:latest
+        restart: unless-stopped
+        ports:
+            - "6006:9117"
+        volumes:
+            - ${USERDIR}/mediaserver/jackett:/config
+            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/shared:/shared
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.6
+    
+    # Transmission Torrent Client with VPN
+    transmission:
+        container_name: transmission
+        image: haugene/transmission-openvpn:latest
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        devices:
+            - /dev/net/tun
+        ports:
+            # Web UI
+            - "6007:9091"
+        dns:
+            - 8.8.8.8
+            - 8.8.4.4
+        volumes:
+            - ${USERDIR}/mediaserver/transmission:/config
+            - ${USERDIR}/mediaserver/downloads:/data
+            - /etc/localtime:/etc/localtime:ro
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            # This will give the service full file handling permissions on the server
+            - UMASK_SET=022
+            - OPENVPN_PROVIDER=NORDVPN
+            - OPENVPN_USERNAME=${OPENVPN_USERNAME}
+            - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+            - NORDVPN_COUNTRY=CH
+            - NORDVPN_CATEGORY=P2P
+            - NORDVPN_PROTOCOL=tcp
+            - CREATE_TUN_DEVICE=true
+            - WEBPROXY_ENABLED=false
+            - LOCAL_NETWORK=192.168.0.0/24
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
+        networks:
+            default:
+                ipv4_address: 172.60.0.6
+        
 
-  # Docker Image Automatic Updater
-  watchtower:
-    container_name: watchtower
-    image: v2tec/watchtower:latest
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    # Update everyday at 4 AM
-    command: --schedule "0 0 4 * * *" --cleanup
-    # Watch containers where the com.centurylinklabs.watchtower.enable label is set to true
-    command: --label-enable
-    networks:
-      default:
-        ipv4_address: 172.60.0.8
-  
-  # Web UI for Docker Containers. Usefull for managing the server
-  # Not needed if you already have a Portainer installation on your server
-  portainer:
-    container_name: portainer
-    image: portainer/portainer:latest
-    restart: unless-stopped
-    command: -H unix:///var/run/docker.sock
-    ports:
-      - "6009:9000"
-    volumes:
-      - ${USERDIR}/mediaserver/portainer/data:/data
-      - ${USERDIR}/mediaserver/shared:/shared
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - TZ=${TZ}
-    networks:
-      default:
-        ipv4_address: 172.60.0.9
+    # Deluge Torrent Client without VPN
+    # deluge:
+    #     container_name: deluge
+    #     image: linuxserver/deluge:latest
+    #     restart: unless-stopped
+    #     ports:
+    #         # Web UI
+    #         - "6007:8112"
+    #         # Incoming Connections (Used for seeding)
+    #         - "53160:53160"
+    #         - "53160:53160/udp"
+    #         # Daemon remote port (Used for GTK applications)
+    #         - "58846:58846"
+    #     volumes:
+    #         - ${USERDIR}/mediaserver/deluge:/config
+    #         - ${USERDIR}/mediaserver/downloads:/root/Downloads
+    #         - /etc/localtime:/etc/localtime:ro
+    #     environment:
+    #         - PUID=${PUID}
+    #         - PGID=${PGID}
+    #         - TZ=${TZ}
+    #         # This will give the service full file handling permissions on the server
+    #         - UMASK_SET=022
+    #         - DELUGE_LOGLEVEL=error
+    #     labels:
+    #         - "com.centurylinklabs.watchtower.enable=true"
+    #     networks:
+    #         default:
+    #             ipv4_address: 172.60.0.7
+
+    # Automates Docker Image Updates if `com.centurylinklabs.watchtower.enable=true` label is added
+    watchtower:
+        container_name: watchtower
+        image: v2tec/watchtower:latest
+        restart: unless-stopped
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+        # Update everyday at 4 AM
+        command: --schedule "0 0 4 * * *" --cleanup
+        # Watch containers where the com.centurylinklabs.watchtower.enable label is set to true
+        command: --label-enable
+        networks:
+            default:
+                ipv4_address: 172.60.0.8
+    
+    # Web UI for Docker Containers. Usefull for managing the server
+    # Not needed if you already have a Portainer installation on your server
+    portainer:
+        container_name: portainer
+        image: portainer/portainer:latest
+        restart: unless-stopped
+        command: -H unix:///var/run/docker.sock
+        ports:
+            - "6009:9000"
+        volumes:
+            - ${USERDIR}/mediaserver/portainer/data:/data
+            - ${USERDIR}/mediaserver/shared:/shared
+            - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+            - TZ=${TZ}
+        networks:
+            default:
+                ipv4_address: 172.60.0.9
 
 networks:
-  default:
-    name: media-server
-    ipam:
-      config:
-        - subnet: 172.60.0.0/24
+    default:
+        name: media-server
+        ipam:
+            config:
+                - subnet: 172.60.0.0/24
