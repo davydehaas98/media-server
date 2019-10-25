@@ -172,7 +172,7 @@ services:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
             default:
-                ipv4_address: 172.60.0.6
+                ipv4_address: 172.60.0.7
         
 
     # Deluge Torrent Client without VPN
