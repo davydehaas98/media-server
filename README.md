@@ -1,7 +1,7 @@
 # Dockerized Plex Media Server on Linux
 
 ## Install Docker on Ubuntu
-Because the Ubuntu does not always has the latest version that is available in their repository, you can add the latest Docker repository yourself to always be up to date.
+Because the Ubuntu repository does not always has the latest version that is available, you can add the latest Docker repository yourself to always be up to date.
 
 Prepare the System to add the Docker repository:
 
