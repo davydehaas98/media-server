@@ -32,8 +32,8 @@ services:
             - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
             # The additional IPs on which the server may be found
             - ADVERTISE_IP=http://davydehaas.nl:6002
-            # This will give the service full file handling permissions on the server
-            - UMASK_SET=022
+            # This will give the service read and execute permissions within the docker group
+            - UMASK_SET=002
         volumes:
             - ${USERDIR}/mediaserver/plex/config:/config
             - ${USERDIR}/mediaserver/plex/transcode:/transcode
@@ -161,8 +161,9 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            # This will give the service full file handling permissions on the server
-            - UMASK_SET=022
+            # This will give the service read and execute permissions within the docker group
+            - UMASK_SET=002
+            - TRANSMISSION_WEB_HOME=/combustion-release/ # Optional
             - OPENVPN_PROVIDER=NORDVPN
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
             - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
@@ -201,8 +202,8 @@ services:
     #         - PUID=${PUID}
     #         - PGID=${PGID}
     #         - TZ=${TZ}
-    #         # This will give the service full file handling permissions on the server
-    #         - UMASK_SET=022
+    #         # This will give the service read and execute permissions within the docker group
+    #         - UMASK_SET=002
     #         - DELUGE_LOGLEVEL=error
     #     labels:
     #         - "com.centurylinklabs.watchtower.enable=true"
