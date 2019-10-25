@@ -3,7 +3,7 @@ services:
   # Plex Media Server
   plex:
     container_name: plex
-    image: linuxserver/plex
+    image: linuxserver/plex:latest
     restart: unless-stopped
     ports:
       # Plex Media Server
@@ -47,7 +47,7 @@ services:
   # Plex Monitor
   tautulli:
     container_name: tautulli
-    image: linuxserver/tautulli
+    image: linuxserver/tautulli:latest
     restart: unless-stopped
     ports:
       - "6003:8181"
@@ -68,7 +68,7 @@ services:
   # Movie Downloader and Manager
   radarr:
     container_name: radarr
-    image: linuxserver/radarr
+    image: linuxserver/radarr:latest
     restart: unless-stopped
     ports:
       - "6004:7878"
@@ -91,7 +91,7 @@ services:
   # Serie Downloader and Manager
   sonarr:
     container_name: sonarr
-    image: linuxserver/sonarr
+    image: linuxserver/sonarr:latest
     restart: unless-stopped
     ports:
         - "6005:8989"
@@ -114,7 +114,7 @@ services:
   # Proxy Server for Sonarr/Radarr search queries
   jackett:
     container_name: jackett
-    image: linuxserver/jackett
+    image: linuxserver/jackett:latest
     restart: unless-stopped
     ports:
       - "6006:9117"
@@ -136,7 +136,7 @@ services:
   # Torrent Client
   deluge:
     container_name: deluge
-    image: linuxserver/deluge
+    image: linuxserver/deluge:latest
     restart: unless-stopped
     ports:
       - "6007:8112"
@@ -159,7 +159,7 @@ services:
   # Docker Image Automatic Updater
   watchtower:
     container_name: watchtower
-    image: v2tec/watchtower
+    image: v2tec/watchtower:latest
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -175,7 +175,7 @@ services:
   # Not needed if you already have a Portainer installation on your server
   portainer:
     container_name: portainer
-    image: portainer/portainer
+    image: portainer/portainer:latest
     restart: unless-stopped
     command: -H unix:///var/run/docker.sock
     ports:
