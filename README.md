@@ -46,6 +46,8 @@ Running and managing docker containers requires sudo privileges. You can give do
 
 ## Setup Environmental Variables for Docker
 Next, you have to set some environmental variables that Docker containers should use.
+These environmental variables will be used in the docker-compose.yml file by using `${X}` where `X` is the name of the variable.
+
 Create and edit the environmental variables file using the following command:
 
 `sudo nano /etc/environment`
