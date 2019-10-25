@@ -162,8 +162,8 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - TRANSMISSION_RPC_PASSWORD=webui_password
-            - TRANSMISSION_RPC_USERNAME=webui_username
+            - TRANSMISSION_RPC_USERNAME=username
+            - TRANSMISSION_RPC_PASSWORD=password
             # This will give the service read and execute permissions within the docker group
             - TRANSMISSION_UMASK=002
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
