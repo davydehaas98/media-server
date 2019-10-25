@@ -27,13 +27,14 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+            # This will give the service read and execute permissions within the docker group
+            - UMASK_SET=002
+            - HOSTNAME="Docker Plex"
             - VERSION=docker
             # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
             - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
             # The additional IPs on which the server may be found
             - ADVERTISE_IP=http://davydehaas.nl:6002
-            # This will give the service read and execute permissions within the docker group
-            - UMASK_SET=002
         volumes:
             - ${USERDIR}/mediaserver/plex/config:/config
             - ${USERDIR}/mediaserver/plex/transcode:/transcode
@@ -135,7 +136,7 @@ services:
     
     # Transmission Torrent Client with VPN
     transmission:
-        container_name: transmission
+        container_name: transmission-vpn
         image: haugene/transmission-openvpn:latest
         restart: unless-stopped
         cap_add:
@@ -152,8 +153,8 @@ services:
             - 8.8.8.8
             - 8.8.4.4
         volumes:
-            - ${USERDIR}/mediaserver/transmission:/config
-            - ${USERDIR}/mediaserver/transmission:/data/transmission-home
+            - ${USERDIR}/mediaserver/transmission-vpn:/config
+            - ${USERDIR}/mediaserver/transmission-vpn:/data/transmission-home
             - ${USERDIR}/mediaserver/downloads/completed:/data/completed
             - ${USERDIR}/mediaserver/downloads/incomplete:/data/incomplete
             - /etc/localtime:/etc/localtime:ro
@@ -161,8 +162,13 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+            - TRANSMISSION_RPC_PASSWORD=webui_password
+            - TRANSMISSION_RPC_USERNAME=webui_username
             # This will give the service read and execute permissions within the docker group
-            - UMASK_SET=002
+            - TRANSMISSION_UMASK=002
+            - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+            - TRANSMISSION_RATIO_LIMIT=1.00
+            - TRANSMISSION_RATIO_LIMIT_ENABLED=true
             - OPENVPN_PROVIDER=NORDVPN
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
             - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
