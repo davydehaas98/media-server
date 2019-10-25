@@ -74,8 +74,8 @@ services:
       - "6004:7878"
     volumes:
       - ${USERDIR}/mediaserver/radarr:/config
-      - ${USERDIR}/downloads/completed:/downloads
-      - ${USERDIR}/media/movies:/movies
+      - ${USERDIR}/mediaserver/downloads/completed:/downloads
+      - ${USERDIR}/mediaserver/movies:/movies
       - ${USERDIR}/mediaserver/shared:/shared
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -97,8 +97,8 @@ services:
         - "6005:8989"
     volumes:
       - ${USERDIR}/mediaserver/sonarr:/config
-      - ${USERDIR}/downloads/completed:/downloads
-      - ${USERDIR}/media/tv:/tv
+      - ${USERDIR}/mediaserver/downloads/completed:/downloads
+      - ${USERDIR}/mediaserver/tv:/tv
       - ${USERDIR}/mediaserver/shared:/shared
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -120,7 +120,7 @@ services:
       - "6006:9117"
     volumes:
       - ${USERDIR}/mediaserver/jackett:/config
-      - ${USERDIR}/downloads/completed:/downloads
+      - ${USERDIR}/mediaserver/downloads/completed:/downloads
       - ${USERDIR}/mediaserver/shared:/shared
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -139,10 +139,16 @@ services:
     image: linuxserver/deluge:latest
     restart: unless-stopped
     ports:
+      # Web UI
       - "6007:8112"
+      # Incoming Connections (Used for seeding)
+      - "53160:53160"
+      - "53160:53160/udp"
+      # Daemon remote port (Used for GTK applications)
+      - "58846:58846"
     volumes:
       - ${USERDIR}/mediaserver/deluge:/config
-      - ${USERDIR}/downloads:/data
+      - ${USERDIR}/mediaserver/downloads:/data
       - /etc/localtime:/etc/localtime:ro
     environment:
       - PUID=${PUID}
@@ -150,6 +156,7 @@ services:
       - TZ=${TZ}
       # This will give the service full file handling permissions on the server
       - UMASK_SET=022
+      - DELUGE_LOGLEVEL=error
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     networks:
