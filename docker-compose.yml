@@ -153,6 +153,7 @@ services:
             - 8.8.4.4
         volumes:
             - ${USERDIR}/mediaserver/transmission:/config
+            - ${USERDIR}/mediaserver/transmission:/data/transmission-home
             - ${USERDIR}/mediaserver/downloads/completed:/data/completed
             - ${USERDIR}/mediaserver/downloads/incomplete:/data/incomplete
             - /etc/localtime:/etc/localtime:ro
