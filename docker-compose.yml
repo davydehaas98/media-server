@@ -39,6 +39,8 @@ services:
             - ${USERDIR}/mediaserver/plex/config:/config
             - ${USERDIR}/mediaserver/plex/transcode:/transcode
             - ${USERDIR}/mediaserver/plex/data:/data
+            - ${USERDIR}/mediaserver/movies:/movies
+            - ${USERDIR}/mediaserver/tv:/tv
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
