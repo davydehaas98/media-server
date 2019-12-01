@@ -85,7 +85,7 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - UMASK_SET=766
+            - UMASK_SET=0755
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
@@ -109,7 +109,7 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - UMASK_SET=766
+            - UMASK_SET=0755
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
@@ -168,6 +168,7 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+            - UMASK_SET=0755
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
             - TRANSMISSION_RPC_USERNAME=username
