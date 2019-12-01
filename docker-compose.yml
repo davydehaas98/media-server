@@ -176,7 +176,6 @@ services:
             - TRANSMISSION_RATIO_LIMIT_ENABLED=true
             # This will give the service read and execute permissions within the docker group
             - TRANSMISSION_UMASK=002
-            - OPENVPN_CONFIG="YYYYYYYYYYY"
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
             - CREATE_TUN_DEVICE=true
             - WEBPROXY_ENABLED=false
