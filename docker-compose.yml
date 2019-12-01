@@ -144,6 +144,7 @@ services:
         cap_add:
             - NET_ADMIN
         devices:
+            # See (https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
             - /dev/net/tun
         ports:
             # Web UI
@@ -156,7 +157,8 @@ services:
             - 8.8.4.4
         volumes:
             - ${USERDIR}/mediaserver/transmission-vpn:/config
-            - ${USERDIR}/mediaserver/transmission-vpn:/data/transmission-home
+            - ${USERDIR}/mediaserver/transmission-vpn:/data
+            - ${USERDIR}/mediaserver/downloads:/data/watch
             - ${USERDIR}/mediaserver/downloads/completed:/data/completed
             - ${USERDIR}/mediaserver/downloads/incomplete:/data/incomplete
             - /etc/localtime:/etc/localtime:ro
@@ -164,6 +166,8 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+            - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+            - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
             - TRANSMISSION_RPC_USERNAME=username
             - TRANSMISSION_RPC_PASSWORD=password
             # This will give the service read and execute permissions within the docker group
@@ -171,16 +175,19 @@ services:
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RATIO_LIMIT=1.00
             - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+            - OPENVPN_CONFIG="YYYYYYYYYYY"
+            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+            - CREATE_TUN_DEVICE=true
+            - WEBPROXY_ENABLED=false
+            - LOCAL_NETWORK=192.168.1.0/24
+            # Set these variables to the preferred VPN
             - OPENVPN_PROVIDER=NORDVPN
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
             - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
-            - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+            # NordVPN specific settings
             - NORDVPN_COUNTRY=CH
             - NORDVPN_CATEGORY=P2P
             - NORDVPN_PROTOCOL=tcp
-            - CREATE_TUN_DEVICE=true
-            - WEBPROXY_ENABLED=false
-            - LOCAL_NETWORK=192.168.0.0/24
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
