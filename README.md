@@ -58,7 +58,7 @@ Add the following as separate lines at the end of the file:
 PUID=0
 PGID=113
 TZ="America/New_York"
-USERDIR="/home/USER"
+USERDIR="/home/<USER>"
 MYSQL_ROOT_PASSWORD="password"
 ```
 
@@ -66,8 +66,8 @@ MYSQL_ROOT_PASSWORD="password"
 
 `TZ` is the timezone that you want to set for your containers. Get your TZ from this [Timezone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-`USERDIR` is the path to the home folder of the current user. You can get this by using the following command:
-    
+`USERDIR` is the path to the home folder of the current user. You can get the username by using the following command and replace `<USER>` with it:
+
 `cd ~ ; pwd`
 
 `MYSQL_ROOT_PASSWORD` is used for the MariaDB and phpMyAdmin MYSQL administrator password.
