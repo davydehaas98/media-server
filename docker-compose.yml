@@ -4,7 +4,6 @@ services:
     plex:
         container_name: plex
         image: linuxserver/plex:latest
-        build: .
         restart: unless-stopped
         ports:
             # Plex Media Server
@@ -50,7 +49,6 @@ services:
     tautulli:
         container_name: tautulli
         image: linuxserver/tautulli:latest
-        build: .
         restart: unless-stopped
         ports:
             - "6003:8181"
@@ -72,7 +70,6 @@ services:
     radarr:
         container_name: radarr
         image: linuxserver/radarr:latest
-        build: .
         restart: unless-stopped
         ports:
             - "6004:7878"
@@ -86,7 +83,6 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - UMASK_SET=0755
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
@@ -97,7 +93,6 @@ services:
     sonarr:
         container_name: sonarr
         image: linuxserver/sonarr:latest
-        build: .
         restart: unless-stopped
         ports:
             - "6005:8989"
@@ -111,7 +106,6 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - UMASK_SET=0755
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
@@ -122,7 +116,6 @@ services:
     jackett:
         container_name: jackett
         image: linuxserver/jackett:latest
-        build: .
         restart: unless-stopped
         ports:
             - "6006:9117"
@@ -145,7 +138,6 @@ services:
     transmission:
         container_name: transmission-vpn
         image: haugene/transmission-openvpn:latest
-        build: .
         restart: unless-stopped
         cap_add:
             - NET_ADMIN
@@ -164,22 +156,21 @@ services:
         volumes:
             - ${USERDIR}/mediaserver/transmission-vpn:/config
             - ${USERDIR}/mediaserver/transmission-vpn:/data
-            - ${USERDIR}/mediaserver/downloads:/data/watch
-            - ${USERDIR}/mediaserver/downloads/completed:/data/completed
-            - ${USERDIR}/mediaserver/downloads/incomplete:/data/incomplete
+            - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - /etc/localtime:/etc/localtime:ro
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            - UMASK_SET=0755
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
             - TRANSMISSION_RPC_USERNAME=username
             - TRANSMISSION_RPC_PASSWORD=password
-            - TRANSMISSION_RATIO_LIMIT=1.00
             - TRANSMISSION_RATIO_LIMIT_ENABLED=false
-            - TRANSMISSION_DOWNLOAD_DIR=/data/completed
+            - TRANSMISSION_RATIO_LIMIT=1.00
+            - TRANSMISSION_DOWNLOAD_DIR=/downloads
+            - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
+            - TRANSMISSION_RENAME_PARTIAL_FILES=true
             # This will give the service read and execute permissions within the docker group
             - TRANSMISSION_UMASK=002
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
@@ -205,7 +196,6 @@ services:
     # deluge:
     #     container_name: deluge
     #     image: linuxserver/deluge:latest
-    #     build: .
     #     restart: unless-stopped
     #     ports:
     #         # Web UI
@@ -237,7 +227,6 @@ services:
     watchtower:
         container_name: watchtower
         image: v2tec/watchtower:latest
-        build: .
         restart: unless-stopped
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
@@ -254,7 +243,6 @@ services:
     portainer:
         container_name: portainer
         image: portainer/portainer:latest
-        build: .
         restart: unless-stopped
         command: -H unix:///var/run/docker.sock
         ports:
