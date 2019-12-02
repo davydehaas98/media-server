@@ -16,7 +16,7 @@ pipeline {
                 branch 'master'   
             }
             steps {
-                hs 'docker-compose down -v -f'
+                sh 'docker-compose down -v -f'
                 sh 'docker-compose -p media-server up -d'
             }
         }
