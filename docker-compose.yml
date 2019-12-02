@@ -179,7 +179,7 @@ services:
             - TRANSMISSION_RPC_PASSWORD=password
             - TRANSMISSION_RATIO_LIMIT=1.00
             - TRANSMISSION_RATIO_LIMIT_ENABLED=false
-            - TRANSMISSION_DOWNLOAD_DIR=/downloads
+            - TRANSMISSION_DOWNLOAD_DIR=/data/completed
             # This will give the service read and execute permissions within the docker group
             - TRANSMISSION_UMASK=002
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
