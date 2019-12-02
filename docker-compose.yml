@@ -78,7 +78,6 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/shared:/shared
-            - /etc/localtime:/etc/localtime:ro
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
@@ -101,7 +100,6 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - ${USERDIR}/mediaserver/tv:/tv
             - ${USERDIR}/mediaserver/shared:/shared
-            - /etc/localtime:/etc/localtime:ro
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
@@ -123,7 +121,6 @@ services:
             - ${USERDIR}/mediaserver/jackett:/config
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - ${USERDIR}/mediaserver/shared:/shared
-            - /etc/localtime:/etc/localtime:ro
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
@@ -157,7 +154,6 @@ services:
             - ${USERDIR}/mediaserver/transmission-vpn:/config
             - ${USERDIR}/mediaserver/transmission-vpn:/data
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
-            - /etc/localtime:/etc/localtime:ro
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
