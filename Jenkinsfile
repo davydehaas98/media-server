@@ -16,8 +16,7 @@ pipeline {
                 branch 'master'   
             }
             steps {
-                sh 'docker-compose down -v'
-                sh 'docker-compose -p media-server up -d'
+                sh 'docker-compose -p media-server up -d --force-recreate'
             }
         }
     }
