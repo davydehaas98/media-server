@@ -54,7 +54,7 @@ services:
             - "6003:8181"
         volumes:
             - ${USERDIR}/mediaserver/tautulli/config:/config
-            - ${USERDIR}/mediaserver/tautulli/logs:/logs
+            - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
             - PUID=${PUID}
@@ -169,11 +169,12 @@ services:
             - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
             - TRANSMISSION_RENAME_PARTIAL_FILES=true
             # This will give the service read and execute permissions within the docker group
-            - TRANSMISSION_UMASK=002
+            - TRANSMISSION_UMASK=022
             - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
             - CREATE_TUN_DEVICE=true
             - WEBPROXY_ENABLED=false
-            - LOCAL_NETWORK=192.168.1.0/24
+            # Get access to the WebUI without VPN
+            - LOCAL_NETWORK=192.168.0.0/24
             # Set these variables to the preferred VPN
             - OPENVPN_PROVIDER=NORDVPN
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
@@ -218,7 +219,25 @@ services:
     #     networks:
     #         default:
     #             ipv4_address: 172.60.0.7
-
+    
+    # Unified WebUI
+    organizr:
+        container_name: organizr
+        image: organizrtools/organizr-v2
+        restart: unless-stopped
+        volumes:
+            - ${USERDIR}/mediaserver/organizr/config:/config
+            - ${USERDIR}/mediaserver/shared:/shared
+        ports:
+            - "6008:80"
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+        networks:
+            default:
+                ipv4_address: 172.60.0.8
+    
     # Automates Docker Image Updates if `com.centurylinklabs.watchtower.enable=true` label is added
     watchtower:
         container_name: watchtower
@@ -234,7 +253,7 @@ services:
             - TZ=${TZ}
         networks:
             default:
-                ipv4_address: 172.60.0.8
+                ipv4_address: 172.60.0.10
     
     # Web UI for Docker Containers. Usefull for managing the server
     # Not needed if you already have a Portainer installation on your server
@@ -250,6 +269,8 @@ services:
             - ${USERDIR}/mediaserver/shared:/shared
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
             - TZ=${TZ}
         networks:
             default:
