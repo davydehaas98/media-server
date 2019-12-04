@@ -32,7 +32,7 @@ services:
             - HOSTNAME="Docker Plex"
             - VERSION=docker
             # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
-            - PLEX_CLAIM=claim-FVWu3phSyYKkepMD6R3N
+            - PLEX_CLAIM=claim-eyKJ-tpCUP1cPsdpdpwn
             # The additional IPs on which the server may be found
             - ADVERTISE_IP=http://davydehaas.nl:6002
         volumes:
@@ -54,7 +54,7 @@ services:
             - "6003:8181"
         volumes:
             - ${USERDIR}/mediaserver/tautulli/config:/config
-            - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
+            - ${USERDIR}/mediaserver/tautulli/logs:/logs
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
             - PUID=${PUID}
@@ -154,14 +154,15 @@ services:
             - ${USERDIR}/mediaserver/transmission-vpn:/config
             - ${USERDIR}/mediaserver/transmission-vpn:/data
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            #- ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
-            - TRANSMISSION_RPC_USERNAME=username
-            - TRANSMISSION_RPC_PASSWORD=password
+            - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_USERNAME}
+            - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_PASSWORD}
             - TRANSMISSION_RATIO_LIMIT_ENABLED=false
             - TRANSMISSION_RATIO_LIMIT=1.00
             - TRANSMISSION_DOWNLOAD_DIR=/downloads
