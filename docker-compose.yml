@@ -118,7 +118,7 @@ services:
         ports:
             - "6006:9117"
         volumes:
-            - ${USERDIR}/mediaserver/jackett:/config
+            - ${USERDIR}/mediaserver/jackett:/config/Jackett
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
