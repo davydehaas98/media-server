@@ -32,7 +32,7 @@ services:
             - HOSTNAME="Docker Plex"
             - VERSION=docker
             # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
-            - PLEX_CLAIM=claim-eyKJ-tpCUP1cPsdpdpwn
+            - PLEX_CLAIM=claim-A73-5D_2aFAfzi9hQji5
             # The additional IPs on which the server may be found
             - ADVERTISE_IP=http://davydehaas.nl:6002
         volumes:
