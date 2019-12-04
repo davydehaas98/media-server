@@ -122,8 +122,8 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/downloads
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            #- PUID=${PUID}
-            #- PGID=${PGID}
+            - PUID=${PUID}
+            - PGID=${PGID}
             - TZ=${TZ}
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
@@ -179,7 +179,7 @@ services:
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
             - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
             # NordVPN specific settings
-            #- NORDVPN_COUNTRY=CH
+            - NORDVPN_COUNTRY=CH
             - NORDVPN_CATEGORY=P2P
             - NORDVPN_PROTOCOL=tcp
         labels:
