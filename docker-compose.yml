@@ -1,6 +1,7 @@
 version: "3.7"
 services:
-    # Plex Media Server
+    ### Plex ###
+    # Media Server
     plex:
         container_name: plex
         image: linuxserver/plex:latest
@@ -29,7 +30,7 @@ services:
             - TZ=${TZ}
             # This will give the service read and execute permissions within the docker group
             - UMASK_SET=002
-            - HOSTNAME="Docker Plex"
+            - HOSTNAME="Plex Server"
             - VERSION=docker
             # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
             - PLEX_CLAIM=claim-A73-5D_2aFAfzi9hQji5
@@ -45,6 +46,7 @@ services:
             default:
                 ipv4_address: 172.60.0.2
     
+    ### Tautulli ###
     # Plex Monitor
     tautulli:
         container_name: tautulli
@@ -66,6 +68,7 @@ services:
             default:
                 ipv4_address: 172.60.0.3
         
+    ### Radarr ###
     # Movie Downloader and Manager
     radarr:
         container_name: radarr
@@ -75,7 +78,7 @@ services:
             - "6004:7878"
         volumes:
             - ${USERDIR}/mediaserver/radarr/config:/config
-            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
@@ -87,7 +90,7 @@ services:
         networks:
             default:
                 ipv4_address: 172.60.0.4
-        
+    ### Sonarr ###
     # Serie Downloader and Manager
     sonarr:
         container_name: sonarr
@@ -97,7 +100,7 @@ services:
             - "6005:8989"
         volumes:
             - ${USERDIR}/mediaserver/sonarr/config:/config
-            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/tv:/tv
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
@@ -109,8 +112,9 @@ services:
         networks:
             default:
                 ipv4_address: 172.60.0.5
-        
-    # Proxy Server for Sonarr/Radarr search queries
+    
+    ### Jackett ###
+    # Proxy Server for Sonarr & Radarr search queries ###
     jackett:
         container_name: jackett
         image: linuxserver/jackett:latest
@@ -119,7 +123,7 @@ services:
             - "6006:9117"
         volumes:
             - ${USERDIR}/mediaserver/jackett/config:/config/Jackett
-            - ${USERDIR}/mediaserver/downloads/completed:/downloads
+            - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
             - PUID=${PUID}
@@ -131,7 +135,8 @@ services:
             default:
                 ipv4_address: 172.60.0.6
     
-    # Transmission Torrent Client with VPN
+    ### Transmission ###
+    # Torrent Client with VPN
     transmission:
         container_name: transmission
         image: haugene/transmission-openvpn:latest
@@ -148,25 +153,26 @@ services:
             - "51413:51413"
             - "51413:51413/udp"
         dns:
-            - 8.8.8.8
-            - 8.8.4.4
+            - 1.1.1.1
+            - 1.0.0.1
         volumes:
             - ${USERDIR}/mediaserver/transmission/config:/config
             - ${USERDIR}/mediaserver/transmission/data:/data
-            - ${USERDIR}/mediaserver/downloads/completed:/downloads
-            #- ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
+            - ${USERDIR}/mediaserver/downloads/completed:/completed
+            - ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
-            - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_USERNAME}
-            - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_PASSWORD}
+            - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
+            - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
             - TRANSMISSION_RATIO_LIMIT_ENABLED=false
             - TRANSMISSION_RATIO_LIMIT=1.00
-            - TRANSMISSION_DOWNLOAD_DIR=/downloads
-            - TRANSMISSION_INCOMPLETE_DIR_ENABLED=false
+            - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+            - TRANSMISSION_INCOMPLETE_DIR=/incomplete
+            - TRANSMISSION_DOWNLOAD_DIR=/completed
             - TRANSMISSION_RENAME_PARTIAL_FILES=true
             # This will give the service read and execute permissions within the docker group
             - TRANSMISSION_UMASK=022
@@ -176,10 +182,10 @@ services:
             # Get access to the WebUI without VPN
             - LOCAL_NETWORK=192.168.0.0/24
             # Set these variables to the preferred VPN
-            - OPENVPN_PROVIDER=NORDVPN
             - OPENVPN_USERNAME=${OPENVPN_USERNAME}
             - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
             # NordVPN specific settings
+            - OPENVPN_PROVIDER=NORDVPN
             - NORDVPN_COUNTRY=CH
             - NORDVPN_CATEGORY=P2P
             - NORDVPN_PROTOCOL=tcp
@@ -190,40 +196,42 @@ services:
                 ipv4_address: 172.60.0.7
         
 
-    # Deluge Torrent Client without VPN
-    # deluge:
-    #     container_name: deluge
-    #     image: linuxserver/deluge:latest
-    #     restart: unless-stopped
-    #     ports:
-    #         # Web UI
-    #         - "6007:8112"
-    #         # Incoming Connections (Used for seeding)
-    #         - "53160:53160"
-    #         - "53160:53160/udp"
-    #         # Daemon remote port (Used for GTK applications)
-    #         - "58846:58846"
-    #     volumes:
-    #         - ${USERDIR}/mediaserver/deluge/config:/config
-    #         - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
-    #         - ${USERDIR}/mediaserver/shared:/shared
-    #     environment:
-    #         - PUID=${PUID}
-    #         - PGID=${PGID}
-    #         - TZ=${TZ}
-    #         # This will give the service read and execute permissions within the docker group
-    #         - UMASK_SET=002
-    #         - DELUGE_LOGLEVEL=error
-    #     labels:
-    #         - "com.centurylinklabs.watchtower.enable=true"
-    #     networks:
-    #         default:
-    #             ipv4_address: 172.60.0.7
+    ### Deluge ###
+    # Torrent Client without VPN
+#     deluge:
+#         container_name: deluge
+#         image: linuxserver/deluge:latest
+#         restart: unless-stopped
+#         ports:
+#             # Web UI
+#             - "6007:8112"
+#             # Incoming Connections (Used for seeding)
+#             - "53160:53160"
+#             - "53160:53160/udp"
+#             # Daemon remote port (Used for GTK applications)
+#             - "58846:58846"
+#         volumes:
+#             - ${USERDIR}/mediaserver/deluge/config:/config
+#             - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
+#             - ${USERDIR}/mediaserver/shared:/shared
+#         environment:
+#             - PUID=${PUID}
+#             - PGID=${PGID}
+#             - TZ=${TZ}
+#             # This will give the service read and execute permissions within the docker group
+#             - UMASK_SET=002
+#             - DELUGE_LOGLEVEL=error
+#         labels:
+#             - "com.centurylinklabs.watchtower.enable=true"
+#         networks:
+#             default:
+#                 ipv4_address: 172.60.0.7
     
-    # Unified WebUI
+    ### Organizr ###
+    # Unified WebUI 
     organizr:
         container_name: organizr
-        image: organizrtools/organizr-v2
+        image: organizrtools/organizr-v2:latest
         restart: unless-stopped
         volumes:
             - ${USERDIR}/mediaserver/organizr/config:/config
@@ -238,6 +246,7 @@ services:
             default:
                 ipv4_address: 172.60.0.8
     
+    ### Watchtower ###
     # Automates Docker Image Updates if `com.centurylinklabs.watchtower.enable=true` label is added
     watchtower:
         container_name: watchtower
@@ -255,6 +264,7 @@ services:
             default:
                 ipv4_address: 172.60.0.10
     
+    ### Portainer ###
     # Web UI for Docker Containers. Usefull for managing the server
     # Not needed if you already have a Portainer installation on your server
     portainer:
