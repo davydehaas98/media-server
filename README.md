@@ -65,7 +65,10 @@ PUID=999
 PGID=113
 TZ="America/New_York"
 USERDIR="/home/<name>"
-MYSQL_ROOT_PASSWORD="password"
+OPENVPN_USERNAME="username"
+OPENVPN_PASSWORD="password"
+TORRENT_USERNAME="username"
+TORRENT_PASSWORD="password"
 ```
 
 `PUID` and `PGID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file.
@@ -74,6 +77,8 @@ MYSQL_ROOT_PASSWORD="password"
 
 `USERDIR` is the path to the home folder of the non-root user. Change `<name>` to the name of the user you created that will run docker
 
-`MYSQL_ROOT_PASSWORD` is used for the MariaDB and phpMyAdmin MYSQL administrator password.
+`OPENVPN_USERNAME` and `OPENVPN_PASSWORD` is used for logging into your VPN account.
+
+`TORRENT_USERNAME` and `TORRENT_PASSWORD` is used for setting up your torrent client with a secure login.
 
 **You will need to logout and log back in for the environmental variables to take effect. If that does not work you have to reboot.**
