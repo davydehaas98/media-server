@@ -32,8 +32,6 @@ services:
             - UMASK_SET=002
             - HOSTNAME="Plex Server"
             - VERSION=docker
-            # Go to plex.tv/claim/ to claim your server. This claim will expire in 5 minutes!
-            - PLEX_CLAIM="claim-zxxzC8vvsuiFhyKKrphH"
             # The additional IPs on which the server may be found
             - ADVERTISE_IP=http://davydehaas.nl:6002
         volumes:
