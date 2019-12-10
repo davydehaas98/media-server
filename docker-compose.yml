@@ -32,8 +32,6 @@ services:
             - UMASK_SET=002
             - HOSTNAME="Plex Server"
             - VERSION=docker
-            # The additional IPs on which the server may be found
-            - ADVERTISE_IP=http://davydehaas.nl:6002
         volumes:
             - ${USERDIR}/mediaserver/plex/config:/config
             - ${USERDIR}/mediaserver/plex/transcode:/transcode
