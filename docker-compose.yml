@@ -38,6 +38,8 @@ services:
             - ${USERDIR}/mediaserver/plex/data:/data
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/tv:/tv
+        labels:
+            - "com.centurylinklabs.watchtower.enable=true"
         networks:
             default:
                 ipv4_address: 172.60.0.2
