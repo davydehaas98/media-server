@@ -277,6 +277,9 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
+        networks:
+            default:
+                ipv4_address: 172.60.0.9
 
 networks:
     default:
