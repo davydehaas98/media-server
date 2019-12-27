@@ -283,7 +283,7 @@ services:
 
 networks:
     media-server-network:
-        name: media-server
+        name: media-server-network
         ipam:
             config:
                 - subnet: 172.60.0.0/24
