@@ -39,7 +39,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.2
     
     ### Tautulli ###
@@ -61,7 +61,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.3
         
     ### Radarr ###
@@ -84,7 +84,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.4
     ### Sonarr ###
     # Serie Downloader and Manager
@@ -106,7 +106,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.5
     
     ### Jackett ###
@@ -128,7 +128,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.6
     
     ### Transmission ###
@@ -188,7 +188,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.7
         
 
@@ -218,7 +218,7 @@ services:
 #         labels:
 #             - "com.centurylinklabs.watchtower.enable=true"
 #         networks:
-#             default:
+#             media-server-network:
 #                 ipv4_address: 172.60.0.7
     
     ### Bazarr ###
@@ -238,7 +238,7 @@ services:
             - PGID=${PGID}
             - TZ=${TZ}
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.8
     
     ### Watchtower ###
@@ -256,7 +256,7 @@ services:
         environment:
             - TZ=${TZ}
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.10
     
     ### Portainer ###
@@ -278,11 +278,11 @@ services:
             - PGID=${PGID}
             - TZ=${TZ}
         networks:
-            default:
+            media-server-network:
                 ipv4_address: 172.60.0.9
 
 networks:
-    default:
+    media-server-network:
         name: media-server
         ipam:
             config:
