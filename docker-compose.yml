@@ -39,7 +39,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.2
     
     ### Tautulli ###
@@ -61,7 +61,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.3
         
     ### Radarr ###
@@ -84,7 +84,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.4
     ### Sonarr ###
     # Serie Downloader and Manager
@@ -106,7 +106,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.5
     
     ### Jackett ###
@@ -128,7 +128,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.6
     
     ### Transmission ###
@@ -165,7 +165,7 @@ services:
             - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
             - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
             - TRANSMISSION_RATIO_LIMIT_ENABLED=false
-            - TRANSMISSION_RATIO_LIMIT=1.00
+            - TRANSMISSION_RATIO_LIMIT=2.00
             - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
             - TRANSMISSION_INCOMPLETE_DIR=/incomplete
             - TRANSMISSION_DOWNLOAD_DIR=/completed
@@ -188,7 +188,7 @@ services:
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.7
         
 
@@ -218,7 +218,7 @@ services:
 #         labels:
 #             - "com.centurylinklabs.watchtower.enable=true"
 #         networks:
-#             media-server-network:
+#             media-server:
 #                 ipv4_address: 172.60.0.7
     
     ### Bazarr ###
@@ -238,7 +238,7 @@ services:
             - PGID=${PGID}
             - TZ=${TZ}
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.8
     
     ### Watchtower ###
@@ -256,7 +256,7 @@ services:
         environment:
             - TZ=${TZ}
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.10
     
     ### Portainer ###
@@ -278,12 +278,12 @@ services:
             - PGID=${PGID}
             - TZ=${TZ}
         networks:
-            media-server-network:
+            media-server:
                 ipv4_address: 172.60.0.9
 
 networks:
-    media-server-network:
-        name: media-server-network
+    media-server:
+        name: media-server
         ipam:
             config:
                 - subnet: 172.60.0.0/24
