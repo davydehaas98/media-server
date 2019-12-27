@@ -28,8 +28,6 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-            # This will give the service read and execute permissions within the docker group
-            - UMASK_SET=002
             - HOSTNAME="Plex Server"
             - VERSION=docker
         volumes:
@@ -112,7 +110,7 @@ services:
                 ipv4_address: 172.60.0.5
     
     ### Jackett ###
-    # Proxy Server for Sonarr & Radarr search queries ###
+    # Proxy Server for Sonarr & Radarr search queries
     jackett:
         container_name: jackett
         image: linuxserver/jackett:latest
@@ -216,8 +214,6 @@ services:
 #             - PUID=${PUID}
 #             - PGID=${PGID}
 #             - TZ=${TZ}
-#             # This will give the service read and execute permissions within the docker group
-#             - UMASK_SET=002
 #             - DELUGE_LOGLEVEL=error
 #         labels:
 #             - "com.centurylinklabs.watchtower.enable=true"
@@ -225,17 +221,18 @@ services:
 #             default:
 #                 ipv4_address: 172.60.0.7
     
-    ### Organizr ###
-    # Unified WebUI 
-    organizr:
-        container_name: organizr
-        image: organizrtools/organizr-v2:latest
+    ### Bazarr ###
+    # Subtitles Downloader and Manager
+    bazarr:
+        container_name: bazarr
+        image: linuxserver/bazarr:latest
         restart: unless-stopped
         volumes:
-            - ${USERDIR}/mediaserver/organizr/config:/config
-            - ${USERDIR}/mediaserver/shared:/shared
+            - ${USERDIR}/mediaserver/bazarr/config:/config
+            - ${USERDIR}/mediaserver/movies:/movies
+            - ${USERDIR}/mediaserver/tv:/tv
         ports:
-            - "6008:80"
+            - "6008:6767"
         environment:
             - PUID=${PUID}
             - PGID=${PGID}
@@ -271,7 +268,7 @@ services:
         restart: unless-stopped
         command: -H unix:///var/run/docker.sock
         ports:
-            - "6009:9000"
+            - "9000:9000"
         volumes:
             - ${USERDIR}/mediaserver/portainer/data:/data
             - ${USERDIR}/mediaserver/shared:/shared
@@ -280,9 +277,6 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - TZ=${TZ}
-        networks:
-            default:
-                ipv4_address: 172.60.0.9
 
 networks:
     default:
