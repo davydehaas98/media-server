@@ -6,7 +6,7 @@ services:
         container_name: plex
         image: linuxserver/plex:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         ports:
             # Plex Media Server
             - "6002:32400"
@@ -47,7 +47,7 @@ services:
         container_name: tautulli
         image: linuxserver/tautulli:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         ports:
             - "6003:8181"
         volumes:
