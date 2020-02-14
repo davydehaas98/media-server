@@ -36,7 +36,7 @@ services:
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/tv:/tv
         labels:
-            com.centurylinklabs.watchtower.enable: true
+            com.centurylinklabs.watchtower.enable: "true"
         networks:
             media-server:
                 ipv4_address: 172.60.0.2
@@ -57,7 +57,7 @@ services:
         environment:
             TZ: ${TZ}
         labels:
-            com.centurylinklabs.watchtower.enable: true
+            com.centurylinklabs.watchtower.enable: "true"
         networks:
             media-server:
                 ipv4_address: 172.60.0.3
@@ -79,7 +79,7 @@ services:
         environment:
             TZ: ${TZ}
         labels:
-            com.centurylinklabs.watchtower.enable: true
+            com.centurylinklabs.watchtower.enable: 'true'
         networks:
             media-server:
                 ipv4_address: 172.60.0.4
@@ -154,21 +154,21 @@ services:
             - ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
         environment:
             TZ: ${TZ}
-            TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: true
+            TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "true"
             TRANSMISSION_RPC_HOST_WHITELIST: 127.0.0.1,192.168.*.*
             TRANSMISSION_RPC_USERNAME: ${TORRENT_USERNAME}
             TRANSMISSION_RPC_PASSWORD: ${TORRENT_PASSWORD}
-            TRANSMISSION_RATIO_LIMIT_ENABLED: false
+            TRANSMISSION_RATIO_LIMIT_ENABLED: "false"
             TRANSMISSION_RATIO_LIMIT: 2.00
-            TRANSMISSION_INCOMPLETE_DIR_ENABLED: true
+            TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
             TRANSMISSION_INCOMPLETE_DIR: /incomplete
             TRANSMISSION_DOWNLOAD_DIR: /completed
-            TRANSMISSION_RENAME_PARTIAL_FILES: true
+            TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
             TRANSMISSION_UMASK: 022
             OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
-            CREATE_TUN_DEVICE: true
-            WEBPROXY_ENABLED: false
+            CREATE_TUN_DEVICE: "true"
+            WEBPROXY_ENABLED: "false"
             # Get access to the WebUI without VPN
             LOCAL_NETWORK: 192.168.0.0/24
             # Set these variables to the preferred VPN
