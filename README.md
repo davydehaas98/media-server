@@ -88,3 +88,8 @@ TORRENT_PASSWORD="password"
 `TORRENT_USERNAME` and `TORRENT_PASSWORD` is used for setting up your torrent client with a secure login.
 
 **You will need to logout and log back in for the environmental variables to take effect. If that does not work you have to reboot.**
+
+## Running Plex on a headless server
+If the Plex claim token is not added during initial configuration you will need to use ssh tunneling to gain access and setup the server for first run. During the first run you setup the server to make it available and configurable. However, this setup option will only be triggered if you access it over http://localhost:32400/web, it will not be triggered if you access it over http://ip_of_server:32400/web. If you are setting up Plex Media Server (PMS) on a headless server, you can use a SSH tunnel to link http://localhost:32400/web (on your current computer) to http://localhost:32400/web (on the headless server running PMS):
+
+ssh username@ip_of_server -L 32400:ip_of_server:32400 -N
