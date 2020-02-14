@@ -6,6 +6,7 @@ services:
         container_name: plex
         image: linuxserver/plex:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         ports:
             # Plex Media Server
             - "6002:32400"
@@ -25,8 +26,6 @@ services:
             - "32413:32413/udp"
             - "32414:32414/udp"
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
             - HOSTNAME="Plex Server"
             - VERSION=docker
@@ -48,6 +47,7 @@ services:
         container_name: tautulli
         image: linuxserver/tautulli:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         ports:
             - "6003:8181"
         volumes:
@@ -55,8 +55,6 @@ services:
             - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
@@ -70,6 +68,7 @@ services:
         container_name: radarr
         image: linuxserver/radarr:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         ports:
             - "6004:7878"
         volumes:
@@ -78,8 +77,6 @@ services:
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
@@ -92,6 +89,7 @@ services:
         container_name: sonarr
         image: linuxserver/sonarr:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         ports:
             - "6005:8989"
         volumes:
@@ -100,8 +98,6 @@ services:
             - ${USERDIR}/mediaserver/tv:/tv
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
@@ -115,6 +111,7 @@ services:
         container_name: jackett
         image: linuxserver/jackett:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         ports:
             - "6006:9117"
         volumes:
@@ -122,8 +119,6 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         labels:
             - "com.centurylinklabs.watchtower.enable=true"
@@ -137,6 +132,7 @@ services:
         container_name: transmission
         image: haugene/transmission-openvpn:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         cap_add:
             - NET_ADMIN
         devices:
@@ -157,8 +153,6 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
             - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
             - TRANSMISSION_RPC_HOST_WHITELIST="127.0.0.1,192.168.*.*"
@@ -198,6 +192,7 @@ services:
 #         container_name: deluge
 #         image: linuxserver/deluge:latest
 #         restart: unless-stopped
+#         user: "${UID}:${GID}"
 #         ports:
 #             # Web UI
 #             - "6007:8112"
@@ -211,8 +206,6 @@ services:
 #             - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
 #             - ${USERDIR}/mediaserver/shared:/shared
 #         environment:
-#             - PUID=${PUID}
-#             - PGID=${PGID}
 #             - TZ=${TZ}
 #             - DELUGE_LOGLEVEL=error
 #         labels:
@@ -227,6 +220,7 @@ services:
         container_name: bazarr
         image: linuxserver/bazarr:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         volumes:
             - ${USERDIR}/mediaserver/bazarr/config:/config
             - ${USERDIR}/mediaserver/movies:/movies
@@ -234,8 +228,6 @@ services:
         ports:
             - "6008:6767"
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         networks:
             media-server:
@@ -266,6 +258,7 @@ services:
         container_name: portainer
         image: portainer/portainer:latest
         restart: unless-stopped
+        user: "${UID}:${GID}"
         command: -H unix:///var/run/docker.sock
         ports:
             - "9000:9000"
@@ -274,8 +267,6 @@ services:
             - ${USERDIR}/mediaserver/shared:/shared
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
             - TZ=${TZ}
         networks:
             media-server:
