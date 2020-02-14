@@ -47,7 +47,6 @@ services:
         container_name: tautulli
         image: linuxserver/tautulli:latest
         restart: unless-stopped
-        user: "${PUID}:${PGID}"
         ports:
             - "6003:8181"
         volumes:
@@ -55,6 +54,8 @@ services:
             - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: "true"
