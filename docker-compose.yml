@@ -54,8 +54,8 @@ services:
             - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            PUID: ${PUID}
-            PGID: ${PGID}
+            UID: ${PUID}
+            GID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: "true"
