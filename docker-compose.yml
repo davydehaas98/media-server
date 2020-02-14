@@ -68,7 +68,7 @@ services:
         container_name: radarr
         image: linuxserver/radarr:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         ports:
             - "6004:7878"
         volumes:
@@ -89,7 +89,7 @@ services:
         container_name: sonarr
         image: linuxserver/sonarr:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         ports:
             - "6005:8989"
         volumes:
@@ -111,7 +111,7 @@ services:
         container_name: jackett
         image: linuxserver/jackett:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         ports:
             - "6006:9117"
         volumes:
@@ -132,7 +132,7 @@ services:
         container_name: transmission
         image: haugene/transmission-openvpn:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         cap_add:
             - NET_ADMIN
         devices:
@@ -192,7 +192,7 @@ services:
 #         container_name: deluge
 #         image: linuxserver/deluge:latest
 #         restart: unless-stopped
-#         user: "${UID}:${GID}"
+#        user: "${PUID}:${PGID}"
 #         ports:
 #             # Web UI
 #             - "6007:8112"
@@ -220,7 +220,7 @@ services:
         container_name: bazarr
         image: linuxserver/bazarr:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         volumes:
             - ${USERDIR}/mediaserver/bazarr/config:/config
             - ${USERDIR}/mediaserver/movies:/movies
@@ -258,7 +258,7 @@ services:
         container_name: portainer
         image: portainer/portainer:latest
         restart: unless-stopped
-        user: "${UID}:${GID}"
+        user: "${PUID}:${PGID}"
         command: -H unix:///var/run/docker.sock
         ports:
             - "9000:9000"
