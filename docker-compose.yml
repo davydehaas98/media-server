@@ -78,6 +78,8 @@ services:
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
+            UID: ${PUID}
+            GID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: 'true'
