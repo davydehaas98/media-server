@@ -69,7 +69,6 @@ services:
         container_name: radarr
         image: linuxserver/radarr:latest
         restart: unless-stopped
-        user: "${PUID}:${PGID}"
         ports:
             - "6004:7878"
         volumes:
