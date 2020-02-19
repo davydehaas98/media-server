@@ -55,8 +55,8 @@ services:
             - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: "true"
@@ -78,8 +78,8 @@ services:
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: 'true'
@@ -100,8 +100,8 @@ services:
             - ${USERDIR}/mediaserver/tv:/tv
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: true
@@ -123,8 +123,8 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/shared:/shared
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         labels:
             com.centurylinklabs.watchtower.enable: true
@@ -158,8 +158,8 @@ services:
             - ${USERDIR}/mediaserver/downloads/completed:/completed
             - ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
             TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "true"
             TRANSMISSION_RPC_HOST_WHITELIST: 127.0.0.1,192.168.*.*
@@ -212,8 +212,8 @@ services:
 #             - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
 #             - ${USERDIR}/mediaserver/shared:/shared
 #         environment:
-#             UID: ${PUID}
-#             GID: ${PGID}
+#             PUID: ${PUID}
+#             PGID: ${PGID}
 #             TZ: ${TZ}
 #             DELUGE_LOGLEVEL=error
 #         labels:
@@ -235,8 +235,8 @@ services:
         ports:
             - "6008:6767"
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         networks:
             media-server:
@@ -248,10 +248,10 @@ services:
         container_name: watchtower
         image: v2tec/watchtower:latest
         restart: unless-stopped
-        # Update everyday at 4 AM
-        command: --schedule "0 0 4 * * *" --cleanup
         # Watch containers where the com.centurylinklabs.watchtower.enable label is set to true
-        command: --label-enable
+        # Update every Monday at 4 (4AM)
+        # seconds, minutes, hours, day of month, month, day of week
+        command: --label-enable --schedule "0 0 4 1 * *" --cleanup
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
@@ -275,8 +275,8 @@ services:
             - ${USERDIR}/mediaserver/shared:/shared
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
         networks:
             media-server:
