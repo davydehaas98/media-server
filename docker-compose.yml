@@ -37,7 +37,7 @@ services:
             - ${USERDIR}/mediaserver/movies:/movies
             - ${USERDIR}/mediaserver/tv:/tv
         labels:
-            com.centurylinklabs.watchtower.enable: "true"
+            com.centurylinklabs.watchtower.enable: true
         networks:
             media-server:
                 ipv4_address: 172.60.0.2
@@ -59,7 +59,7 @@ services:
             PGID: ${PGID}
             TZ: ${TZ}
         labels:
-            com.centurylinklabs.watchtower.enable: "true"
+            com.centurylinklabs.watchtower.enable: true
         networks:
             media-server:
                 ipv4_address: 172.60.0.3
@@ -82,7 +82,7 @@ services:
             PGID: ${PGID}
             TZ: ${TZ}
         labels:
-            com.centurylinklabs.watchtower.enable: 'true'
+            com.centurylinklabs.watchtower.enable: true
         networks:
             media-server:
                 ipv4_address: 172.60.0.4
@@ -243,15 +243,16 @@ services:
                 ipv4_address: 172.60.0.8
     
     ### Watchtower ###
-    # Automates Docker Image Updates if `com.centurylinklabs.watchtower.enable=true` label is added
+    # Automates Docker Image Updates
+    # where `com.centurylinklabs.watchtower.enable: true` is added to the container
     watchtower:
         container_name: watchtower
         image: v2tec/watchtower:latest
         restart: unless-stopped
-        # Watch containers where the com.centurylinklabs.watchtower.enable label is set to true
+        # Watch containers where `com.centurylinklabs.watchtower.enable: true`
         # Update every Monday at 4 (4AM)
-        # seconds, minutes, hours, day of month, month, day of week
-        command: --label-enable --schedule "0 0 4 1 * *" --cleanup
+        # seconds - minutes - hours - day of month - month - day of week
+        command: --label-enable --schedule "0 0 4 * * 1" --cleanup
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
