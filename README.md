@@ -77,11 +77,11 @@ TORRENT_USERNAME="username"
 TORRENT_PASSWORD="password"
 ```
 
-`PUID` and `PGID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file.
+`PUID` and `PGID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file. See more information about `PUID` and `PGID` [here](https://docs.linuxserver.io/general/understanding-puid-and-pgid).
 
 `TZ` is the timezone that you want to set for your containers. Get your TZ from this [Timezone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
-`USERDIR` is the path to the home folder of the non-root user. Change `<name>` to the name of the user you created that will run docker
+`USERDIR` is the path to the home folder of the non-root user. Change `<name>` to the name of the user you created that will run docker.
 
 `OPENVPN_USERNAME` and `OPENVPN_PASSWORD` is used for logging into your VPN account.
 
@@ -92,4 +92,4 @@ TORRENT_PASSWORD="password"
 ## Running Plex on a headless server
 If the Plex claim token is not added during initial configuration you will need to use ssh tunneling to gain access and setup the server for first run. During the first run you setup the server to make it available and configurable. However, this setup option will only be triggered if you access it over http://localhost:32400/web, it will not be triggered if you access it over http://ip_of_server:32400/web. If you are setting up Plex Media Server (PMS) on a headless server, you can use a SSH tunnel to link http://localhost:32400/web (on your current computer) to http://localhost:32400/web (on the headless server running PMS):
 
-ssh username@ip_of_server -L 32400:ip_of_server:32400 -N
+`ssh <username>@<ip_of_server> -L 32400:<ip_of_server>:32400 -N`
