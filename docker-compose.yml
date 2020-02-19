@@ -25,8 +25,8 @@ services:
             - "32413:32413/udp"
             - "32414:32414/udp"
         environment:
-            UID: ${PUID}
-            GID: ${PGID}
+            PUID: ${PUID}
+            PGID: ${PGID}
             TZ: ${TZ}
             HOSTNAME: "Plex Server"
             VERSION: docker
