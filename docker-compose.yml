@@ -193,35 +193,35 @@ services:
                 ipv4_address: 172.60.0.7
         
 
-    ### Deluge ###
-    # Torrent Client without VPN
-#     deluge:
-#         container_name: deluge
-#         image: linuxserver/deluge:latest
-#         restart: unless-stopped
-#         ports:
-#             # Web UI
-#             - "6007:8112"
-#             # Incoming Connections (Used for seeding)
-#             - "53160:53160"
-#             - "53160:53160/udp"
-#             # Daemon remote port (Used for GTK applications)
-#             - "58846:58846"
-#         volumes:
-#             - ${USERDIR}/mediaserver/deluge/config:/config
-#             - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
-#             - ${USERDIR}/mediaserver/shared:/shared
-#         environment:
-#             PUID: ${PUID}
-#             PGID: ${PGID}
-#             TZ: ${TZ}
-#             DELUGE_LOGLEVEL=error
-#         labels:
-#             com.centurylinklabs.watchtower.enable: true
-#         networks:
-#             media-server:
-#                 ipv4_address: 172.60.0.7
-    
+#    ### Deluge ###
+#    # Torrent Client without VPN
+#    deluge:
+#        container_name: deluge
+#        image: linuxserver/deluge:latest
+#        restart: unless-stopped
+#        ports:
+#            # Web UI
+#            - "6007:8112"
+#            # Incoming Connections (Used for seeding)
+#            - "53160:53160"
+#            - "53160:53160/udp"
+#            # Daemon remote port (Used for GTK applications)
+#            - "58846:58846"
+#        volumes:
+#            - ${USERDIR}/mediaserver/deluge/config:/config
+#            - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
+#            - ${USERDIR}/mediaserver/shared:/shared
+#        environment:
+#            PUID: ${PUID}
+#            PGID: ${PGID}
+#            TZ: ${TZ}
+#            DELUGE_LOGLEVEL=error
+#        labels:
+#            com.centurylinklabs.watchtower.enable: true
+#        networks:
+#            media-server:
+#                ipv4_address: 172.60.0.7
+
     ### Bazarr ###
     # Subtitles Downloader and Manager
     bazarr:
@@ -261,27 +261,27 @@ services:
             media-server:
                 ipv4_address: 172.60.0.10
     
-    ### Portainer ###
-    # Web UI for Docker Containers. Usefull for managing the server
-    # Not needed if you already have a Portainer installation on your server
-    portainer:
-        container_name: portainer
-        image: portainer/portainer:latest
-        restart: unless-stopped
-        command: -H unix:///var/run/docker.sock
-        ports:
-            - "9000:9000"
-        volumes:
-            - ${USERDIR}/mediaserver/portainer/data:/data
-            - ${USERDIR}/mediaserver/shared:/shared
-            - /var/run/docker.sock:/var/run/docker.sock
-        environment:
-            PUID: ${PUID}
-            PGID: ${PGID}
-            TZ: ${TZ}
-        networks:
-            media-server:
-                ipv4_address: 172.60.0.9
+#     ### Portainer ###
+#     # Web UI for Docker Containers. Usefull for managing the server
+#     # Not needed if you already have a Portainer installation on your server
+#     portainer:
+#         container_name: portainer
+#         image: portainer/portainer:latest
+#         restart: unless-stopped
+#         command: -H unix:///var/run/docker.sock
+#         ports:
+#             - "9000:9000"
+#         volumes:
+#             - ${USERDIR}/mediaserver/portainer/data:/data
+#             - ${USERDIR}/mediaserver/shared:/shared
+#             - /var/run/docker.sock:/var/run/docker.sock
+#         environment:
+#             PUID: ${PUID}
+#             PGID: ${PGID}
+#             TZ: ${TZ}
+#         networks:
+#             media-server:
+#                 ipv4_address: 172.60.0.9
 
 networks:
     media-server:
