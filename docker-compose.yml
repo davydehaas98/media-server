@@ -31,11 +31,11 @@ services:
             HOSTNAME: "Plex Server"
             VERSION: docker
         volumes:
-            - ${USERDIR}/mediaserver/plex/config:/config
-            - ${USERDIR}/mediaserver/plex/transcode:/transcode
-            - ${USERDIR}/mediaserver/plex/data:/data
-            - ${USERDIR}/mediaserver/movies:/movies
-            - ${USERDIR}/mediaserver/tv:/tv
+            - ~/mediaserver/plex/config:/config
+            - ~/mediaserver/plex/transcode:/transcode
+            - ~/mediaserver/plex/data:/data
+            - ~/mediaserver/movies:/movies
+            - ~/mediaserver/tv:/tv
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
@@ -51,9 +51,9 @@ services:
         ports:
             - "6003:8181"
         volumes:
-            - ${USERDIR}/mediaserver/tautulli/config:/config
-            - ${USERDIR}/mediaserver/tautulli/logs:/logs:ro
-            - ${USERDIR}/mediaserver/shared:/shared
+            - ~/mediaserver/tautulli/config:/config
+            - ~/mediaserver/tautulli/logs:/logs:ro
+            - ~/mediaserver/shared:/shared
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -73,10 +73,10 @@ services:
         ports:
             - "6004:7878"
         volumes:
-            - ${USERDIR}/mediaserver/radarr/config:/config
-            - ${USERDIR}/mediaserver/downloads/completed:/completed
-            - ${USERDIR}/mediaserver/movies:/movies
-            - ${USERDIR}/mediaserver/shared:/shared
+            - ~/mediaserver/radarr/config:/config
+            - ~/mediaserver/downloads/completed:/completed
+            - ~/mediaserver/movies:/movies
+            - ~/mediaserver/shared:/shared
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -95,10 +95,10 @@ services:
         ports:
             - "6005:8989"
         volumes:
-            - ${USERDIR}/mediaserver/sonarr/config:/config
-            - ${USERDIR}/mediaserver/downloads/completed:/completed
-            - ${USERDIR}/mediaserver/tv:/tv
-            - ${USERDIR}/mediaserver/shared:/shared
+            - ~/mediaserver/sonarr/config:/config
+            - ~/mediaserver/downloads/completed:/completed
+            - ~/mediaserver/tv:/tv
+            - ~/mediaserver/shared:/shared
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -119,9 +119,9 @@ services:
         ports:
             - "6006:9117"
         volumes:
-            - ${USERDIR}/mediaserver/jackett/config:/config/Jackett
-            - ${USERDIR}/mediaserver/downloads/completed:/completed
-            - ${USERDIR}/mediaserver/shared:/shared
+            - ~/mediaserver/jackett/config:/config/Jackett
+            - ~/mediaserver/downloads/completed:/completed
+            - ~/mediaserver/shared:/shared
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -153,10 +153,10 @@ services:
             - 1.1.1.1
             - 1.0.0.1
         volumes:
-            - ${USERDIR}/mediaserver/transmission/config:/config
-            - ${USERDIR}/mediaserver/transmission/data:/data
-            - ${USERDIR}/mediaserver/downloads/completed:/completed
-            - ${USERDIR}/mediaserver/downloads/incomplete:/incomplete
+            - ~/mediaserver/transmission/config:/config
+            - ~/mediaserver/transmission/data:/data
+            - ~/mediaserver/downloads/completed:/completed
+            - ~/mediaserver/downloads/incomplete:/incomplete
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -208,9 +208,9 @@ services:
 #            # Daemon remote port (Used for GTK applications)
 #            - "58846:58846"
 #        volumes:
-#            - ${USERDIR}/mediaserver/deluge/config:/config
-#            - ${USERDIR}/mediaserver/downloads/completed:/root/Downloads
-#            - ${USERDIR}/mediaserver/shared:/shared
+#            - ~/mediaserver/deluge/config:/config
+#            - ~/mediaserver/downloads/completed:/root/Downloads
+#            - ~/mediaserver/shared:/shared
 #        environment:
 #            PUID: ${PUID}
 #            PGID: ${PGID}
@@ -229,9 +229,9 @@ services:
         image: linuxserver/bazarr:latest
         restart: unless-stopped
         volumes:
-            - ${USERDIR}/mediaserver/bazarr/config:/config
-            - ${USERDIR}/mediaserver/movies:/movies
-            - ${USERDIR}/mediaserver/tv:/tv
+            - ~/mediaserver/bazarr/config:/config
+            - ~/mediaserver/movies:/movies
+            - ~/mediaserver/tv:/tv
         ports:
             - "6008:6767"
         environment:
@@ -272,8 +272,8 @@ services:
 #         ports:
 #             - "9000:9000"
 #         volumes:
-#             - ${USERDIR}/mediaserver/portainer/data:/data
-#             - ${USERDIR}/mediaserver/shared:/shared
+#             - ~/mediaserver/portainer/data:/data
+#             - ~/mediaserver/shared:/shared
 #             - /var/run/docker.sock:/var/run/docker.sock
 #         environment:
 #             PUID: ${PUID}
