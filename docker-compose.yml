@@ -31,11 +31,11 @@ services:
             HOSTNAME: "Plex Server"
             VERSION: docker
         volumes:
-            - ~/mediaserver/plex/config:/config
-            - ~/mediaserver/plex/transcode:/transcode
-            - ~/mediaserver/plex/data:/data
-            - ~/mediaserver/movies:/movies
-            - ~/mediaserver/tv:/tv
+            - /mediaserver/plex/config:/config
+            - /mediaserver/plex/transcode:/transcode
+            - /mediaserver/plex/data:/data
+            - /mediaserver/movies:/movies
+            - /mediaserver/tv:/tv
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
@@ -51,9 +51,8 @@ services:
         ports:
             - "6003:8181"
         volumes:
-            - ~/mediaserver/tautulli/config:/config
-            - ~/mediaserver/tautulli/logs:/logs:ro
-            - ~/mediaserver/shared:/shared
+            - /mediaserver/tautulli/config:/config
+            - /mediaserver/tautulli/logs:/logs:ro
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -73,10 +72,9 @@ services:
         ports:
             - "6004:7878"
         volumes:
-            - ~/mediaserver/radarr/config:/config
-            - ~/mediaserver/downloads/completed:/completed
-            - ~/mediaserver/movies:/movies
-            - ~/mediaserver/shared:/shared
+            - /mediaserver/radarr/config:/config
+            - /mediaserver/downloads:/completed
+            - /mediaserver/movies:/movies
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -95,10 +93,9 @@ services:
         ports:
             - "6005:8989"
         volumes:
-            - ~/mediaserver/sonarr/config:/config
-            - ~/mediaserver/downloads/completed:/completed
-            - ~/mediaserver/tv:/tv
-            - ~/mediaserver/shared:/shared
+            - /mediaserver/sonarr/config:/config
+            - /mediaserver/downloads:/completed
+            - /mediaserver/tv:/tv
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -119,9 +116,8 @@ services:
         ports:
             - "6006:9117"
         volumes:
-            - ~/mediaserver/jackett/config:/config/Jackett
-            - ~/mediaserver/downloads/completed:/completed
-            - ~/mediaserver/shared:/shared
+            - /mediaserver/jackett/config:/config/Jackett
+            - /mediaserver/downloads:/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -153,10 +149,9 @@ services:
             - 1.1.1.1
             - 1.0.0.1
         volumes:
-            - ~/mediaserver/transmission/config:/config
-            - ~/mediaserver/transmission/data:/data
-            - ~/mediaserver/downloads/completed:/completed
-            - ~/mediaserver/downloads/incomplete:/incomplete
+            - /mediaserver/transmission/config:/config
+            - /mediaserver/transmission/data:/data
+            - /mediaserver/downloads:/downloads
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -165,14 +160,16 @@ services:
             TRANSMISSION_RPC_HOST_WHITELIST: 127.0.0.1,192.168.*.*
             TRANSMISSION_RPC_USERNAME: ${TORRENT_USERNAME}
             TRANSMISSION_RPC_PASSWORD: ${TORRENT_PASSWORD}
-            TRANSMISSION_RATIO_LIMIT_ENABLED: "false"
             TRANSMISSION_RATIO_LIMIT: 2.00
-            TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
-            TRANSMISSION_INCOMPLETE_DIR: /incomplete
-            TRANSMISSION_DOWNLOAD_DIR: /completed
+            TRANSMISSION_RATIO_LIMIT_ENABLED: "false"
             TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
             TRANSMISSION_UMASK: 022
+            TRANSMISSION_DOWNLOAD_DIR: /downloads/completed
+            TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
+            TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
+            TRANSMISSION_WATCH_DIR: /downloads
+            TRANSMISSION_WATCH_DIR_ENABLED: "true"
             OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
             CREATE_TUN_DEVICE: "true"
             WEBPROXY_ENABLED: "false"
@@ -208,9 +205,8 @@ services:
 #            # Daemon remote port (Used for GTK applications)
 #            - "58846:58846"
 #        volumes:
-#            - ~/mediaserver/deluge/config:/config
-#            - ~/mediaserver/downloads/completed:/root/Downloads
-#            - ~/mediaserver/shared:/shared
+#            - /mediaserver/deluge/config:/config
+#            - /mediaserver/downloads:/root/Downloads
 #        environment:
 #            PUID: ${PUID}
 #            PGID: ${PGID}
@@ -229,9 +225,9 @@ services:
         image: linuxserver/bazarr:latest
         restart: unless-stopped
         volumes:
-            - ~/mediaserver/bazarr/config:/config
-            - ~/mediaserver/movies:/movies
-            - ~/mediaserver/tv:/tv
+            - /mediaserver/bazarr/config:/config
+            - /mediaserver/movies:/movies
+            - /mediaserver/tv:/tv
         ports:
             - "6008:6767"
         environment:
@@ -250,7 +246,7 @@ services:
         image: v2tec/watchtower:latest
         restart: unless-stopped
         # Watch containers where `com.centurylinklabs.watchtower.enable: true`
-        # Update every Monday at 4 (4AM)
+        # Update every Monday at 4 AM
         # seconds - minutes - hours - day of month - month - day of week
         command: --label-enable --schedule "0 0 4 * * 1" --cleanup
         volumes:
@@ -259,7 +255,7 @@ services:
             TZ: ${TZ}
         networks:
             media-server:
-                ipv4_address: 172.60.0.10
+                ipv4_address: 172.60.0.9
     
 #     ### Portainer ###
 #     # Web UI for Docker Containers. Usefull for managing the server
@@ -272,8 +268,7 @@ services:
 #         ports:
 #             - "9000:9000"
 #         volumes:
-#             - ~/mediaserver/portainer/data:/data
-#             - ~/mediaserver/shared:/shared
+#             - /mediaserver/portainer/data:/data
 #             - /var/run/docker.sock:/var/run/docker.sock
 #         environment:
 #             PUID: ${PUID}
@@ -281,11 +276,13 @@ services:
 #             TZ: ${TZ}
 #         networks:
 #             media-server:
-#                 ipv4_address: 172.60.0.9
+#                 ipv4_address: 172.60.0.10
 
 networks:
     media-server:
         name: media-server
-        ipam:
+        ipam: # IP Address Management
+            driver: default
             config:
-                - subnet: 172.60.0.0/24
+                - subnet: 172.60.0.0/16
+                - gateway: 172.60.0.1
