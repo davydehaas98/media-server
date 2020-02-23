@@ -285,4 +285,3 @@ networks:
             driver: default
             config:
                 - subnet: 172.60.0.0/16
-                - gateway: 172.60.0.1
