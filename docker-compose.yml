@@ -6,6 +6,7 @@ services:
         container_name: plex
         image: linuxserver/plex:latest
         restart: unless-stopped
+        hostname: plex
         ports:
             # Plex Media Server
             - "32400:32400"
