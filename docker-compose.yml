@@ -188,7 +188,7 @@ services:
             TRANSMISSION_DOWNLOAD_DIR: /downloads/completed
             TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
             TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
-            TRANSMISSION_WATCH_DIR: /downloads
+            TRANSMISSION_WATCH_DIR: /downloads/watch
             TRANSMISSION_WATCH_DIR_ENABLED: "true"
             OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
             CREATE_TUN_DEVICE: "true"
