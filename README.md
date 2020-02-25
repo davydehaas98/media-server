@@ -47,9 +47,9 @@ You can create a new non-root user by using the command seen below. Change `<nam
 
 These commands will make sure your user can properly access the mediaserver files:
 
-`chown -R <name>:docker /home/<name>`
+`chown -R <name>:docker /mediaserver`
 
-`chmod -R 0755 /home/<name>`
+`chmod -R 0755 /mediaserver`
 
 ## Add Linux User to Docker Group
 Running and managing Docker containers requires sudo privileges. You can give the user these priviliges by using the following command:
@@ -70,7 +70,6 @@ Add the following as separate lines at the end of the file:
 PUID=999
 PGID=113
 TZ="America/New_York"
-USERDIR="/home/<name>"
 OPENVPN_USERNAME="username"
 OPENVPN_PASSWORD="password"
 TORRENT_USERNAME="username"
@@ -80,8 +79,6 @@ TORRENT_PASSWORD="password"
 `PUID` and `PGID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file. See more information about `PUID` and `PGID` [here](https://docs.linuxserver.io/general/understanding-puid-and-pgid).
 
 `TZ` is the timezone that you want to set for your containers. Get your TZ from this [Timezone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-
-`USERDIR` is the path to the home folder of the non-root user. Change `<name>` to the name of the user you created that will run docker.
 
 `OPENVPN_USERNAME` and `OPENVPN_PASSWORD` is used for logging into your VPN account.
 
