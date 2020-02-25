@@ -74,7 +74,7 @@ services:
             - "7878:7878"
         volumes:
             - /mediaserver/radarr/config:/config
-            - /mediaserver/downloads:/completed
+            - /mediaserver/downloads/completed:/downloads
             - /mediaserver/movies:/movies
         environment:
             PUID: ${PUID}
@@ -95,7 +95,7 @@ services:
             - "8989:8989"
         volumes:
             - /mediaserver/sonarr/config:/config
-            - /mediaserver/downloads:/completed
+            - /mediaserver/downloads/completed:/downloads
             - /mediaserver/tv:/tv
         environment:
             PUID: ${PUID}
@@ -137,7 +137,7 @@ services:
             - "9117:9117"
         volumes:
             - /mediaserver/jackett/config:/config/Jackett
-            - /mediaserver/downloads:/completed
+            - /mediaserver/downloads/completed:/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
