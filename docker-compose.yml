@@ -261,6 +261,5 @@ networks:
     media-server:
         name: media-server
         ipam: # IP Address Management
-            driver: default
             config:
                 - subnet: 172.60.0.0/16
