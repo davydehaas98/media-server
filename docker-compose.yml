@@ -137,7 +137,7 @@ services:
             - "9117:9117"
         volumes:
             - /mediaserver/jackett/config:/config/Jackett
-            - /mediaserver/downloads/completed:/completed
+            - /mediaserver/downloads/completed:/downloads
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
