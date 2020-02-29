@@ -72,7 +72,7 @@ services:
             - "7878:7878"
         volumes:
             - /mediaserver/radarr/config:/config
-            - /mediaserver/downloads:/downloads
+            - /mediaserver/downloads/completed:/downloads/completed
             - /mediaserver/movies:/movies
         environment:
             PUID: ${PUID}
@@ -93,7 +93,7 @@ services:
             - "8989:8989"
         volumes:
             - /mediaserver/sonarr/config:/config
-            - /mediaserver/downloads:/downloads
+            - /mediaserver/downloads/completed:/downloads/completed
             - /mediaserver/tv:/tv
         environment:
             PUID: ${PUID}
@@ -133,7 +133,7 @@ services:
             - "9117:9117"
         volumes:
             - /mediaserver/jackett/config:/config/Jackett
-            - /mediaserver/downloads:/downloads
+            - /mediaserver/downloads/completed:/downloads/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -166,7 +166,9 @@ services:
         volumes:
             - /mediaserver/transmission/config:/config
             - /mediaserver/transmission/data:/data
-            - /mediaserver/downloads:/downloads
+            - /mediaserver/downloads/watch:/downloads/watch
+            - /mediaserver/downloads/completed:/downloads/completed
+            - /mediaserver/downloads/incomplete:/downloads/incomplete
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -180,7 +182,7 @@ services:
             TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
             TRANSMISSION_UMASK: 022
-            TRANSMISSION_DOWNLOAD_DIR: /downloads
+            TRANSMISSION_DOWNLOAD_DIR: /downloads/completed
             TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
             TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
             TRANSMISSION_WATCH_DIR: /downloads/watch
