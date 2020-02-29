@@ -171,7 +171,7 @@ services:
         volumes:
             - /mediaserver/transmission/config:/config
             - /mediaserver/transmission/data:/data
-            - /mediaserver/downloads:/downloads
+            - /mediaserver/downloads/completed:/downloads/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
