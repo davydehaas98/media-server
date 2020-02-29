@@ -166,7 +166,7 @@ services:
         volumes:
             - /mediaserver/transmission/config:/config
             - /mediaserver/transmission/data:/data
-            - /mediaserver/downloads:/downloads/completed
+            - /mediaserver/downloads:/downloads
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -180,7 +180,7 @@ services:
             TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
             TRANSMISSION_UMASK: 022
-            TRANSMISSION_DOWNLOAD_DIR: /downloads/completed
+            TRANSMISSION_DOWNLOAD_DIR: /downloads
             TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
             TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
             TRANSMISSION_WATCH_DIR: /downloads/watch
