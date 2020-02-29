@@ -40,8 +40,7 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.2
+            - media-server
     
     ### Tautulli ###
     # Plex Monitor
@@ -61,8 +60,7 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.3
+            - media-server
         
     ### Radarr ###
     # Movie Downloader and Manager
@@ -74,7 +72,7 @@ services:
             - "7878:7878"
         volumes:
             - /mediaserver/radarr/config:/config
-            - /mediaserver/downloads/completed:/downloads
+            - /mediaserver/downloads:/downloads
             - /mediaserver/movies:/movies
         environment:
             PUID: ${PUID}
@@ -83,8 +81,8 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.4
+            - media-server
+
     ### Sonarr ###
     # Serie Downloader and Manager
     sonarr:
@@ -95,7 +93,7 @@ services:
             - "8989:8989"
         volumes:
             - /mediaserver/sonarr/config:/config
-            - /mediaserver/downloads/completed:/downloads
+            - /mediaserver/downloads:/downloads
             - /mediaserver/tv:/tv
         environment:
             PUID: ${PUID}
@@ -104,8 +102,7 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.5
+            - media-server
 
     ### Bazarr ###
     # Subtitles Downloader and Manager
@@ -124,8 +121,7 @@ services:
             PGID: ${PGID}
             TZ: ${TZ}
         networks:
-            media-server:
-                ipv4_address: 172.60.0.6
+            - media-server
     
     ### Jackett ###
     # Proxy Server for Sonarr & Radarr search queries
@@ -137,7 +133,7 @@ services:
             - "9117:9117"
         volumes:
             - /mediaserver/jackett/config:/config/Jackett
-            - /mediaserver/downloads/completed:/downloads
+            - /mediaserver/downloads:/downloads
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -145,8 +141,7 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.7
+            - media-server
     
     ### Transmission ###
     # Torrent Client with VPN
@@ -171,7 +166,7 @@ services:
         volumes:
             - /mediaserver/transmission/config:/config
             - /mediaserver/transmission/data:/data
-            - /mediaserver/downloads/completed:/downloads/completed
+            - /mediaserver/downloads:/downloads/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -206,9 +201,7 @@ services:
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
-            media-server:
-                ipv4_address: 172.60.0.8
-        
+            - media-server
 
 #    ### Deluge ###
 #    # Torrent Client without VPN
@@ -235,8 +228,7 @@ services:
 #        labels:
 #            com.centurylinklabs.watchtower.enable: true
 #        networks:
-#            media-server:
-#                ipv4_address: 172.60.0.8
+#            - media-server
     
     ### Watchtower ###
     # Automates Docker Image Updates
@@ -254,12 +246,9 @@ services:
         environment:
             TZ: ${TZ}
         networks:
-            media-server:
-                ipv4_address: 172.60.0.9
+            - media-server
 
 networks:
     media-server:
+        driver: bridge
         name: media-server
-        ipam: # IP Address Management
-            config:
-                - subnet: 172.60.0.0/16
