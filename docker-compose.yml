@@ -173,23 +173,23 @@ services:
             PUID: ${PUID}
             PGID: ${PGID}
             TZ: ${TZ}
-            TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: true
+            TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "true"
             TRANSMISSION_RPC_HOST_WHITELIST: 127.0.0.1,192.168.*.*
             TRANSMISSION_RPC_USERNAME: ${TORRENT_USERNAME}
             TRANSMISSION_RPC_PASSWORD: ${TORRENT_PASSWORD}
             TRANSMISSION_RATIO_LIMIT: 0.00
-            TRANSMISSION_RATIO_LIMIT_ENABLED: true
-            TRANSMISSION_RENAME_PARTIAL_FILES: true
+            TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
+            TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
             TRANSMISSION_UMASK: 022
             TRANSMISSION_DOWNLOAD_DIR: /downloads/completed
             TRANSMISSION_INCOMPLETE_DIR: /downloads/incomplete
-            TRANSMISSION_INCOMPLETE_DIR_ENABLED: true
+            TRANSMISSION_INCOMPLETE_DIR_ENABLED: "true"
             TRANSMISSION_WATCH_DIR: /downloads/watch
-            TRANSMISSION_WATCH_DIR_ENABLED: true
+            TRANSMISSION_WATCH_DIR_ENABLED: "true"
             OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
-            CREATE_TUN_DEVICE: true
-            WEBPROXY_ENABLED: false
+            CREATE_TUN_DEVICE: "true"
+            WEBPROXY_ENABLED: "false"
             # Get access to the WebUI without VPN
             LOCAL_NETWORK: 192.168.0.0/24
             # Set these variables to the preferred VPN
