@@ -21,7 +21,7 @@ Refresh the Ubuntu packages list:
 
 Install Docker Community Edition:
 
-`sudo apt-get install docker-ce`
+`sudo apt-get install docker-ce -y`
 
 You can check the installed version using the following command:
 
