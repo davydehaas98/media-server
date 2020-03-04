@@ -33,7 +33,7 @@ You can test your docker setup by using the following command:
 
 This command will download and run a test container.
 ## Install Docker Compose on Ubuntu
-Install the latest verstion of Docker Compose that is available using the curl command on GitHub [here](https://github.com/docker/compose/releases).
+Install the latest release of Docker Compose that is available using the curl command on GitHub [here](https://github.com/docker/compose/releases).
 
 You can check the installed version using the following command:
 
