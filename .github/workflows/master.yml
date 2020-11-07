@@ -1,4 +1,4 @@
-name: CI
+name: Deploy media-server
 
 on:
   push:
