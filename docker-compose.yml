@@ -240,9 +240,9 @@ services:
         image: v2tec/watchtower:latest
         restart: unless-stopped
         # Watch containers where `com.centurylinklabs.watchtower.enable: true`
-        # Update every Monday at 4 AM
+        # Update every day at 6 AM
         # seconds - minutes - hours - day of month - month - day of week
-        command: --label-enable --schedule "0 0 4 * * 1" --cleanup
+        command: --label-enable --schedule "0 0 6 * * *" --cleanup
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         environment:
