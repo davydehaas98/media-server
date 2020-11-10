@@ -197,7 +197,7 @@ services:
             OPENVPN_PASSWORD: ${OPENVPN_PASSWORD}
             # NordVPN specific settings
             OPENVPN_PROVIDER: NORDVPN
-            NORDVPN_COUNTRY: CH
+            NORDVPN_COUNTRY: UK
             NORDVPN_CATEGORY: P2P
             NORDVPN_PROTOCOL: tcp
         labels:
