@@ -178,7 +178,7 @@ services:
             TRANSMISSION_RPC_HOST_WHITELIST: 127.0.0.1,192.168.*.*
             TRANSMISSION_RPC_USERNAME: ${TORRENT_USERNAME}
             TRANSMISSION_RPC_PASSWORD: ${TORRENT_PASSWORD}
-            TRANSMISSION_RATIO_LIMIT: 0.00
+            TRANSMISSION_RATIO_LIMIT: 0
             TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
             TRANSMISSION_RENAME_PARTIAL_FILES: "true"
             # This will give the service read and execute permissions within the docker group
@@ -198,7 +198,7 @@ services:
             OPENVPN_PASSWORD: ${OPENVPN_PASSWORD}
             # NordVPN specific settings
             OPENVPN_PROVIDER: NORDVPN
-            NORDVPN_COUNTRY: UK
+            NORDVPN_COUNTRY: CH
             NORDVPN_CATEGORY: P2P
             NORDVPN_PROTOCOL: tcp
         labels:
