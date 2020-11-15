@@ -3,7 +3,7 @@ name: Deploy media-server
 on:
   push:
     branches: 
-    - master
+    - main
 
 env:
   TARGET_DIRECTORY: ./docker/media-server
