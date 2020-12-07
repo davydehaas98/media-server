@@ -32,11 +32,11 @@ services:
             HOSTNAME: "Plex Server"
             VERSION: docker
         volumes:
-            - /mediaserver/plex/config:/config
-            - /mediaserver/plex/transcode:/transcode
-            - /mediaserver/plex/data:/data
-            - /mediaserver/movies:/movies
-            - /mediaserver/tv:/tv
+            - /media-server/plex/config:/config
+            - /media-server/plex/transcode:/transcode
+            - /media-server/plex/data:/data
+            - /media-server/movies:/movies
+            - /media-server/tv:/tv
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
@@ -51,8 +51,8 @@ services:
         ports:
             - "8181:8181"
         volumes:
-            - /mediaserver/tautulli/config:/config
-            - /mediaserver/tautulli/logs:/logs:ro
+            - /media-server/tautulli/config:/config
+            - /media-server/tautulli/logs:/logs:ro
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -71,9 +71,9 @@ services:
         ports:
             - "7878:7878"
         volumes:
-            - /mediaserver/radarr/config:/config
-            - /mediaserver/downloads/completed:/downloads/completed
-            - /mediaserver/movies:/movies
+            - /media-server/radarr/config:/config
+            - /media-server/downloads/completed:/downloads/completed
+            - /media-server/movies:/movies
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -92,9 +92,9 @@ services:
         ports:
             - "8989:8989"
         volumes:
-            - /mediaserver/sonarr/config:/config
-            - /mediaserver/downloads/completed:/downloads/completed
-            - /mediaserver/tv:/tv
+            - /media-server/sonarr/config:/config
+            - /media-server/downloads/completed:/downloads/completed
+            - /media-server/tv:/tv
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -111,9 +111,9 @@ services:
         image: linuxserver/bazarr:latest
         restart: unless-stopped
         volumes:
-            - /mediaserver/bazarr/config:/config
-            - /mediaserver/movies:/movies
-            - /mediaserver/tv:/tv
+            - /media-server/bazarr/config:/config
+            - /media-server/movies:/movies
+            - /media-server/tv:/tv
         ports:
             - "6767:6767"
         environment:
@@ -132,8 +132,8 @@ services:
         ports:
             - "9117:9117"
         volumes:
-            - /mediaserver/jackett/config:/config/Jackett
-            - /mediaserver/downloads/completed:/downloads/completed
+            - /media-server/jackett/config:/config/Jackett
+            - /media-server/downloads/completed:/downloads/completed
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -165,11 +165,11 @@ services:
             - 1.0.0.1
             - 8.8.8.8
         volumes:
-            - /mediaserver/transmission/config:/config
-            - /mediaserver/transmission/data:/data
-            - /mediaserver/downloads/watch:/downloads/watch
-            - /mediaserver/downloads/completed:/downloads/completed
-            - /mediaserver/downloads/incomplete:/downloads/incomplete
+            - /media-server/transmission/config:/config
+            - /media-server/transmission/data:/data
+            - /media-server/downloads/watch:/downloads/watch
+            - /media-server/downloads/completed:/downloads/completed
+            - /media-server/downloads/incomplete:/downloads/incomplete
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -221,8 +221,8 @@ services:
 #            # Daemon remote port (Used for GTK applications)
 #            - "58846:58846"
 #        volumes:
-#            - /mediaserver/deluge/config:/config
-#            - /mediaserver/downloads:/root/Downloads
+#            - /media-server/deluge/config:/config
+#            - /media-server/downloads:/root/Downloads
 #        environment:
 #            PUID: ${PUID}
 #            PGID: ${PGID}
