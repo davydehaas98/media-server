@@ -36,7 +36,7 @@ services:
             - /media-server/plex/transcode:/transcode
             - /media-server/plex/data:/data
             - /media-server/movies:/movies
-            - /media-server/tv:/tv
+            - /media-server/series:/series
         labels:
             com.centurylinklabs.watchtower.enable: true
         networks:
@@ -94,7 +94,7 @@ services:
         volumes:
             - /media-server/sonarr/config:/config
             - /media-server/downloads/completed:/downloads/completed
-            - /media-server/tv:/tv
+            - /media-server/series:/series
         environment:
             PUID: ${PUID}
             PGID: ${PGID}
@@ -113,7 +113,7 @@ services:
         volumes:
             - /media-server/bazarr/config:/config
             - /media-server/movies:/movies
-            - /media-server/tv:/tv
+            - /media-server/series:/series
         ports:
             - "6767:6767"
         environment:
