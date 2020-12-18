@@ -7,6 +7,7 @@ on:
 
 env:
   TARGET_DIRECTORY: ./docker/media-server
+  TZ: Europe/Amsterdam
 
 jobs:
   deploy:
@@ -31,5 +32,6 @@ jobs:
         port: ${{ secrets.SSH_PORT }}
         script: |
           cd ${{ env.TARGET_DIRECTORY }}
+          echo 'TZ=${{ env.TZ }}' > .env
           docker-compose down
           docker-compose up -d
