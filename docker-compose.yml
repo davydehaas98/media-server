@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
     ### Plex ###
     # Media Server
@@ -120,6 +120,26 @@ services:
             PUID: ${PUID}
             PGID: ${PGID}
             TZ: ${TZ}
+        networks:
+            - media-server
+            
+    ### Ombi ###
+    # Plex Requests and user management system
+    ombi:
+        container_name: ombi
+        image: ghcr.io/linuxserver/ombi:latest
+        restart: unless-stopped
+        ports:
+            - "3579:3579"
+        volumes:
+            - /media-server/ombi/config:/config
+        environment:
+            PUID: ${PUID}
+            PGID: ${PGID}
+            TZ: ${TZ}
+            BASE_URL: /ombi #optional
+        labels:
+            com.centurylinklabs.watchtower.enable: true
         networks:
             - media-server
     
