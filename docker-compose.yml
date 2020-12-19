@@ -18,6 +18,7 @@ services:
             - /media-server/plex/transcode:/transcode
             - /media-server/plex/data:/data
             - /media-server/movies:/movies
+            - /media-server/music:/music
             - /media-server/series:/series
         ports:
             # Plex Media Server
