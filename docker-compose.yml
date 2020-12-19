@@ -127,7 +127,7 @@ services:
     # Plex Requests and user management system
     ombi:
         container_name: ombi
-        image: ghcr.io/linuxserver/ombi:latest
+        image: linuxserver/ombi
         restart: unless-stopped
         ports:
             - "3579:3579"
