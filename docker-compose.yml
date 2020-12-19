@@ -266,6 +266,7 @@ services:
             WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: |
                 https://discord.com/api/webhooks/789836022820372480/mXeqD8HIMpMAfX1Lpzsm-Ntx0PBD6njmYxeNf3NiON70SQIym1n1mqaeaGPCa0XC_3kv/slack
             WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: Watchtower
+            WATCHTOWER_NOTIFICATIONS_LEVEL: info
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         labels:
