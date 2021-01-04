@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  # Media server
+  plex:
+    container_name: plex
+    image: linuxserver/plex:latest
+    restart: unless-stopped
+    hostname: plex
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      HOSTNAME: "Plex Server"
+      VERSION: docker
+    volumes:
+    - /media-server/plex/config:/config
+    - /media-server/plex/transcode:/transcode
+    - /media-server/plex/data:/data
+    - /media-server/movies:/movies
+    - /media-server/music:/music
+    - /media-server/series:/series
+    ports:
+    # Plex Media Server
+    - "32400:32400"
+    # Plex DLNA Server
+    - "1900:1900/udp"
+    - "32469:32469"
+    # Plex Home Theater via Plex Companion
+    - "3005:3005"
+    # Older Bonjour/Avahi network discovery
+    #- "5353:5353/udp"
+    # Plex for Roku via Plex Companion
+    - "8324:8324"
+    # GDM network discovery
+    - "32469:32469/udp"
+    - "32410:32410/udp"
+    - "32412:32412/udp"
+    - "32413:32413/udp"
+    - "32414:32414/udp"
+    labels:
+      com.centurylinklabs.watchtower.enable: true
+    networks:
+    - media-server
+
+networks:
+  media-server:
+    driver: bridge
+    name: media-server
