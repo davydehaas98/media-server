@@ -33,6 +33,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
+          docker network create -d bridge media-server
           cd ${{ env.TARGET_DIRECTORY }}
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose down
