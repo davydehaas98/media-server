@@ -12,10 +12,9 @@ services:
       TZ: ${TZ}
     volumes:
     - /media-server/portainer/data:/data
-    - /media-server/shared:/shared
     - /var/run/docker.sock:/var/run/docker.sock
     ports:
-    - 9000:9000   
+    - 9000:9000
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     networks:
