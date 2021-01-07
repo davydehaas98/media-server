@@ -35,5 +35,5 @@ jobs:
         script: |
           cd ${{ env.TARGET_DIRECTORY }}/enabled
           echo 'TZ=${{ env.TZ }}' > .env
-          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
