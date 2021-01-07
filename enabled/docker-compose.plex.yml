@@ -16,9 +16,9 @@ services:
     - /media-server/plex/config:/config
     - /media-server/plex/transcode:/transcode
     - /media-server/plex/data:/data
-    - /media-server/movies:/movies
-    - /media-server/music:/music
-    - /media-server/series:/series
+    - /media-server/movies:/movies:ro
+    - /media-server/music:/music:ro
+    - /media-server/series:/series:ro
     ports:
     # Plex Media Server
     - 32400:32400
