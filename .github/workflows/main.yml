@@ -33,7 +33,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-          cd ${{ env.TARGET_DIRECTORY }}
+          cd ${{ env.TARGET_DIRECTORY }}/enabled
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose down
-          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
+          docker-compose $(find /docker-compose.*.yml | sed -e 's/^/-f /') up -d
