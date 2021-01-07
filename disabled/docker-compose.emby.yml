@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  emby:
+    image: ghcr.io/linuxserver/emby
+    container_name: emby
+    restart: unless-stopped
+    environment:
+      PGID: ${PGID}
+      PUID: ${PUID}
+      TZ: ${TZ}
+      UMASK_SET: 022
+    volumes:
+    - /media-server/emby/config:/config
+    - /media-server/emby/transcode:/transcode
+    - /media-server/movies:/movies
+    - /media-server/series:/series
+    # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
+    ports:
+    - 8096:8096 # HTTP Web UI
+    - 8920:8920 # HTTPS Web UI
+    # devices:
+    # - /dev/dri:/dev/dri # Intel/AMD GPU
+    # - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+    # - /dev/video10:/dev/video10 # Raspberry Pi V4L2
+    # - /dev/video11:/dev/video11 # Raspberry Pi V4L2
+    # - /dev/video12:/dev/video12 # Raspberry Pi V4L2
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

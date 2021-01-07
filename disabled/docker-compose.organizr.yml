@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  organizr:
+    image: organizr/organizr:latest
+    container_name: organizr
+    restart: unless-stopped
+    environment:
+      PGID: ${PGID}
+      PUID: ${PUID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/organizr/config:/config
+    ports:
+    - 9983:80
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server
