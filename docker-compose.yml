@@ -273,6 +273,6 @@ services:
         networks:
             - media-server
 networks:
-    media-server:
-        driver: bridge
-        name: media-server
+  media-server:
+    driver: bridge
+    name: media-server
