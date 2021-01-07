@@ -36,4 +36,4 @@ jobs:
           cd ${{ env.TARGET_DIRECTORY }}/enabled
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose down
-          docker-compose $(find /docker-compose.*.yml | sed -e 's/^/-f /') up -d
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
