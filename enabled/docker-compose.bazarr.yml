@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  # Subtitles downloader and manager
+  bazarr:
+    container_name: bazarr
+    image: linuxserver/bazarr:latest
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/bazarr/config:/config
+    - /media-server/movies:/movies
+    - /media-server/series:/series
+    ports:
+    - 6767:6767
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

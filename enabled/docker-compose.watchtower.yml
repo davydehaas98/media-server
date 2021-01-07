@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  # Automates Docker image updates
+  # where `com.centurylinklabs.watchtower.enable: "true"` is added to the container
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower:latest
+    restart: unless-stopped
+    # Watch containers where `com.centurylinklabs.watchtower.enable: "true"`
+    # Update every day at 6 AM
+    # seconds - minutes - hours - day of month - month - day of week
+    command: --label-enable --schedule "0 0 6 * * *" --cleanup
+    environment:
+      TZ: ${TZ}
+      WATCHTOWER_NOTIFICATIONS: slack
+      WATCHTOWER_NOTIFICATION_SLACK_HOOK_URL: "https://discord.com/api/webhooks/789836022820372480/mXeqD8HIMpMAfX1Lpzsm-Ntx0PBD6njmYxeNf3NiON70SQIym1n1mqaeaGPCa0XC_3kv/slack"
+      WATCHTOWER_NOTIFICATION_SLACK_IDENTIFIER: Watchtower
+      WATCHTOWER_NOTIFICATIONS_LEVEL: info
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+# Movie downloader and manager
+  radarr:
+    container_name: radarr
+    image: linuxserver/radarr:nightly
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/radarr/config:/config
+    - /media-server/downloads/completed:/downloads/completed
+    - /media-server/movies:/movies
+    ports:
+    - 7878:7878
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  # Web UI for Docker Containers. Usefull for managing the server
+  portainer:
+    container_name: portainer
+    image: portainer/portainer:latest
+    restart: unless-stopped
+    command: -H unix:///var/run/docker.sock
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/portainer/data:/data
+    - /media-server/shared:/shared
+    - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+    - 9000:9000
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

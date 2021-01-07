@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  # Plex monitor
+  tautulli:
+    container_name: tautulli
+    image: linuxserver/tautulli:latest
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/tautulli/config:/config
+    - /media-server/tautulli/logs:/logs:ro
+    ports:
+    - 8181:8181
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

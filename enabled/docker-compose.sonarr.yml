@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  # Serie downloader and manager
+  sonarr:
+    container_name: sonarr
+    image: linuxserver/sonarr:preview
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/sonarr/config:/config
+    - /media-server/downloads/completed:/downloads/completed
+    - /media-server/series:/series
+    ports:
+    - 8989:8989
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server

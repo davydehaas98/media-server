@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  # Music downloader and manager
+  lidarr:
+    container_name: lidarr
+    image: linuxserver/lidarr:latest
+    restart: unless-stopped
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/lidarr/config:/config
+    - /media-server/music:/music
+    - /media-server/downloads/completed:/downloads/completed
+    ports:
+    - 8686:8686
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server
