@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: SSH SCP | Copy docker-compose configuration
+    - name: SSH SCP | Copy container configurations
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -24,7 +24,7 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: "enabled/docker-compose.*.yml"
         target: ${{ env.TARGET_DIRECTORY }}
-    - name: SSH | Start container
+    - name: SSH | Start containers
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -35,5 +35,5 @@ jobs:
         script: |
           cd ${{ env.TARGET_DIRECTORY }}/enabled
           echo 'TZ=${{ env.TZ }}' > .env
-          docker-compose down
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
