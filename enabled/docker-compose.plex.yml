@@ -2,13 +2,13 @@ version: "3.7"
 services:
   # Media server
   plex:
-    container_name: plex
     image: linuxserver/plex:latest
+    container_name: plex
     restart: unless-stopped
     hostname: plex
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
       HOSTNAME: "Plex Server"
       VERSION: docker

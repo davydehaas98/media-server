@@ -2,12 +2,12 @@ version: "3.7"
 services:
   # Torrent Client without VPN
   deluge:
-    container_name: deluge
     image: linuxserver/deluge:latest
+    container_name: deluge
     restart: unless-stopped
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
       DELUGE_LOGLEVEL: error
     volumes:

@@ -2,12 +2,12 @@ version: "3.7"
 services:
   # Subtitles downloader and manager
   bazarr:
-    container_name: bazarr
     image: linuxserver/bazarr:latest
+    container_name: bazarr
     restart: unless-stopped
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
     volumes:
     - /media-server/bazarr/config:/config

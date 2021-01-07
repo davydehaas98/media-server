@@ -3,8 +3,8 @@ services:
   # Automates Docker image updates
   # where `com.centurylinklabs.watchtower.enable: "true"` is added to the container
   watchtower:
-    container_name: watchtower
     image: containrrr/watchtower:latest
+    container_name: watchtower
     restart: unless-stopped
     # Watch containers where `com.centurylinklabs.watchtower.enable: "true"`
     # Update every day at 6 AM

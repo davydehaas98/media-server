@@ -2,12 +2,12 @@ version: "3.7"
 services:
   # Music downloader and manager
   lidarr:
-    container_name: lidarr
     image: linuxserver/lidarr:latest
+    container_name: lidarr
     restart: unless-stopped
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
     volumes:
     - /media-server/lidarr/config:/config

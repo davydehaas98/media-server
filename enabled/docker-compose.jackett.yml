@@ -2,12 +2,12 @@ version: "3.7"
 services:
   # Proxy Server for Sonarr & Radarr search queries
   jackett:
-    container_name: jackett
     image: linuxserver/jackett:latest
+    container_name: jackett
     restart: unless-stopped
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
     volumes:
     - /media-server/jackett/config:/config/Jackett

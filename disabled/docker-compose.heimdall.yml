@@ -1,11 +1,11 @@
 version: "3.7"
 services:
   heimdall:
-    image: linuxserver/heimdall
+    image: linuxserver/heimdall:latest
     container_name: heimdall
     environment:
-      PUID: ${PUID}
       PGID: ${PGID}
+      PUID: ${PUID}
       TZ: ${TZ}
     volumes:
     - /media-server/heimdall/config:/config
