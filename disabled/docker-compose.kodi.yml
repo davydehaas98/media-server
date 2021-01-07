@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  kodi:
+    image: celedhrim/kodi-server:leia
+    container_name: kodi
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+    - /media-server/kodi/config:/config/.kodi
+    ports:
+    - 8080:8080 # Web UI
+    - 9090:9090 # Websockets
+    - 9777:9777/udp # Esall interface
+    restart: unless-stopped
+    labels:
+      com.centurylinklabs.watchtower.enable: "true"
+    networks:
+    - media-server
+networks:
+  media-server:
+    driver: bridge
+    name: media-server
