@@ -34,7 +34,7 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           cd ${{ env.TARGET_DIRECTORY }}
-          mv ./enabled/ ..
+          mv ./enabled/* ..
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
