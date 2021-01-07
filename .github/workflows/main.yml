@@ -6,7 +6,7 @@ on:
     - main
 
 env:
-  TARGET_DIRECTORY: ./docker/media-server
+  TARGET_DIRECTORY: /media-server
   TZ: Europe/Amsterdam
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: SSH SCP | Copy docker-compose.yml
+    - name: SSH SCP | Copy docker-compose configuration
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -22,7 +22,7 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "docker-compose.yml"
+        source: "enabled/docker-compose.*.yml"
         target: ${{ env.TARGET_DIRECTORY }}
     - name: SSH | Start container
       uses: appleboy/ssh-action@master
@@ -36,4 +36,4 @@ jobs:
           cd ${{ env.TARGET_DIRECTORY }}
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose down
-          docker-compose $(find docker* | sed -e 's/^/-f /') up -d
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
