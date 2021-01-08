@@ -29,8 +29,8 @@ services:
       # Get access to the WebUI without VPN
       LOCAL_NETWORK: 192.168.0.0/24
       # Set these variables to the preferred VPN
-      OPENVPN_USERNAME: ${OPENVPN_USERNAME}
-      OPENVPN_PASSWORD: ${OPENVPN_PASSWORD}
+      OPENVPN_USERNAME: ${VPN_USERNAME}
+      OPENVPN_PASSWORD: ${VPN_PASSWORD}
       # NordVPN specific settings
       OPENVPN_PROVIDER: NORDVPN
       NORDVPN_COUNTRY: CH
