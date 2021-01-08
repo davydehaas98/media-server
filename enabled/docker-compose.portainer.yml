@@ -2,7 +2,7 @@ version: "3.7"
 services:
   # Web UI for Docker Containers. Usefull for managing the server
   portainer:
-    image: portainer/portainer:latest
+    image: portainer/portainer-ce:alpine
     container_name: portainer
     restart: unless-stopped
     command: -H unix:///var/run/docker.sock
