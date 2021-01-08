@@ -37,5 +37,5 @@ jobs:
         script: |
           cd ${{ env.TARGET_DIRECTORY }}
           echo 'TZ=${{ env.TZ }}' > .env
-          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --rmi all
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --rmi local
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
