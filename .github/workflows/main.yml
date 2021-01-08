@@ -38,8 +38,8 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           cd ${{ env.TARGET_DIRECTORY }}
-          echo 'TZ=${{ env.TZ }}' > .env
-          echo 'PGID=${{ env.PGID }}' > .env
-          echo 'PUID=${{ env.PUID }}' > .env
+          echo 'TZ=${{ env.TZ }}' >> .env
+          echo 'PGID=${{ env.PGID }}' >> .env
+          echo 'PUID=${{ env.PUID }}' >> .env
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans --rmi local
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
