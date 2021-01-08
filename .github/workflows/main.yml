@@ -7,7 +7,7 @@ on:
 
 env:
   TARGET_DIRECTORY: /media-server
-  TZ: Europe/Amsterdam
+  TZ: America/New_York
 
 jobs:
   deploy:
