@@ -6,7 +6,7 @@ on:
     - main
 
 env:
-  TARGET_DIRECTORY: /media-server
+  TARGET_DIRECTORY: ./docker-compose/media-server
   TZ: America/New_York
 
 jobs:
@@ -22,8 +22,10 @@ jobs:
         username: ${{ secrets.SSH_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: ./enabled/docker-compose.*.yml
+        source: enabled/docker-compose.*.yml
         target: ${{ env.TARGET_DIRECTORY }}
+        strip_components: 1
+        rm: true
     - name: SSH | Start containers
       uses: appleboy/ssh-action@master
       with:
@@ -33,7 +35,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-          cd ${{ env.TARGET_DIRECTORY }}/enabled
+          cd ${{ env.TARGET_DIRECTORY }}
           echo 'TZ=${{ env.TZ }}' > .env
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
