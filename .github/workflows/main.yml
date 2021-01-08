@@ -9,7 +9,7 @@ env:
   TARGET_DIRECTORY: ./docker-compose/media-server
   PGID: 113
   PUID: 999
-  TZ: America/New_York
+  TZ: "America/New_York"
 
 jobs:
   deploy:
@@ -41,5 +41,5 @@ jobs:
           echo 'TZ=${{ env.TZ }}' >> .env
           echo 'PGID=${{ env.PGID }}' >> .env
           echo 'PUID=${{ env.PUID }}' >> .env
-          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans --rmi local
+          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
