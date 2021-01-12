@@ -37,6 +37,12 @@ services:
     - 32412:32412/udp
     - 32413:32413/udp
     - 32414:32414/udp
+    devices:
+    - /dev/dri:/dev/dri # Intel/AMD GPU
+    # - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+    # - /dev/video10:/dev/video10 # Raspberry Pi V4L2
+    # - /dev/video11:/dev/video11 # Raspberry Pi V4L2
+    # - /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     networks:
