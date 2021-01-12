@@ -2,7 +2,7 @@ version: "3.7"
 services:
   # Plex monitor
   tautulli:
-    image: linuxserver/tautulli:latest
+    image: linuxserver/tautulli:develop
     container_name: tautulli
     restart: unless-stopped
     environment:

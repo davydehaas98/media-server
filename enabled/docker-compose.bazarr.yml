@@ -2,7 +2,7 @@ version: "3.7"
 services:
   # Subtitles downloader and manager
   bazarr:
-    image: linuxserver/bazarr:latest
+    image: linuxserver/bazarr:development
     container_name: bazarr
     restart: unless-stopped
     environment:

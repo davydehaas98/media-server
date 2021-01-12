@@ -2,7 +2,7 @@ version: "3.7"
 services:
   # Proxy Server for Sonarr & Radarr search queries
   jackett:
-    image: linuxserver/jackett:latest
+    image: linuxserver/jackett:development
     container_name: jackett
     restart: unless-stopped
     environment:
