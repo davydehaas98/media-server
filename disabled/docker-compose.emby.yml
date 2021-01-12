@@ -14,16 +14,16 @@ services:
     - /media-server/emby/transcode:/transcode
     - /media-server/movies:/movies:ro
     - /media-server/series:/series:ro
-    # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
+    #- /opt/vc/lib:/opt/vc/lib # OpenMAX lib
     ports:
     - 8096:8096 # HTTP Web UI
     - 8920:8920 # HTTPS Web UI
     # devices:
-    # - /dev/dri:/dev/dri # Intel/AMD GPU
-    # - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
-    # - /dev/video10:/dev/video10 # Raspberry Pi V4L2
-    # - /dev/video11:/dev/video11 # Raspberry Pi V4L2
-    # - /dev/video12:/dev/video12 # Raspberry Pi V4L2
+    #- /dev/dri:/dev/dri # Intel/AMD GPU
+    #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+    #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
+    #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
+    #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
       com.centurylinklabs.watchtower.enable: "true"
     networks:
