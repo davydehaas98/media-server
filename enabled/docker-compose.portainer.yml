@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
   # Web UI for Docker containers
   # Useful for managing all the containers on the server
