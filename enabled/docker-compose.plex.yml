@@ -45,6 +45,8 @@ services:
     #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
     - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
     networks:
     - media-server
 networks:

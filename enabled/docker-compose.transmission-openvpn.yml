@@ -48,6 +48,10 @@ services:
     # Torrent Port
     - 51413:51413
     - 51413:51413/udp
+    labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
     cap_add:
     - NET_ADMIN
     devices:
@@ -56,8 +60,6 @@ services:
     dns:
     - 1.1.1.1
     - 1.0.0.1
-    labels:
-    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

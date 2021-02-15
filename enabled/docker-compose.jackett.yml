@@ -16,6 +16,8 @@ services:
     - 9117:9117
     labels:
     - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
     networks:
     - media-server
 networks:
