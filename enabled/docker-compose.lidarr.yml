@@ -6,9 +6,9 @@ services:
     container_name: lidarr
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/lidarr/config:/config
     - /media-server/music:/music
@@ -16,7 +16,7 @@ services:
     ports:
     - 8686:8686
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

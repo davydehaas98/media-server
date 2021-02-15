@@ -1,17 +1,17 @@
 version: "3.7"
 services:
-  # Media server
+  # Media stream service
   plex:
     image: linuxserver/plex:latest
     container_name: plex
     restart: unless-stopped
     hostname: plex
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
-      HOSTNAME: "Plex Server"
-      VERSION: docker
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    - HOSTNAME=Plex Server
+    - VERSION=docker
     volumes:
     - /media-server/plex/config:/config
     - /media-server/plex/transcode:/transcode
@@ -44,7 +44,7 @@ services:
     #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
     #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

@@ -5,9 +5,9 @@ services:
     container_name: kodi
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/kodi/config:/config/.kodi
     ports:
@@ -15,7 +15,7 @@ services:
     - 9090:9090 # Websockets
     - 9777:9777/udp # Esall interface
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

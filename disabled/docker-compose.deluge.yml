@@ -1,15 +1,15 @@
 version: "3.7"
 services:
-  # Torrent Client without VPN
+  # Torrent client without VPN
   deluge:
     image: linuxserver/deluge:latest
     container_name: deluge
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
-      DELUGE_LOGLEVEL: error
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    - DELUGE_LOGLEVEL=error
     volumes:
     - /media-server/deluge/config:/config
     - /media-server/downloads:/root/Downloads
@@ -22,7 +22,7 @@ services:
     # Daemon remote port (Used for GTK applications)
     - 58846:58846
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

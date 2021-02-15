@@ -1,25 +1,26 @@
 version: "3.7"
 services:
+  # Docker update notifier
   diun:
     image: crazymax/diun:latest
     container_name: diun
     restart: unless-stopped
     environment:
-      TZ: ${TZ}
-      LOG_LEVEL: info
-      LOG_JSON: "false"
-      DIU_NOTIF_SLACK_WEBHOOKURL: https://discord.com/api/webhooks/798632410349699165/9wYRGCWHO2o18NIFi20h9bG_h13YiES2jRDi-ymtrTYE7p7SeOQDv7DREgLwQkf15Rz7/slack
-      DIUN_PROVIDERS_DOCKER: "true"
-      DIUN_PROVIDERS_DOCKER_WATCHSTOPPED: "true"
-      DIUN_WATCH_WORKERS: 20
-      DIUN_WATCH_SCHEDULE: 0 */6 * * *
+    - TZ=${TZ}
+    - LOG_LEVEL=info
+    - LOG_JSON=false
+    - DIU_NOTIF_SLACK_WEBHOOKURL=https://discord.com/api/webhooks/798632410349699165/9wYRGCWHO2o18NIFi20h9bG_h13YiES2jRDi-ymtrTYE7p7SeOQDv7DREgLwQkf15Rz7/slack
+    - DIUN_PROVIDERS_DOCKER=true
+    - DIUN_PROVIDERS_DOCKER_WATCHSTOPPED=true
+    - DIUN_WATCH_WORKERS=20
+    - DIUN_WATCH_SCHEDULE=0 */6 * * *
     volumes:
-      - /media-server/diun/data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
+    - /media-server/diun/data:/data
+    - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      diun.enable: "true"
-      diun.watch_repo: "true"
-      com.centurylinklabs.watchtower.enable: "true"
+    - diun.enable=true
+    - diun.watch_repo=true
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

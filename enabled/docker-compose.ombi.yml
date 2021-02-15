@@ -6,15 +6,15 @@ services:
     container_name: ombi
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/ombi/config:/config
     ports:
     - 3579:3579
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

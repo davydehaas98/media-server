@@ -6,9 +6,9 @@ services:
     container_name: bazarr
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/bazarr/config:/config
     - /media-server/movies:/movies
@@ -16,7 +16,7 @@ services:
     ports:
     - 6767:6767
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

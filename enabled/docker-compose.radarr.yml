@@ -6,9 +6,9 @@ services:
     container_name: radarr
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/radarr/config:/config
     - /media-server/downloads/completed:/downloads/completed
@@ -16,7 +16,7 @@ services:
     ports:
     - 7878:7878
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

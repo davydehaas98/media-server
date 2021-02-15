@@ -1,14 +1,15 @@
 version: "3.7"
 services:
+  # Media stream service
   emby:
     image: ghcr.io/linuxserver/emby
     container_name: emby
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
-      UMASK_SET: 022
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    - UMASK_SET=022
     volumes:
     - /media-server/emby/config:/config
     - /media-server/emby/transcode:/transcode
@@ -25,7 +26,7 @@ services:
     #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
     #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

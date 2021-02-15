@@ -4,9 +4,9 @@ services:
     image: linuxserver/heimdall:latest
     container_name: heimdall
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/heimdall/config:/config
     ports:
@@ -14,7 +14,7 @@ services:
     - 443:443
     restart: unless-stopped
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:

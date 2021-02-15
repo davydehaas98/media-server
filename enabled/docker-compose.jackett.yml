@@ -1,21 +1,21 @@
 version: "3.7"
 services:
-  # Proxy Server for Sonarr & Radarr search queries
+  # Proxy Server for Sonarr and Radarr search queries
   jackett:
     image: linuxserver/jackett:development
     container_name: jackett
     restart: unless-stopped
     environment:
-      PGID: ${PGID}
-      PUID: ${PUID}
-      TZ: ${TZ}
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
     volumes:
     - /media-server/jackett/config:/config/Jackett
     - /media-server/downloads/completed:/downloads/completed
     ports:
     - 9117:9117
     labels:
-      com.centurylinklabs.watchtower.enable: "true"
+    - com.centurylinklabs.watchtower.enable=true
     networks:
     - media-server
 networks:
