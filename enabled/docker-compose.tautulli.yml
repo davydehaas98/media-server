@@ -11,7 +11,8 @@ services:
     - TZ=${TZ}
     volumes:
     - /media-server/tautulli/config:/config
-    - /media-server/tautulli/logs:/logs:ro
+    - /media-server/tautulli/logs:/logs
+    - /media-server/plex/config:/plex/config:ro
     ports:
     - 8181:8181
     labels:
