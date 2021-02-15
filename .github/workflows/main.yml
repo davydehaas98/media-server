@@ -43,9 +43,9 @@ jobs:
         script: |
           cd ${{ env.TARGET_DIRECTORY }}
           
-          echo 'TZ=${{ env.TZ }}' >> .env
           echo 'PGID=${{ env.PGID }}' >> .env
           echo 'PUID=${{ env.PUID }}' >> .env
+          echo 'TZ=${{ env.TZ }}' >> .env
           echo 'TORRENT_USERNAME=${{ env.TORRENT_USERNAME }}' >> .env
           echo 'TORRENT_PASSWORD=${{ env.TORRENT_PASSWORD }}' >> .env
           echo 'VPN_USERNAME=${{ env.VPN_USERNAME }}' >> .env
