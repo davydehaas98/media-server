@@ -15,9 +15,3 @@ services:
     restart: unless-stopped
     labels:
     - com.centurylinklabs.watchtower.enable=true
-    networks:
-    - media-server
-networks:
-  media-server:
-    driver: bridge
-    name: media-server

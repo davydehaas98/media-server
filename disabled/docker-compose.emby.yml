@@ -27,9 +27,3 @@ services:
     #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
     - com.centurylinklabs.watchtower.enable=true
-    networks:
-    - media-server
-networks:
-  media-server:
-    driver: bridge
-    name: media-server

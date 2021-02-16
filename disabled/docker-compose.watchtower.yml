@@ -20,9 +20,3 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     labels:
     - com.centurylinklabs.watchtower.enable=true
-    networks:
-    - media-server
-networks:
-  media-server:
-    driver: bridge
-    name: media-server

@@ -60,9 +60,3 @@ services:
     dns:
     - 1.1.1.1
     - 1.0.0.1
-    networks:
-    - media-server
-networks:
-  media-server:
-    driver: bridge
-    name: media-server
