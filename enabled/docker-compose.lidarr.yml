@@ -13,8 +13,8 @@ services:
     - /media-server/lidarr/config:/config
     - /media-server/music:/music
     - /media-server/downloads/completed:/downloads/completed
-    ports:
-    - 8686:8686
+    expose:
+    - 8686
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

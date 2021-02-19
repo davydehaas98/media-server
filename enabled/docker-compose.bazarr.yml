@@ -13,8 +13,8 @@ services:
     - /media-server/bazarr/config:/config
     - /media-server/movies:/movies
     - /media-server/series:/series
-    ports:
-    - 6767:6767
+    expose:
+    - 6767
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

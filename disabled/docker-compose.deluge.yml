@@ -23,3 +23,5 @@ services:
     - 58846:58846
     labels:
     - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true

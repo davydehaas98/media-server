@@ -13,8 +13,8 @@ services:
     - /media-server/radarr/config:/config
     - /media-server/downloads/completed:/downloads/completed
     - /media-server/movies:/movies
-    ports:
-    - 7878:7878
+    expose:
+    - 7878
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

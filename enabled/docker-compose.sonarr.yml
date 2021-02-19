@@ -13,8 +13,8 @@ services:
     - /media-server/sonarr/config:/config
     - /media-server/downloads/completed:/downloads/completed
     - /media-server/series:/series
-    ports:
-    - 8989:8989
+    expose:
+    - 8989
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

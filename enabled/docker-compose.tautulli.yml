@@ -13,8 +13,8 @@ services:
     - /media-server/tautulli/config:/config
     - /media-server/tautulli/logs:/logs
     - /media-server/plex/config:/plex/config:ro
-    ports:
-    - 8181:8181
+    expose:
+    - 8181
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

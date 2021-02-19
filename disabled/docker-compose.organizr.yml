@@ -9,8 +9,10 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/organizr/config:/config
-    ports:
-    - 9983:80
+    - /server/organizr/config:/config
+    expose:
+    - 80
     labels:
     - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
