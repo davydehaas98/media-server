@@ -53,3 +53,5 @@ jobs:
 
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') down --remove-orphans
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
+          
+          docker restart reverse-proxy
