@@ -12,8 +12,8 @@ services:
     volumes:
     - /media-server/jackett/config:/config/Jackett
     - /media-server/downloads/completed:/downloads/completed
-    ports:
-    - 9117:9117
+    expose:
+    - 9117
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
