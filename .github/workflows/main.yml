@@ -52,5 +52,3 @@ jobs:
           echo 'VPN_PASSWORD=${{ env.VPN_PASSWORD }}' >> .env
 
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
-          
-          docker restart reverse-proxy

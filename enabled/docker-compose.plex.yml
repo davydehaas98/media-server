@@ -10,7 +10,7 @@ services:
     - PGID=${PGID}
     - PUID=${PUID}
     - TZ=${TZ}
-    - HOSTNAME=Yggdrasile
+    - HOSTNAME=Yggdrasil
     - VERSION=docker
     volumes:
     - /media-server/plex/config:/config
