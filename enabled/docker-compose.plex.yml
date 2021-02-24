@@ -19,9 +19,10 @@ services:
     - /media-server/movies:/movies:ro
     - /media-server/music:/music:ro
     - /media-server/series:/series:ro
-    ports:
+    expose:
     # Plex Media Server
-    - 32400:32400
+    - 32400
+    ports:
     # Plex DLNA Server
     - 1900:1900/udp
     - 32469:32469

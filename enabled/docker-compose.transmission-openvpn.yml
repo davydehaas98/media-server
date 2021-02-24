@@ -42,9 +42,10 @@ services:
     - /media-server/downloads/watch:/downloads/watch
     - /media-server/downloads/completed:/downloads/completed
     - /media-server/downloads/incomplete:/downloads/incomplete
-    ports:
+    expose:
     # Web UI
-    - 9091:9091
+    - 9091
+    ports:
     # Torrent Port
     - 51413:51413
     - 51413:51413/udp
