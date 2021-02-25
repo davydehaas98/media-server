@@ -12,6 +12,7 @@ services:
     - TZ=${TZ}
     - HOSTNAME=Yggdrasil
     - VERSION=docker
+    # - PLEX_CLAIM=<claim> #https://www.plex.tv/claim/
     volumes:
     - /media-server/plex/config:/config
     - /media-server/plex/transcode:/transcode
@@ -23,6 +24,8 @@ services:
     # Plex Media Server
     - 32400
     ports:
+    # Plex Media Server
+    # - 32400:32400
     # Plex DLNA Server
     - 1900:1900/udp
     - 32469:32469
@@ -38,8 +41,8 @@ services:
     - 32412:32412/udp
     - 32413:32413/udp
     - 32414:32414/udp
-    #devices:
-    #- /dev/dri:/dev/dri # Intel/AMD GPU
+    devices:
+    - /dev/dri:/dev/dri # Intel/AMD GPU
     #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
     #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
     #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
