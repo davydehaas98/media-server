@@ -11,8 +11,8 @@ services:
     - TZ=${TZ}
     volumes:
     - /media-server/radarr/config:/config
-    - /media-server/downloads/completed:/downloads/completed
-    - /media-server/movies:/movies
+    - /mnt/raid1/media-server/downloads/completed:/downloads/completed
+    - /mnt/raid1/media-server/movies:/movies
     expose:
     - 7878
     labels:

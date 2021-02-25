@@ -13,8 +13,8 @@ services:
     volumes:
     - /media-server/emby/config:/config
     - /media-server/emby/transcode:/transcode
-    - /media-server/movies:/movies:ro
-    - /media-server/series:/series:ro
+    - /mnt/raid1/media-server/movies:/movies:ro
+    - /mnt/raid1/media-server/series:/series:ro
     #- /opt/vc/lib:/opt/vc/lib # OpenMAX lib
     ports:
     - 8096:8096 # HTTP Web UI

@@ -11,7 +11,7 @@ services:
     - TZ=${TZ}
     volumes:
     - /media-server/jackett/config:/config/Jackett
-    - /media-server/downloads/completed:/downloads/completed
+    - /mnt/raid1/media-server/downloads/completed:/downloads/completed
     expose:
     - 9117
     labels:

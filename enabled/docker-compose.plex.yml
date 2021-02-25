@@ -17,9 +17,9 @@ services:
     - /media-server/plex/config:/config
     - /media-server/plex/transcode:/transcode
     - /media-server/plex/data:/data
-    - /media-server/movies:/movies:ro
-    - /media-server/music:/music:ro
-    - /media-server/series:/series:ro
+    - /mnt/raid1/media-server/movies:/movies:ro
+    - /mnt/raid1/media-server/music:/music:ro
+    - /mnt/raid1/media-server/series:/series:ro
     expose:
     # Plex Media Server
     - 32400
