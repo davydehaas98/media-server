@@ -20,12 +20,12 @@ services:
     - /mnt/raid1/media-server/movies:/movies:ro
     - /mnt/raid1/media-server/music:/music:ro
     - /mnt/raid1/media-server/series:/series:ro
-    expose:
-    # Plex Media Server
-    - 32400
+    # expose:
+    # # Plex Media Server
+    # - 32400
     ports:
     # Plex Media Server
-    # - 32400:32400
+    - 32400:32400
     # Plex DLNA Server
     - 1900:1900/udp
     - 32469:32469
