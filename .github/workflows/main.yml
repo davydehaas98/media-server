@@ -7,8 +7,8 @@ on:
 
 env:
   TARGET_DIRECTORY: ./docker-compose/media-server
-  PGID: 113
-  PUID: 999
+  PGID: 998
+  PUID: 997
   TZ: "Europe/Amsterdam"
   TORRENT_USERNAME: ${{ secrets.TORRENT_USERNAME }}
   TORRENT_PASSWORD: ${{ secrets.TORRENT_PASSWORD }}
