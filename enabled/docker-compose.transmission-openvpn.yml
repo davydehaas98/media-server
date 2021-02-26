@@ -11,6 +11,7 @@ services:
     - TZ=${TZ}
     - CREATE_TUN_DEVICE=true
     - DROP_DEFAULT_ROUTE=true
+    - HEALTH_CHECK_HOST=twitter.com
       # Get access to the WebUI without VPN
     - LOCAL_NETWORK=192.168.0.0/24
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
@@ -42,7 +43,7 @@ services:
     - TRANSMISSION_UMASK=022
     - TRANSMISSION_WATCH_DIR=/downloads/watch
     - TRANSMISSION_WATCH_DIR_ENABLED=true
-    - TRANSMISSION_WEB_UI=flood
+    - TRANSMISSION_WEB_UI=flood # combustion, kettu, transmission-web-control or flood
     - WEBPROXY_ENABLED=false
     volumes:
     - /media-server/transmission/config:/config
@@ -63,9 +64,6 @@ services:
     - diun.watch_repo=true
     cap_add:
     - NET_ADMIN
-    # devices:
-    # # See (https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
-    # - /dev/net/tun
     dns:
     - 1.1.1.1
     - 1.0.0.1
