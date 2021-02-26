@@ -9,25 +9,11 @@ services:
     - PGID=${PGID}
     - PUID=${PUID}
     - TZ=${TZ}
-    - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
-    - TRANSMISSION_RPC_HOST_WHITELIST=127.0.0.1,192.168.*.*
-    - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
-    - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
-    - TRANSMISSION_RATIO_LIMIT=0
-    - TRANSMISSION_RATIO_LIMIT_ENABLED=true
-    - TRANSMISSION_RENAME_PARTIAL_FILES=true
-      # This will give the service read and execute permissions within the docker group
-    - TRANSMISSION_UMASK=022
-    - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
-    - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
-    - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
-    - TRANSMISSION_WATCH_DIR=/downloads/watch
-    - TRANSMISSION_WATCH_DIR_ENABLED=true
-    - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - CREATE_TUN_DEVICE=true
-    - WEBPROXY_ENABLED=false
+    - DROP_DEFAULT_ROUTE=true
       # Get access to the WebUI without VPN
     - LOCAL_NETWORK=192.168.0.0/24
+    - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
       # Set these variables to the preferred VPN
     - OPENVPN_USERNAME=${VPN_USERNAME}
     - OPENVPN_PASSWORD=${VPN_PASSWORD}
@@ -36,6 +22,28 @@ services:
     - NORDVPN_COUNTRY=CH
     - NORDVPN_CATEGORY=P2P
     - NORDVPN_PROTOCOL=tcp
+    - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
+    - TRANSMISSION_ENCRYPTION=2 # Require encrypted connections
+    - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+    - TRANSMISSION_RPC_HOST_WHITELIST=127.0.0.1,192.168.*.*
+    - TRANSMISSION_RPC_HOST_WHITELIST_ENABLED=true
+    - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
+    - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
+    - TRANSMISSION_SPEED_LIMIT_UP=0
+    - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
+    - TRANSMISSION_RATIO_LIMIT=0
+    - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+    - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
+    - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
+    - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+    - TRANSMISSION_RENAME_PARTIAL_FILES=true
+    - TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=true
+      # This will give the service read and execute permissions within the docker group
+    - TRANSMISSION_UMASK=022
+    - TRANSMISSION_WATCH_DIR=/downloads/watch
+    - TRANSMISSION_WATCH_DIR_ENABLED=true
+    - TRANSMISSION_WEB_UI=flood
+    - WEBPROXY_ENABLED=false
     volumes:
     - /media-server/transmission/config:/config
     - /media-server/transmission/data:/data
@@ -46,7 +54,7 @@ services:
     # Web UI
     - 9091
     ports:
-    # Torrent Port
+    # Torrent Ports
     - 51413:51413
     - 51413:51413/udp
     labels:
@@ -55,9 +63,9 @@ services:
     - diun.watch_repo=true
     cap_add:
     - NET_ADMIN
-    devices:
-    # See (https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
-    - /dev/net/tun
+    # devices:
+    # # See (https://www.kernel.org/doc/Documentation/networking/tuntap.txt)
+    # - /dev/net/tun
     dns:
     - 1.1.1.1
     - 1.0.0.1
