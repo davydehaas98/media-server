@@ -41,16 +41,13 @@ services:
     - TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=true
       # This will give the service read and execute permissions within the docker group
     - TRANSMISSION_UMASK=022
-    - TRANSMISSION_WATCH_DIR=/downloads/watch
-    - TRANSMISSION_WATCH_DIR_ENABLED=true
     - TRANSMISSION_WEB_UI=flood # combustion, kettu, transmission-web-control or flood
     - WEBPROXY_ENABLED=false
     volumes:
     - /media-server/transmission/config:/config
     - /media-server/transmission/data:/data
-    - /mnt/raid1/media-server/downloads/watch:/downloads/watch
-    - /mnt/raid1/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid1/media-server/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media-server/downloads/completed:/downloads/completed
+    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
     # Web UI
     - 9091

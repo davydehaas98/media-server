@@ -11,8 +11,8 @@ services:
     - TZ=${TZ}
     volumes:
     - /media-server/bazarr/config:/config
-    - /mnt/raid1/media-server/movies:/movies
-    - /mnt/raid1/media-server/series:/series
+    - /mnt/raid/media-server/movies:/movies
+    - /mnt/raid/media-server/series:/series
     expose:
     - 6767
     labels:
