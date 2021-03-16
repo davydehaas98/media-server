@@ -51,3 +51,8 @@ services:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
     - diun.watch_repo=true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f https://plex.davydehaas.nl/identity || exit 1"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
