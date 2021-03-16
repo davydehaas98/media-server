@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Plex requests and user management system
   ombi:
-    image: linuxserver/ombi:v4-preview
+    image: linuxserver/ombi:development
     container_name: ombi
     restart: unless-stopped
     environment:
