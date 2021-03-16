@@ -10,10 +10,6 @@ env:
   PGID: 998
   PUID: 997
   TZ: "Europe/Amsterdam"
-  TORRENT_USERNAME: ${{ secrets.TORRENT_USERNAME }}
-  TORRENT_PASSWORD: ${{ secrets.TORRENT_PASSWORD }}
-  VPN_USERNAME: ${{ secrets.VPN_USERNAME }}
-  VPN_PASSWORD: ${{ secrets.VPN_PASSWORD }}
 
 jobs:
   deploy:
@@ -46,9 +42,15 @@ jobs:
           echo 'PGID=${{ env.PGID }}' >> .env
           echo 'PUID=${{ env.PUID }}' >> .env
           echo 'TZ=${{ env.TZ }}' >> .env
-          echo 'TORRENT_USERNAME=${{ env.TORRENT_USERNAME }}' >> .env
-          echo 'TORRENT_PASSWORD=${{ env.TORRENT_PASSWORD }}' >> .env
-          echo 'VPN_USERNAME=${{ env.VPN_USERNAME }}' >> .env
-          echo 'VPN_PASSWORD=${{ env.VPN_PASSWORD }}' >> .env
+          
+          echo 'TORRENT_USERNAME=${{ secrets.TORRENT_USERNAME }}' >> .env
+          echo 'TORRENT_PASSWORD=${{ secrets.TORRENT_PASSWORD }}' >> .env
+          echo 'VPN_USERNAME=${{ secrets.VPN_USERNAME }}' >> .env
+          echo 'VPN_PASSWORD=${{ secrets.VPN_PASSWORD }}' >> .env
+          
+          echo 'API_KEY_BAZARR=${{ secrets.API_KEY_BAZARR }}' >> .env
+          echo 'API_KEY_LIDARR=${{ secrets.API_KEY_LIDARR }}' >> .env
+          echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
+          echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
 
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
