@@ -19,8 +19,8 @@ services:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
     - diun.watch_repo=true
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f https://movies.davydehaas.nl/api/system/status?apikey=${API_KEY_RADARR} || exit 1"]
-      interval: 60s
-      timeout: 10s
-      retries: 2
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl -f https://movies.davydehaas.nl/api/system/status?apikey=${API_KEY_RADARR} || exit 1"]
+    #   interval: 60s
+    #   timeout: 10s
+    #   retries: 2
