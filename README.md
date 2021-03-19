@@ -47,9 +47,9 @@ You can create a new non-root user by using the command seen below. Change `<nam
 
 These commands will make sure your user can properly access the mediaserver files:
 
-`chown -R <name>:docker /media-server`
+`chown -R <name>:docker /mnt/raid/media-server`
 
-`chmod -R 0755 /media-server`
+`chmod -R 0755 /mnt/raid/media-server`
 
 ## Add Linux User to Docker Group
 Running and managing Docker containers requires sudo privileges. You can give the user these priviliges by using the following command:
