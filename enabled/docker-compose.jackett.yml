@@ -5,6 +5,8 @@ services:
     image: linuxserver/jackett:development
     container_name: jackett
     restart: unless-stopped
+    cpus: 1
+    mem_limit: 1G
     environment:
     - PGID=${PGID}
     - PUID=${PUID}

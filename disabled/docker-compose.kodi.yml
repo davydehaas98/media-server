@@ -4,6 +4,8 @@ services:
     image: celedhrim/kodi-server:leia
     container_name: kodi
     restart: unless-stopped
+    cpus: 4
+    mem_limit: 8G
     environment:
     - PGID=${PGID}
     - PUID=${PUID}
