@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Media stream service
   emby:
-    image: ghcr.io/linuxserver/emby
+    image: ghcr.io/linuxserver/emby:latest
     container_name: emby
     restart: unless-stopped
     cpus: 4

@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Proxy Server for Sonarr and Radarr search queries
   jackett:
-    image: linuxserver/jackett:development
+    image: linuxserver/jackett:latest
     container_name: jackett
     restart: unless-stopped
     cpus: 1
