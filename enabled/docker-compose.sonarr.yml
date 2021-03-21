@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Serie downloader and manager
   sonarr:
-    image: linuxserver/sonarr:preview
+    image: linuxserver/sonarr:latest
     container_name: sonarr
     restart: unless-stopped
     cpus: 1
