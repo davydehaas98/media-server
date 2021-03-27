@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Music downloader and manager
   lidarr:
-    image: linuxserver/lidarr:development
+    image: linuxserver/lidarr:latest
     container_name: lidarr
     restart: unless-stopped
     cpus: 1
