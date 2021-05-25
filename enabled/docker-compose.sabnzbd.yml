@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   sabnzbd:
-    image: linuxserver/sabnzbd
+    image: linuxserver/sabnzbd:latest
     container_name: sabnzbd
     restart: unless-stopped
     cpus: 1
@@ -12,8 +12,8 @@ services:
     - TZ=${TZ}
     volumes:
     - /media-server/sabnzbd:/config
-    - /mnt/raid/media-server/downloads/completed:/downloads
-    - /mnt/raid/media-server/downloads/incomplete:/incomplete-downloads
+    - /mnt/raid/media-server/downloads/completed:/downloads/completed
+    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
     - 8080 # HTTP
     - 9090 # HTTPS
