@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Movie downloader and manager
   radarr:
-    image: linuxserver/radarr:nightly
+    image: linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
     cpus: 1
