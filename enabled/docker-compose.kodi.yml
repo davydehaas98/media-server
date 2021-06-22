@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  # Media stream service
+  kodi:
+    image: celedhrim/kodi-server:leia
+    container_name: kodi
+    restart: unless-stopped
+    cpus: 4
+    mem_limit: 8G
+    environment:
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    volumes:
+    - /media-server/kodi/config:/config/.kodi
+    - /mnt/raid/media-server/movies:/movies:ro
+    - /mnt/raid/media-server/music:/music:ro
+    - /mnt/raid/media-server/series:/series:ro
+    expose:
+    - 8080 # Web UI
+    - 9090 # Websockets
+    - 9777/udp # Esall interface
+    labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
