@@ -5,6 +5,10 @@ on:
     branches: 
     - main
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: false
+
 env:
   TARGET_DIRECTORY: ./docker-compose/media-server
   PGID: 998
