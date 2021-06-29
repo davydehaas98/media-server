@@ -14,6 +14,7 @@ services:
     volumes:
     - /media-server/jackett/config:/config/Jackett
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
+    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
     - 9117
     labels:

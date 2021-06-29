@@ -17,8 +17,8 @@ services:
     # - PLEX_CLAIM=<claim> #https://www.plex.tv/claim/
     volumes:
     - /media-server/plex/config:/config
-    - /media-server/plex/transcode:/transcode
     - /media-server/plex/data:/data
+    - /media-server/plex/transcode:/transcode
     - /mnt/raid/media-server/movies:/movies:ro
     - /mnt/raid/media-server/music:/music:ro
     - /mnt/raid/media-server/series:/series:ro

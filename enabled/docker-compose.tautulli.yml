@@ -12,9 +12,9 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
+    - /media-server/plex/config:/plex/config:ro
     - /media-server/tautulli/config:/config
     - /media-server/tautulli/logs:/logs
-    - /media-server/plex/config:/plex/config:ro
     expose:
     - 8181
     labels:
