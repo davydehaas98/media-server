@@ -58,3 +58,4 @@ jobs:
           echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
 
           docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d
+          docker restart reverse-proxy
