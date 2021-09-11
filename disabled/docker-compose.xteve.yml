@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  # M3U Proxy for Plex DVR and Emby Live TV
+  # https://github.com/xteve-project/xTeVe
+  # https://iptv-4k.co/shop/
+  # https://uw8k.cc/
+  xteve:
+    image: alturismo/xteve:latest
+    container_name: xteve
+    restart: unless-stopped
+    cpus: 1
+    mem_limit: 1G
+    environment:
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    volumes:
+    - /media-server/xteve/config:/config:rw
+    ports:
+    - "34400:34400"
+    - "1900:1900"
+    labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
