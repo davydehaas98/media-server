@@ -22,6 +22,7 @@ services:
     - /mnt/raid/media-server/movies:/movies:ro
     - /mnt/raid/media-server/music:/music:ro
     - /mnt/raid/media-server/series:/series:ro
+    - /mnt/raid/media-server/dvr:/dvr
     # expose:
     # # Plex Media Server
     # - 32400
