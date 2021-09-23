@@ -18,6 +18,7 @@ services:
     - LOCAL_NETWORK=192.168.0.0/24
     #- OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
       # Set these variables to the preferred VPN
+    - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - OPENVPN_USERNAME=${VPN_USERNAME}
     - OPENVPN_PASSWORD=${VPN_PASSWORD}
       # NordVPN specific settings
@@ -45,6 +46,10 @@ services:
     - TRANSMISSION_UMASK=022
     - TRANSMISSION_WEB_UI=flood # combustion, kettu, transmission-web-control or flood
     - WEBPROXY_ENABLED=false
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
     volumes:
     - /media-server/transmission/config:/config
     - /media-server/transmission/data:/data
