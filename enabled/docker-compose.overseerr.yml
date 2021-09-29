@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  # Plex requests and user management system
+  overseerr:
+    image: linuxserver/overseerr:latest
+    container_name: overseerr
+    restart: unless-stopped
+    cpus: 1
+    mem_limit: 1G
+    environment:
+    - PGID=${PGID}
+    - PUID=${PUID}
+    - TZ=${TZ}
+    volumes:
+    - /media-server/overseerr/config:/config
+    expose:
+    - 5055
+    labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
