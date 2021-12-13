@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Proxy Server for Sonarr and prowlarr search queries
   prowlarr:
-    image: linuxserver/prowlarr:latest
+    image: linuxserver/prowlarr:develop
     container_name: prowlarr
     restart: unless-stopped
     cpus: 1
