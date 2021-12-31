@@ -17,12 +17,25 @@ services:
     - /mnt/raid/media-server/series:/series
     expose:
     - 6767
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl -f https://subtitles.davydehaas.nl/api/systemstatus?apikey=${API_KEY_BAZARR} || exit 1"]
+    #   interval: 60s
+    #   timeout: 10s
+    #   retries: 2
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
     - diun.watch_repo=true
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f https://subtitles.davydehaas.nl/api/systemstatus?apikey=${API_KEY_BAZARR} || exit 1"]
-      interval: 60s
-      timeout: 10s
-      retries: 2
+    - traefik.enable=true
+    - traefik.http.routers.bazarr.entrypoints=https
+    - traefik.http.routers.bazarr.tls=true
+    - traefik.http.routers.bazarr.rule=Host(`subtitles.davydehaas.nl`)
+    - traefik.http.routers.bazarr.middlewares=chain-no-auth@file
+    - traefik.http.routers.bazarr.service=bazarr
+    - traefik.http.services.bazarr.loadbalancer.server.port=6767
+    networks:
+    - reverse-proxy
+networks:
+  reverse-proxy:
+    external: true
+    name: reverse-proxy_default

@@ -17,13 +17,26 @@ services:
     - /media-server/tautulli/logs:/logs
     expose:
     - 8181
-    labels:
-    - com.centurylinklabs.watchtower.enable=true
-    - diun.enable=true
-    - diun.watch_repo=true
     # healthcheck:
     #   test: ["CMD-SHELL", "wget --quiet --tries=1 --spider https://tautulli.davydehaas.nl/status || exit 1"]
     #   interval: 60s
     #   timeout: 10s
     #   retries: 2
+    labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - diun.enable=true
+    - diun.watch_repo=true
+    - traefik.enable=true
+    - traefik.http.routers.tautulli.entrypoints=https
+    - traefik.http.routers.tautulli.tls=true
+    - traefik.http.routers.tautulli.rule=Host(`tautulli.davydehaas.nl`)
+    - traefik.http.routers.tautulli.middlewares=chain-no-auth@file
+    - traefik.http.routers.tautulli.service=tautulli
+    - traefik.http.services.tautulli.loadbalancer.server.port=8181
+    networks:
+    - reverse-proxy
+networks:
+  reverse-proxy:
+    external: true
+    name: reverse-proxy_default
     

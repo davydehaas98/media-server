@@ -18,12 +18,25 @@ services:
     - /mnt/raid/media-server/music:/music
     expose:
     - 8686
+    # healthcheck:
+    #   test: ["CMD-SHELL", "curl -f https://music.davydehaas.nl/api/v1/system/status?apikey=${API_KEY_LIDARR} || exit 1"]
+    #   interval: 60s
+    #   timeout: 10s
+    #   retries: 2
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
     - diun.watch_repo=true
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f https://music.davydehaas.nl/api/v1/system/status?apikey=${API_KEY_LIDARR} || exit 1"]
-      interval: 60s
-      timeout: 10s
-      retries: 2
+    - traefik.enable=true
+    - traefik.http.routers.lidarr.entrypoints=https
+    - traefik.http.routers.lidarr.tls=true
+    - traefik.http.routers.lidarr.rule=Host(`music.davydehaas.nl`)
+    - traefik.http.routers.lidarr.middlewares=chain-no-auth@file
+    - traefik.http.routers.lidarr.service=lidarr
+    - traefik.http.services.lidarr.loadbalancer.server.port=8686
+    networks:
+    - reverse-proxy
+networks:
+  reverse-proxy:
+    external: true
+    name: reverse-proxy_default
