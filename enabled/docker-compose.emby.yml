@@ -17,16 +17,16 @@ services:
     - /mnt/raid/media-server/movies:/movies:ro
     - /mnt/raid/media-server/music:/music:ro
     - /mnt/raid/media-server/series:/series:ro
-    #- /opt/vc/lib:/opt/vc/lib # OpenMAX lib
+    # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
     expose:
     - 8096 # HTTP Web UI
     - 8920 # HTTPS Web UI
     devices:
     - /dev/dri:/dev/dri # Intel/AMD GPU
-    #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
-    #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
-    #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
-    #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
+    # - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+    # - /dev/video10:/dev/video10 # Raspberry Pi V4L2
+    # - /dev/video11:/dev/video11 # Raspberry Pi V4L2
+    # - /dev/video12:/dev/video12 # Raspberry Pi V4L2
     labels:
     - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true

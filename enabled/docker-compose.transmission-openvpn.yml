@@ -74,7 +74,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.transmission-openvpn.entrypoints=https
     - traefik.http.routers.transmission-openvpn.tls=true
-    - traefik.http.routers.transmission-openvpn.rule=Host(`torrent.davydehaas.nl`)
+    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.davydehaas.nl`,`torrent.davydehaas.nl`)
     - traefik.http.routers.transmission-openvpn.middlewares=chain-no-auth@file
     - traefik.http.routers.transmission-openvpn.service=transmission-openvpn
     - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091
