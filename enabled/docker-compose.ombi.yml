@@ -16,7 +16,7 @@ services:
     expose:
     - 3579
     # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://requests.davydehaas.nl/api/v1/status || exit 1"]
+    #   test: ["CMD-SHELL", "curl -f https://requests.$DOMAIN_NAME/api/v1/status || exit 1"]
     #   interval: 60s
     #   timeout: 10s
     #   retries: 2
@@ -27,7 +27,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.ombi.entrypoints=https
     - traefik.http.routers.ombi.tls=true
-    - traefik.http.routers.ombi.rule=Host(`ombi.davydehaas.nl`)
+    - traefik.http.routers.ombi.rule=Host(`requests.$DOMAIN_NAME`,`ombi.$DOMAIN_NAME`)
     - traefik.http.routers.ombi.middlewares=chain-no-auth@file
     - traefik.http.routers.ombi.service=ombi
     - traefik.http.services.ombi.loadbalancer.server.port=3579

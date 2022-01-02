@@ -14,6 +14,7 @@ env:
   PGID: 998
   PUID: 997
   TZ: "Europe/Amsterdam"
+  DOMAIN_NAME: "davydehaas.nl"
 
 jobs:
   deploy:
@@ -46,6 +47,7 @@ jobs:
           echo 'PGID=${{ env.PGID }}' >> .env
           echo 'PUID=${{ env.PUID }}' >> .env
           echo 'TZ=${{ env.TZ }}' >> .env
+          echo 'DOMAIN_NAME=${{ env.DOMAIN_NAME }}' >> .env
           
           echo 'TORRENT_USERNAME=${{ secrets.TORRENT_USERNAME }}' >> .env
           echo 'TORRENT_PASSWORD=${{ secrets.TORRENT_PASSWORD }}' >> .env
