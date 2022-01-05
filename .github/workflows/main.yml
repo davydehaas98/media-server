@@ -10,7 +10,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  TARGET_DIRECTORY: ./docker-compose/media-server
+  TARGET_DIR: ./docker-compose/media-server
+  USER_DIR: /media-server
   PGID: 998
   PUID: 997
   TZ: "Europe/Amsterdam"
@@ -30,7 +31,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: enabled/docker-compose.*.yml
-        target: ${{ env.TARGET_DIRECTORY }}
+        target: ${{ env.TARGET_DIR }}
         strip_components: 1
         rm: true
     - name: SSH | Start containers
@@ -42,11 +43,12 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-          cd ${{ env.TARGET_DIRECTORY }}
+          cd ${{ env.TARGET_DIR }}
           
           echo 'PGID=${{ env.PGID }}' >> .env
           echo 'PUID=${{ env.PUID }}' >> .env
           echo 'TZ=${{ env.TZ }}' >> .env
+          echo 'USER_DIR=${{ env.USER_DIR }}' >> .env
           echo 'DOMAIN_NAME=${{ env.DOMAIN_NAME }}' >> .env
           
           echo 'TORRENT_USERNAME=${{ secrets.TORRENT_USERNAME }}' >> .env
