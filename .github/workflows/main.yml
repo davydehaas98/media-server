@@ -11,10 +11,10 @@ concurrency:
 
 env:
   TARGET_DIR: ./docker-compose/media-server
-  USER_DIR: /media-server
   PGID: 998
   PUID: 997
   TZ: "Europe/Amsterdam"
+  USER_DIR: /media-server
   DOMAIN_NAME: "davydehaas.nl"
 
 jobs:
