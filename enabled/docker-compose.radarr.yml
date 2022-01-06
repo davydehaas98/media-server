@@ -12,7 +12,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/radarr/config:/config
+    - ${USER_DIR}/radarr/config:/config
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
     - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     - /mnt/raid/media-server/movies:/movies

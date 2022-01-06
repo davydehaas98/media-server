@@ -51,8 +51,8 @@ services:
       options:
         max-size: 10m
     volumes:
-    - /media-server/transmission/config:/config
-    - /media-server/transmission/data:/data
+    - ${USER_DIR}/transmission/config:/config
+    - ${USER_DIR}/transmission/data:/data
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
     - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
@@ -74,7 +74,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.transmission-openvpn.entrypoints=https
     - traefik.http.routers.transmission-openvpn.tls=true
-    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.davydehaas.nl`,`torrent.davydehaas.nl`)
+    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.$DOMAIN_NAME`,`torrent.$DOMAIN_NAME`)
     - traefik.http.routers.transmission-openvpn.middlewares=chain-no-auth@file
     - traefik.http.routers.transmission-openvpn.service=transmission-openvpn
     - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091

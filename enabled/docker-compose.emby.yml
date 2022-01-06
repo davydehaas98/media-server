@@ -12,8 +12,8 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/emby/config:/config
-    - /media-server/emby/transcode:/transcode
+    - ${USER_DIR}/emby/config:/config
+    - ${USER_DIR}/emby/transcode:/transcode
     - /mnt/raid/media-server/movies:/movies:ro
     - /mnt/raid/media-server/music:/music:ro
     - /mnt/raid/media-server/series:/series:ro

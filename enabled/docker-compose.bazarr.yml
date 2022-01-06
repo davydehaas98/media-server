@@ -12,7 +12,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/bazarr/config:/config
+    - ${USER_DIR}/bazarr/config:/config
     - /mnt/raid/media-server/movies:/movies
     - /mnt/raid/media-server/series:/series
     expose:

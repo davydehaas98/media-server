@@ -11,7 +11,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/organizr/config:/config
+    - ${USER_DIR}/organizr/config:/config
     expose:
     - 80
     labels:

@@ -16,10 +16,10 @@ services:
       - serverPort=8266
       - webUIPort=8265
     volumes:
-      - /media-server/tdarr/config:/app/configs
-      - /media-server/tdarr/logs:/app/logs
-      - /media-server/tdarr/server:/app/server
-      - /media-server/tdarr/transcode_cache:/temp
+      - ${USER_DIR}/tdarr/config:/app/configs
+      - ${USER_DIR}/tdarr/logs:/app/logs
+      - ${USER_DIR}/tdarr/server:/app/server
+      - ${USER_DIR}/tdarr/transcode_cache:/temp
       - /mnt/raid/media-server/movies:/movies
       - /mnt/raid/media-server/series:/series
     ports:

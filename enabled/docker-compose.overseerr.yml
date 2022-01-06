@@ -12,7 +12,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/overseerr/config:/config
+    - ${USER_DIR}/overseerr/config:/config
     expose:
     - 5055
     labels:

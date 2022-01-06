@@ -15,7 +15,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/xteve/config:/config:rw
+    - ${USER_DIR}/xteve/config:/config:rw
     ports:
     - "34400:34400"
     - "1900:1900"

@@ -12,9 +12,9 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/plex/config:/plex/config:ro
-    - /media-server/tautulli/config:/config
-    - /media-server/tautulli/logs:/logs
+    - ${USER_DIR}/plex/config:/plex/config:ro
+    - ${USER_DIR}/tautulli/config:/config
+    - ${USER_DIR}/tautulli/logs:/logs
     expose:
     - 8181
     # healthcheck:
@@ -29,7 +29,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.tautulli.entrypoints=https
     - traefik.http.routers.tautulli.tls=true
-    - traefik.http.routers.tautulli.rule=Host(`tautulli.davydehaas.nl`)
+    - traefik.http.routers.tautulli.rule=Host(`tautulli.$DOMAIN_NAME`)
     - traefik.http.routers.tautulli.middlewares=chain-no-auth@file
     - traefik.http.routers.tautulli.service=tautulli
     - traefik.http.services.tautulli.loadbalancer.server.port=8181

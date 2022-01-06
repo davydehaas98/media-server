@@ -12,7 +12,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/prowlarr/config:/config
+    - ${USER_DIR}/prowlarr/config:/config
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
     - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:

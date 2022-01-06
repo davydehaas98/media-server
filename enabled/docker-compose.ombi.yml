@@ -12,7 +12,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/ombi/config:/config
+    - ${USER_DIR}/ombi/config:/config
     expose:
     - 3579
     # healthcheck:

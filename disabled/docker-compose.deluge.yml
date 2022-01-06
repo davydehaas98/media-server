@@ -13,7 +13,7 @@ services:
     - TZ=${TZ}
     - DELUGE_LOGLEVEL=error
     volumes:
-    - /media-server/deluge/config:/config
+    - ${USER_DIR}/deluge/config:/config
     - /mnt/raid/media-server/downloads:/root/Downloads
     ports:
     # Web UI
