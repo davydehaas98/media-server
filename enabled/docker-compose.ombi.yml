@@ -29,7 +29,6 @@ services:
     - traefik.http.routers.ombi.tls=true
     - traefik.http.routers.ombi.rule=Host(`requests.$DOMAIN_NAME`,`ombi.$DOMAIN_NAME`)
     - traefik.http.routers.ombi.middlewares=chain-no-auth@file
-    - traefik.http.routers.ombi.service=ombi
     - traefik.http.services.ombi.loadbalancer.server.port=3579
     networks:
     - reverse-proxy

@@ -64,7 +64,6 @@ services:
     - traefik.http.routers.plex.tls=true
     - traefik.http.routers.plex.rule=Host(`plex.$DOMAIN_NAME`)
     - traefik.http.routers.plex.middlewares=chain-no-auth@file
-    - traefik.http.routers.plex.service=plex
     - traefik.http.services.plex.loadbalancer.server.port=32400
     networks:
     - reverse-proxy

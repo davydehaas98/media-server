@@ -31,7 +31,6 @@ services:
     - traefik.http.routers.bazarr.tls=true
     - traefik.http.routers.bazarr.rule=Host(`subtitles.$DOMAIN_NAME`)
     - traefik.http.routers.bazarr.middlewares=chain-no-auth@file
-    - traefik.http.routers.bazarr.service=bazarr
     - traefik.http.services.bazarr.loadbalancer.server.port=6767
     networks:
     - reverse-proxy

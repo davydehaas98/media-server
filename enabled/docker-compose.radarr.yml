@@ -32,7 +32,6 @@ services:
     - traefik.http.routers.radarr.tls=true
     - traefik.http.routers.radarr.rule=Host(`movies.$DOMAIN_NAME`)
     - traefik.http.routers.radarr.middlewares=chain-no-auth@file
-    - traefik.http.routers.radarr.service=radarr
     - traefik.http.services.radarr.loadbalancer.server.port=7878
     networks:
     - reverse-proxy
