@@ -11,11 +11,11 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  TARGET_DIR: ./docker-compose/media-server
+  TARGET_DIR: /opt/compose/media-server
   PGID: 998
   PUID: 997
   TZ: Europe/Amsterdam
-  USER_DIR: /media-server
+  USER_DIR: /opt/appdata/media-server
   DOMAIN_NAME: davydehaas.nl
 
 jobs:
