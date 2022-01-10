@@ -26,7 +26,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.xteve.entrypoints=https
     - traefik.http.routers.xteve.tls=true
-    - traefik.http.routers.xteve.rule=Host(`xteve.$DOMAIN_NAME`)
+    - traefik.http.routers.xteve.rule=Host(`xteve.$DOMAIN_NAME`,`dvr.$DOMAIN_NAME`)
     - traefik.http.routers.xteve.middlewares=chain-no-auth@file
     - traefik.http.services.xteve.loadbalancer.server.port=34400
     networks:

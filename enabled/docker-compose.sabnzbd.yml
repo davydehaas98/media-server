@@ -11,7 +11,7 @@ services:
     - PUID=${PUID}
     - TZ=${TZ}
     volumes:
-    - /media-server/sabnzbd:/config
+    - ${USER_DIR}/sabnzbd:/config
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
     - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
@@ -29,9 +29,9 @@ services:
     - traefik.enable=true
     - traefik.http.routers.sabnzbd.entrypoints=https
     - traefik.http.routers.sabnzbd.tls=true
-    - traefik.http.routers.sabnzbd.rule=Host(`usenet.$DOMAIN_NAME`)
+    - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.$DOMAIN_NAME`,`usenet.$DOMAIN_NAME`)
     - traefik.http.routers.sabnzbd.middlewares=chain-no-auth@file
-    - traefik.http.services.sabnzbd.loadbalancer.server.port=9090
+    - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
     networks:
     - reverse-proxy
 networks:
