@@ -27,7 +27,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.prowlarr.entrypoints=https
+    - traefik.http.routers.prowlarr.entrypoints=websecure
     - traefik.http.routers.prowlarr.tls=true
     - traefik.http.routers.prowlarr.rule=Host(`prowlarr.$DOMAIN_NAME`)
     - traefik.http.routers.prowlarr.middlewares=chain-no-auth@file

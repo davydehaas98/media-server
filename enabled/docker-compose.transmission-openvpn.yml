@@ -72,7 +72,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.transmission-openvpn.entrypoints=https
+    - traefik.http.routers.transmission-openvpn.entrypoints=websecure
     - traefik.http.routers.transmission-openvpn.tls=true
     - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.$DOMAIN_NAME`,`torrent.$DOMAIN_NAME`)
     - traefik.http.routers.transmission-openvpn.middlewares=chain-no-auth@file

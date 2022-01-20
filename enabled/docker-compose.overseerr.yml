@@ -20,7 +20,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.overseerr.entrypoints=https
+    - traefik.http.routers.overseerr.entrypoints=websecure
     - traefik.http.routers.overseerr.tls=true
     - traefik.http.routers.overseerr.rule=Host(`overseerr.$DOMAIN_NAME`)
     - traefik.http.routers.overseerr.middlewares=chain-no-auth@file

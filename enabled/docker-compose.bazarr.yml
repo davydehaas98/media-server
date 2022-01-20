@@ -27,7 +27,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.bazarr.entrypoints=https
+    - traefik.http.routers.bazarr.entrypoints=websecure
     - traefik.http.routers.bazarr.tls=true
     - traefik.http.routers.bazarr.rule=Host(`bazarr.$DOMAIN_NAME`,`subtitles.$DOMAIN_NAME`)
     - traefik.http.routers.bazarr.middlewares=chain-no-auth@file

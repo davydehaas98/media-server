@@ -28,7 +28,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.lidarr.entrypoints=https
+    - traefik.http.routers.lidarr.entrypoints=websecure
     - traefik.http.routers.lidarr.tls=true
     - traefik.http.routers.lidarr.rule=Host(`lidarr.$DOMAIN_NAME`,`music.$DOMAIN_NAME`)
     - traefik.http.routers.lidarr.middlewares=chain-no-auth@file

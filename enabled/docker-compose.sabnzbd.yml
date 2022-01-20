@@ -27,7 +27,7 @@ services:
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
-    - traefik.http.routers.sabnzbd.entrypoints=https
+    - traefik.http.routers.sabnzbd.entrypoints=websecure
     - traefik.http.routers.sabnzbd.tls=true
     - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.$DOMAIN_NAME`,`usenet.$DOMAIN_NAME`)
     - traefik.http.routers.sabnzbd.middlewares=chain-no-auth@file
