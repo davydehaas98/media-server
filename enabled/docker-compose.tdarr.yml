@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   tdarr:
-    image: haveagitgat/tdarr:latest
+    image: haveagitgat/tdarr:2.00.13
     container_name: tdarr
     restart: unless-stopped
     cpus: 1
@@ -29,6 +29,8 @@ services:
     expose:
       - 8265
     labels:
+      - diun.enable=true
+      - diun.watch_repo=true
       - traefik.enable=true
       - traefik.http.routers.tdarr.entrypoints=websecure
       - traefik.http.routers.tdarr.rule=Host(`tdarr.$DOMAIN_NAME`,`transcoder.$DOMAIN_NAME`)

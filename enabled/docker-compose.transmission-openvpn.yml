@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Torrent client with VPN
   transmission:
-    image: haugene/transmission-openvpn:3.7.1
+    image: haugene/transmission-openvpn:4.0
     container_name: transmission
     restart: unless-stopped
     cpus: 2
@@ -14,14 +14,14 @@ services:
     - CREATE_TUN_DEVICE=true
     - DROP_DEFAULT_ROUTE=true
     - HEALTH_CHECK_HOST=twitter.com
-      # Get access to the WebUI without VPN
+    # Get access to the WebUI without VPN
     - LOCAL_NETWORK=192.168.0.0/24
     #- OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-      # Set these variables to the preferred VPN
+    # Set these variables to the preferred VPN
     - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
     - OPENVPN_USERNAME=${VPN_USERNAME}
     - OPENVPN_PASSWORD=${VPN_PASSWORD}
-      # NordVPN specific settings
+    # NordVPN specific settings
     - OPENVPN_PROVIDER=NORDVPN
     - NORDVPN_COUNTRY=CH
     - NORDVPN_CATEGORY=P2P
@@ -42,9 +42,10 @@ services:
     - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
     - TRANSMISSION_RENAME_PARTIAL_FILES=true
     - TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=true
-      # This will give the service read and execute permissions within the docker group
+    # This will give the service read and execute permissions within the docker group
     - TRANSMISSION_UMASK=022
-    - TRANSMISSION_WEB_UI=flood # combustion, kettu, transmission-web-control or flood
+    # combustion, kettu, transmission-web-control, flood-for-transmission or shift
+    - TRANSMISSION_WEB_UI=flood-for-transmission
     - WEBPROXY_ENABLED=false
     logging:
       driver: json-file
