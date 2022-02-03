@@ -2,7 +2,7 @@ version: "3.8"
 services:
   # Torrent client with VPN
   transmission:
-    image: haugene/transmission-openvpn:latest
+    image: haugene/transmission-openvpn:3.7.1
     container_name: transmission
     restart: unless-stopped
     cpus: 2
@@ -68,7 +68,6 @@ services:
     - 1.1.1.1
     - 1.0.0.1
     labels:
-    - com.centurylinklabs.watchtower.enable=true
     - diun.enable=true
     - diun.watch_repo=true
     - traefik.enable=true
