@@ -21,7 +21,6 @@ services:
     - "1900:1900"
     labels:
     - diun.enable=true
-    - diun.watch_repo=true
     - traefik.enable=true
     - traefik.http.routers.xteve.entrypoints=websecure
     - traefik.http.routers.xteve.tls=true

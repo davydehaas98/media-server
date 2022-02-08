@@ -24,7 +24,6 @@ services:
     #   retries: 2
     labels:
     - diun.enable=true
-    - diun.watch_repo=true
     - traefik.enable=true
     - traefik.http.routers.bazarr.entrypoints=websecure
     - traefik.http.routers.bazarr.tls=true

@@ -70,7 +70,6 @@ services:
     - 1.0.0.1
     labels:
     - diun.enable=true
-    - diun.watch_repo=true
     - traefik.enable=true
     - traefik.http.routers.transmission-openvpn.entrypoints=websecure
     - traefik.http.routers.transmission-openvpn.tls=true

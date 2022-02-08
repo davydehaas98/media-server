@@ -17,7 +17,6 @@ services:
     - 5055
     labels:
     - diun.enable=true
-    - diun.watch_repo=true
     - traefik.enable=true
     - traefik.http.routers.overseerr.entrypoints=websecure
     - traefik.http.routers.overseerr.tls=true
