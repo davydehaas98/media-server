@@ -21,7 +21,7 @@ services:
     - traefik.http.routers.overseerr.entrypoints=websecure
     - traefik.http.routers.overseerr.tls=true
     - traefik.http.routers.overseerr.rule=Host(`overseerr.$DOMAIN_NAME`)
-    - traefik.http.routers.overseerr.middlewares=chain-no-auth@file
+    - traefik.http.routers.overseerr.middlewares=chain-authelia@file
     - traefik.http.services.overseerr.loadbalancer.server.port=5055
     networks:
     - reverse-proxy

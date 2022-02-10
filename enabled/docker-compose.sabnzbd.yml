@@ -28,7 +28,7 @@ services:
     - traefik.http.routers.sabnzbd.entrypoints=websecure
     - traefik.http.routers.sabnzbd.tls=true
     - traefik.http.routers.sabnzbd.rule=Host(`sabnzbd.$DOMAIN_NAME`,`usenet.$DOMAIN_NAME`)
-    - traefik.http.routers.sabnzbd.middlewares=chain-no-auth@file
+    - traefik.http.routers.sabnzbd.middlewares=chain-authelia@file
     - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
     networks:
     - reverse-proxy
