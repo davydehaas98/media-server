@@ -28,7 +28,7 @@ services:
     - traefik.http.routers.tautulli.entrypoints=websecure
     - traefik.http.routers.tautulli.tls=true
     - traefik.http.routers.tautulli.rule=Host(`tautulli.$DOMAIN_NAME`)
-    - traefik.http.routers.tautulli.middlewares=chain-authelia@file
+    - traefik.http.routers.tautulli.middlewares=chain-no-auth@file
     - traefik.http.services.tautulli.loadbalancer.server.port=8181
     networks:
     - reverse-proxy
