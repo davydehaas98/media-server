@@ -53,7 +53,7 @@ services:
         max-size: 10m
     volumes:
     - ${USER_DIR}/transmission/config:/config
-    - ${USER_DIR}/transmission/data:/data
+    - /mnt/raid/media-server/transmission/data:/data
     - /mnt/raid/media-server/downloads/completed:/downloads/completed
     - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
     expose:
