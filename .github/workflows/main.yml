@@ -14,7 +14,7 @@ env:
   TARGET_DIR: /opt/compose/media-server/
   PGID: 1000
   PUID: 1000
-  TZ: Europe/Amsterdam
+  TZ: Etc/UTC
   USER_DIR: /opt/appdata/media-server/
   DOMAIN_NAME: davydehaas.nl
 
