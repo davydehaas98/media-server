@@ -54,8 +54,8 @@ services:
     volumes:
     - ${USER_DIR}/transmission/config:/config
     - /mnt/raid/media-server/transmission/data:/data
-    - /mnt/raid/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media/downloads/completed:/downloads/completed
+    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
     expose:
     # Web UI
     - 9091
