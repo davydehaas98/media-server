@@ -13,9 +13,9 @@ services:
     - TZ=${TZ}
     volumes:
     - ${USER_DIR}/lidarr/config:/config
-    - /mnt/raid/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
-    - /mnt/raid/media-server/music:/music
+    - /mnt/raid/media/downloads/completed:/downloads/completed
+    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media/music:/music
     expose:
     - 8686
     # healthcheck:
