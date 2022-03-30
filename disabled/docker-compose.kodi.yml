@@ -13,9 +13,9 @@ services:
     - TZ=${TZ}
     volumes:
     - ${USER_DIR}/kodi/config:/config/.kodi
-    - /mnt/raid/media-server/movies:/movies:ro
-    - /mnt/raid/media-server/music:/music:ro
-    - /mnt/raid/media-server/series:/series:ro
+    - /mnt/raid/media/movies:/movies:ro
+    - /mnt/raid/media/music:/music:ro
+    - /mnt/raid/media/series:/series:ro
     expose:
     - 8080 # Web UI
     - 9090 # Websockets
