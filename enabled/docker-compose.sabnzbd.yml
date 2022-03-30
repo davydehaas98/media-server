@@ -12,8 +12,8 @@ services:
     - TZ=${TZ}
     volumes:
     - ${USER_DIR}/sabnzbd:/config
-    - /mnt/raid/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media/downloads/completed:/downloads/completed
+    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
     expose:
     - 8080 # HTTP
     - 9090 # HTTPS
