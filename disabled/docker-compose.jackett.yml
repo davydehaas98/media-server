@@ -13,8 +13,8 @@ services:
     - TZ=${TZ}
     volumes:
     - ${USER_DIR}/jackett/config:/config/Jackett
-    - /mnt/raid/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media/downloads/completed:/downloads/completed
+    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
     expose:
     - 9117
     # healthcheck:
