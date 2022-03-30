@@ -14,7 +14,7 @@ services:
     - DELUGE_LOGLEVEL=error
     volumes:
     - ${USER_DIR}/deluge/config:/config
-    - /mnt/raid/media-server/downloads:/root/Downloads
+    - /mnt/raid/media/downloads:/root/Downloads
     ports:
     # Web UI
     - 8112:8112
