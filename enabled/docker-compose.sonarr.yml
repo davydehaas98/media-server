@@ -13,9 +13,9 @@ services:
     - TZ=${TZ}
     volumes:
     - ${USER_DIR}/sonarr/config:/config
-    - /mnt/raid/media-server/downloads/completed:/downloads/completed
-    - /mnt/raid/media-server/downloads/incomplete:/downloads/incomplete
-    - /mnt/raid/media-server/series:/series
+    - /mnt/raid/media/downloads/completed:/downloads/completed
+    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    - /mnt/raid/media/series:/series
     expose:
     - 8989
     # healthcheck:
