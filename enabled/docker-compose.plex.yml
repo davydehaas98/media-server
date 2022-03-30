@@ -19,10 +19,10 @@ services:
     - ${USER_DIR}/plex/config:/config
     - ${USER_DIR}/plex/data:/data
     - ${USER_DIR}/plex/transcode:/transcode
-    - /mnt/raid/media-server/movies:/movies:ro
-    - /mnt/raid/media-server/music:/music:ro
-    - /mnt/raid/media-server/series:/series:ro
-    - /mnt/raid/media-server/dvr:/dvr
+    - /mnt/raid/media/movies:/movies:ro
+    - /mnt/raid/media/music:/music:ro
+    - /mnt/raid/media/series:/series:ro
+    - /mnt/raid/media/dvr:/dvr
     # expose:
     # # Plex Media Server
     # - 32400
