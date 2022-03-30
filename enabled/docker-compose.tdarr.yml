@@ -20,8 +20,8 @@ services:
       - ${USER_DIR}/tdarr/logs:/app/logs
       - ${USER_DIR}/tdarr/server:/app/server
       - ${USER_DIR}/tdarr/transcode_cache:/temp
-      - /mnt/raid/media-server/movies:/movies
-      - /mnt/raid/media-server/series:/series
+      - /mnt/raid/media/movies:/movies
+      - /mnt/raid/media/series:/series
     ports:
       - 8266:8266
       - 8265:8265
