@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   tdarr:
-    image: haveagitgat/tdarr:2.00.17
+    image: haveagitgat/tdarr:2.00.18
     container_name: tdarr
     restart: unless-stopped
     cpus: 1
