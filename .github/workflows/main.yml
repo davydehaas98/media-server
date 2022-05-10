@@ -64,4 +64,4 @@ jobs:
           echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
           echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
 
-          docker-compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d --remove-orphans
+          docker compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d --remove-orphans
