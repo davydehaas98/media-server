@@ -11,8 +11,6 @@ services:
       - PUID=${PUID}
       - TZ=${TZ}
       - UMASK_SET=002
-      - internalNode=true
-      - nodeID=InternalNode
       - serverIP=tdarr
       - serverPort=8266
       - webUIPort=8265
@@ -42,7 +40,7 @@ services:
     image: haveagitgat/tdarr_node:2.00.18
     container_name: tdarr-node
     restart: unless-stopped
-    cpus: 2
+    cpus: 6
     mem_limit: 4G
     environment:
       - PGID=${PGID}
