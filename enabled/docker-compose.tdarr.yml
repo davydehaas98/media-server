@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   tdarr:
     image: haveagitgat/tdarr:2.00.18
@@ -12,6 +11,8 @@ services:
       - PUID=${PUID}
       - TZ=${TZ}
       - UMASK_SET=002
+      - internalNode=true
+      - nodeID=InternalNode
       - serverIP=tdarr
       - serverPort=8266
       - webUIPort=8265
@@ -51,14 +52,16 @@ services:
       - nodeID=MainNode
       - nodeIP=tdarr-node
       - nodePort=8267
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
       - serverIP=tdarr
       - serverPort=8266
     volumes:
       - ${USER_DIR}/tdarr/config:/app/configs
       - ${USER_DIR}/tdarr/logs:/app/logs
       - ${USER_DIR}/tdarr/transcode_cache:/temp
-      - /mnt/raid/media-server/movies:/movies
-      - /mnt/raid/media-server/series:/series
+      - /mnt/raid/media/movies:/movies
+      - /mnt/raid/media/series:/series
     devices:
       - /dev/dri:/dev/dri
     labels:
