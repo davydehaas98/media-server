@@ -73,7 +73,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.transmission-openvpn.entrypoints=websecure
     - traefik.http.routers.transmission-openvpn.tls=true
-    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.$DOMAIN_NAME`,`torrent.$DOMAIN_NAME`)
+    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.${DOMAIN_NAME}`,`torrent.${DOMAIN_NAME}`)
     - traefik.http.routers.transmission-openvpn.middlewares=chain-authelia@file
     - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091
     networks:

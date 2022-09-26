@@ -24,7 +24,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.xteve.entrypoints=websecure
     - traefik.http.routers.xteve.tls=true
-    - traefik.http.routers.xteve.rule=Host(`xteve.$DOMAIN_NAME`,`dvr.$DOMAIN_NAME`)
+    - traefik.http.routers.xteve.rule=Host(`xteve.${DOMAIN_NAME}`,`dvr.${DOMAIN_NAME}`)
     - traefik.http.routers.xteve.middlewares=chain-authelia@file
     - traefik.http.services.xteve.loadbalancer.server.port=34400
     networks:

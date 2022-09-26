@@ -51,7 +51,7 @@ services:
     #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
     #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://plex.$DOMAIN_NAME/identity || exit 1"]
+    #   test: ["CMD-SHELL", "curl -f https://plex.${DOMAIN_NAME}/identity || exit 1"]
     #   interval: 60s
     #   timeout: 10s
     #   retries: 2
@@ -60,7 +60,7 @@ services:
     - traefik.enable=true
     - traefik.http.routers.plex.entrypoints=websecure
     - traefik.http.routers.plex.tls=true
-    - traefik.http.routers.plex.rule=Host(`plex.$DOMAIN_NAME`)
+    - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN_NAME}`)
     - traefik.http.routers.plex.middlewares=chain-no-auth@file
     - traefik.http.services.plex.loadbalancer.server.port=32400
     networks:
