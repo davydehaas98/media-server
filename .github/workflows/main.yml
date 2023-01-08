@@ -37,7 +37,7 @@ jobs:
         strip_components: 1 # strip /enabled
         rm: true # remove target folder before uploading data
     - name: SSH | Start containers
-      uses: appleboy/ssh-action@v0.1.6
+      uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.SSH_HOST }}
         port: ${{ secrets.SSH_PORT }}
