@@ -8,80 +8,80 @@ services:
     cpus: 2
     mem_limit: 4G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
-    - CREATE_TUN_DEVICE=true
-    - DROP_DEFAULT_ROUTE=true
-    - HEALTH_CHECK_HOST=twitter.com
-    # Get access to the WebUI without VPN
-    - LOCAL_NETWORK=192.168.0.0/24
-    #- OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-    # Set these variables to the preferred VPN
-    - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
-    - OPENVPN_USERNAME=${VPN_USERNAME}
-    - OPENVPN_PASSWORD=${VPN_PASSWORD}
-    # NordVPN specific settings
-    - OPENVPN_PROVIDER=NORDVPN
-    - NORDVPN_COUNTRY=CH
-    - NORDVPN_CATEGORY=P2P
-    - NORDVPN_PROTOCOL=tcp
-    #- TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
-    - TRANSMISSION_ENCRYPTION=2 # Require encrypted connections
-    - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
-    - TRANSMISSION_RPC_HOST_WHITELIST=127.0.0.1,192.168.*.*
-    - TRANSMISSION_RPC_HOST_WHITELIST_ENABLED=true
-    - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
-    - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
-    - TRANSMISSION_SPEED_LIMIT_UP=0
-    - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
-    - TRANSMISSION_SPEED_LIMIT_DOWN=5000
-    - TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true
-    - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
-    - TRANSMISSION_DOWNLOAD_QUEUE_ENABLED=true
-    - TRANSMISSION_RATIO_LIMIT=0
-    - TRANSMISSION_RATIO_LIMIT_ENABLED=true
-    - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
-    - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
-    - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
-    - TRANSMISSION_RENAME_PARTIAL_FILES=true
-    - TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=true
-    # This will give the service read and execute permissions within the docker group
-    - TRANSMISSION_UMASK=022
-    # combustion, kettu, transmission-web-control, flood-for-transmission or shift
-    - TRANSMISSION_WEB_UI=flood-for-transmission
-    - WEBPROXY_ENABLED=false
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - CREATE_TUN_DEVICE=true
+      - DROP_DEFAULT_ROUTE=true
+      - HEALTH_CHECK_HOST=twitter.com
+      # Get access to the WebUI without VPN
+      - LOCAL_NETWORK=192.168.0.0/24
+      #- OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      # Set these variables to the preferred VPN
+      - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
+      - OPENVPN_USERNAME=${VPN_USERNAME}
+      - OPENVPN_PASSWORD=${VPN_PASSWORD}
+      # NordVPN specific settings
+      - OPENVPN_PROVIDER=NORDVPN
+      - NORDVPN_COUNTRY=CH
+      - NORDVPN_CATEGORY=P2P
+      - NORDVPN_PROTOCOL=tcp
+      #- TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
+      - TRANSMISSION_ENCRYPTION=2 # Require encrypted connections
+      - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
+      - TRANSMISSION_RPC_HOST_WHITELIST=127.0.0.1,192.168.*.*
+      - TRANSMISSION_RPC_HOST_WHITELIST_ENABLED=true
+      - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
+      - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
+      - TRANSMISSION_SPEED_LIMIT_UP=0
+      - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
+      - TRANSMISSION_SPEED_LIMIT_DOWN=5000
+      - TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true
+      - TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
+      - TRANSMISSION_DOWNLOAD_QUEUE_ENABLED=true
+      - TRANSMISSION_RATIO_LIMIT=0
+      - TRANSMISSION_RATIO_LIMIT_ENABLED=true
+      - TRANSMISSION_DOWNLOAD_DIR=/downloads/completed
+      - TRANSMISSION_INCOMPLETE_DIR=/downloads/incomplete
+      - TRANSMISSION_INCOMPLETE_DIR_ENABLED=true
+      - TRANSMISSION_RENAME_PARTIAL_FILES=true
+      - TRANSMISSION_TRASH_ORIGINAL_TORRENT_FILES=true
+      # This will give the service read and execute permissions within the docker group
+      - TRANSMISSION_UMASK=022
+      # combustion, kettu, transmission-web-control, flood-for-transmission or shift
+      - TRANSMISSION_WEB_UI=flood-for-transmission
+      - WEBPROXY_ENABLED=false
     logging:
       driver: json-file
       options:
         max-size: 10m
     volumes:
-    - ${USER_DIR}/transmission/config:/config
-    - /mnt/raid/media-server/transmission/data:/data
-    - /mnt/raid/media/downloads/completed:/downloads/completed
-    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - ${USER_DIR}/transmission/config:/config
+      - /mnt/raid/media-server/transmission/data:/data
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
     expose:
     # Web UI
-    - 9091
+      - 9091
     ports:
     # Torrent Ports
-    - 51413:51413
-    - 51413:51413/udp
+      - 51413:51413
+      - 51413:51413/udp
     cap_add:
-    - NET_ADMIN
+      - NET_ADMIN
     dns:
-    - 1.1.1.1
-    - 1.0.0.1
+      - 1.1.1.1
+      - 1.0.0.1
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.transmission-openvpn.entrypoints=websecure
-    - traefik.http.routers.transmission-openvpn.tls=true
-    - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.${DOMAIN_NAME}`,`torrent.${DOMAIN_NAME}`)
-    - traefik.http.routers.transmission-openvpn.middlewares=chain-authelia@file
-    - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.transmission-openvpn.entrypoints=websecure
+      - traefik.http.routers.transmission-openvpn.tls=true
+      - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.${DOMAIN_NAME}`,`torrent.${DOMAIN_NAME}`)
+      - traefik.http.routers.transmission-openvpn.middlewares=chain-authelia@file
+      - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

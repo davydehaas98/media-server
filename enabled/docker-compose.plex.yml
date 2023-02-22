@@ -9,61 +9,61 @@ services:
     mem_limit: 8G
     hostname: plex
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
-    - HOSTNAME=Yggdrasil
-    - VERSION=docker
-    # - PLEX_CLAIM=<claim> #https://www.plex.tv/claim/
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - HOSTNAME=Yggdrasil
+      - VERSION=docker
+      # - PLEX_CLAIM=<claim> #https://www.plex.tv/claim/
     volumes:
-    - ${USER_DIR}/plex/config:/config
-    - ${USER_DIR}/plex/data:/data
-    - ${USER_DIR}/plex/transcode:/transcode
-    - /mnt/raid/media/movies:/movies:ro
-    - /mnt/raid/media/music:/music:ro
-    - /mnt/raid/media/series:/series:ro
-    - /mnt/raid/media/dvr:/dvr
+      - ${USER_DIR}/plex/config:/config
+      - ${USER_DIR}/plex/data:/data
+      - ${USER_DIR}/plex/transcode:/transcode
+      - /mnt/raid/media/movies:/movies:ro
+      - /mnt/raid/media/music:/music:ro
+      - /mnt/raid/media/series:/series:ro
+      - /mnt/raid/media/dvr:/dvr
     # expose:
     # - 32400
     ports:
-    # Plex Media Server
-    - 32400:32400
-    # Plex DLNA Server
-    - 1900:1900/udp
-    - 32469:32469
-    # Plex Home Theater via Plex Companion
-    - 3005:3005
-    # Older Bonjour/Avahi network discovery
-    #- 5353:5353/udp
-    # Plex for Roku via Plex Companion
-    - 8324:8324
-    # GDM network discovery
-    - 32469:32469/udp
-    - 32410:32410/udp
-    - 32412:32412/udp
-    - 32413:32413/udp
-    - 32414:32414/udp
+      # Plex Media Server
+      - 32400:32400
+      # Plex DLNA Server
+      - 1900:1900/udp
+      - 32469:32469
+      # Plex Home Theater via Plex Companion
+      - 3005:3005
+      # Older Bonjour/Avahi network discovery
+      #- 5353:5353/udp
+      # Plex for Roku via Plex Companion
+      - 8324:8324
+      # GDM network discovery
+      - 32469:32469/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
     devices:
-    - /dev/dri:/dev/dri # Intel/AMD GPU
-    #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
-    #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
-    #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
-    #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://plex.${DOMAIN_NAME}/identity || exit 1"]
-    #   interval: 60s
-    #   timeout: 10s
-    #   retries: 2
+      - /dev/dri:/dev/dri # Intel/AMD GPU
+      #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+      #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
+      #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
+      #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl -f https://plex.${DOMAIN_NAME}/identity || exit 1"]
+      #   interval: 60s
+      #   timeout: 10s
+      #   retries: 2
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.plex.entrypoints=websecure
-    - traefik.http.routers.plex.tls=true
-    - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN_NAME}`)
-    - traefik.http.routers.plex.middlewares=chain-no-auth@file
-    - traefik.http.services.plex.loadbalancer.server.port=32400
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.plex.entrypoints=websecure
+      - traefik.http.routers.plex.tls=true
+      - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN_NAME}`)
+      - traefik.http.routers.plex.middlewares=chain-no-auth@file
+      - traefik.http.services.plex.loadbalancer.server.port=32400
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

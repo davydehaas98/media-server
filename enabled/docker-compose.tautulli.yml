@@ -8,30 +8,30 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/plex/config:/plex/config:ro
-    - ${USER_DIR}/tautulli/config:/config
-    - ${USER_DIR}/tautulli/logs:/logs
+      - ${USER_DIR}/plex/config:/plex/config:ro
+      - ${USER_DIR}/tautulli/config:/config
+      - ${USER_DIR}/tautulli/logs:/logs
     expose:
-    - 8181
-    # healthcheck:
-    #   test: ["CMD-SHELL", "wget --quiet --tries=1 --spider https://tautulli.${DOMAIN_NAME}/status || exit 1"]
-    #   interval: 60s
-    #   timeout: 10s
-    #   retries: 2
+      - 8181
+      # healthcheck:
+      #   test: ["CMD-SHELL", "wget --quiet --tries=1 --spider https://tautulli.${DOMAIN_NAME}/status || exit 1"]
+      #   interval: 60s
+      #   timeout: 10s
+      #   retries: 2
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.tautulli.entrypoints=websecure
-    - traefik.http.routers.tautulli.tls=true
-    - traefik.http.routers.tautulli.rule=Host(`tautulli.${DOMAIN_NAME}`)
-    - traefik.http.routers.tautulli.middlewares=chain-no-auth@file
-    - traefik.http.services.tautulli.loadbalancer.server.port=8181
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.tautulli.entrypoints=websecure
+      - traefik.http.routers.tautulli.tls=true
+      - traefik.http.routers.tautulli.rule=Host(`tautulli.${DOMAIN_NAME}`)
+      - traefik.http.routers.tautulli.middlewares=chain-no-auth@file
+      - traefik.http.services.tautulli.loadbalancer.server.port=8181
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

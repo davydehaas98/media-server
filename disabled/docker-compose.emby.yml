@@ -8,27 +8,32 @@ services:
     cpus: 4
     mem_limit: 8G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/emby/config:/config
-    - ${USER_DIR}/emby/transcode:/transcode
-    - /mnt/raid/media/movies:/movies:ro
-    - /mnt/raid/media/music:/music:ro
-    - /mnt/raid/media/series:/series:ro
-    # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
+      - ${USER_DIR}/emby/config:/config
+      - ${USER_DIR}/emby/transcode:/transcode
+      - /mnt/raid/media/movies:/movies:ro
+      - /mnt/raid/media/music:/music:ro
+      - /mnt/raid/media/series:/series:ro
+      # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
     expose:
-    - 8096 # HTTP Web UI
-    - 8920 # HTTPS Web UI
+      # HTTP Web UI
+      - 8096
+      # HTTPS Web UI
+      - 8920
     devices:
-    - /dev/dri:/dev/dri # Intel/AMD GPU
-    # - /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
-    # - /dev/video10:/dev/video10 # Raspberry Pi V4L2
-    # - /dev/video11:/dev/video11 # Raspberry Pi V4L2
-    # - /dev/video12:/dev/video12 # Raspberry Pi V4L2
+      # Intel/AMD GPU
+      - /dev/dri:/dev/dri
+      # Raspberry Pi OpenMAX
+      #- /dev/vchiq:/dev/vchiq
+      # Raspberry Pi V4L2
+      #- /dev/video10:/dev/video10
+      #- /dev/video11:/dev/video11
+      #- /dev/video12:/dev/video12
     labels:
-    - diun.enable=true
+      - diun.enable=true
   embystat:
     image: linuxserver/embystat:latest
     container_name: embystat
@@ -36,12 +41,12 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - /media-server/embystat/config:/config
+      - ${USER_DIR}/embystat/config:/config
     expose:
-    - 6555
+      - 6555
     labels:
-    - diun.enable=true
+      - diun.enable=true

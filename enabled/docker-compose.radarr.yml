@@ -8,30 +8,30 @@ services:
     cpus: 1
     mem_limit: 2G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/radarr/config:/config
-    - /mnt/raid/media/downloads/completed:/downloads/completed
-    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-    - /mnt/raid/media/movies:/movies
+      - ${USER_DIR}/radarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/movies:/movies
     expose:
-    - 7878
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://movies.${DOMAIN_NAME}/api/system/status?apikey=${API_KEY_RADARR} || exit 1"]
-    #   interval: 60s
-    #   timeout: 10s
-    #   retries: 2
+      - 7878
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl -f https://movies.${DOMAIN_NAME}/api/system/status?apikey=${API_KEY_RADARR} || exit 1"]
+      #   interval: 60s
+      #   timeout: 10s
+      #   retries: 2
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.radarr.entrypoints=websecure
-    - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN_NAME}`,`movies.${DOMAIN_NAME}`)
-    - traefik.http.routers.radarr.middlewares=chain-authelia@file
-    - traefik.http.services.radarr.loadbalancer.server.port=7878
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.radarr.entrypoints=websecure
+      - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN_NAME}`,`movies.${DOMAIN_NAME}`)
+      - traefik.http.routers.radarr.middlewares=chain-authelia@file
+      - traefik.http.services.radarr.loadbalancer.server.port=7878
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

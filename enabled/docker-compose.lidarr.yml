@@ -8,31 +8,31 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/lidarr/config:/config
-    - /mnt/raid/media/downloads/completed:/downloads/completed
-    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-    - /mnt/raid/media/music:/music
+      - ${USER_DIR}/lidarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/music:/music
     expose:
-    - 8686
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://music.${DOMAIN_NAME}/api/v1/system/status?apikey=${API_KEY_LIDARR} || exit 1"]
-    #   interval: 60s
-    #   timeout: 10s
-    #   retries: 2
+      - 8686
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl -f https://music.${DOMAIN_NAME}/api/v1/system/status?apikey=${API_KEY_LIDARR} || exit 1"]
+      #   interval: 60s
+      #   timeout: 10s
+      #   retries: 2
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.lidarr.entrypoints=websecure
-    - traefik.http.routers.lidarr.tls=true
-    - traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN_NAME}`,`music.${DOMAIN_NAME}`)
-    - traefik.http.routers.lidarr.middlewares=chain-authelia@file
-    - traefik.http.services.lidarr.loadbalancer.server.port=8686
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.lidarr.entrypoints=websecure
+      - traefik.http.routers.lidarr.tls=true
+      - traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN_NAME}`,`music.${DOMAIN_NAME}`)
+      - traefik.http.routers.lidarr.middlewares=chain-authelia@file
+      - traefik.http.services.lidarr.loadbalancer.server.port=8686
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

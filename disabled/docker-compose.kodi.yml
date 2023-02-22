@@ -8,17 +8,20 @@ services:
     cpus: 4
     mem_limit: 8G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/kodi/config:/config/.kodi
-    - /mnt/raid/media/movies:/movies:ro
-    - /mnt/raid/media/music:/music:ro
-    - /mnt/raid/media/series:/series:ro
+      - ${USER_DIR}/kodi/config:/config/.kodi
+      - /mnt/raid/media/movies:/movies:ro
+      - /mnt/raid/media/music:/music:ro
+      - /mnt/raid/media/series:/series:ro
     expose:
-    - 8080 # Web UI
-    - 9090 # Websockets
-    - 9777/udp # Esall interface
+      # Web UI
+      - 8080
+      # Websockets
+      - 9090
+      # Esall interface
+      - 9777/udp
     labels:
-    - diun.enable=true
+      - diun.enable=true

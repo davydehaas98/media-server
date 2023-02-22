@@ -7,12 +7,12 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/organizr/config:/config
+      - ${USER_DIR}/organizr/config:/config
     expose:
-    - 80
+      - 80
     labels:
-    - diun.enable=true
+      - diun.enable=true

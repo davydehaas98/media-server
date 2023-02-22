@@ -8,20 +8,20 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
-    - DELUGE_LOGLEVEL=error
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
+      - DELUGE_LOGLEVEL=error
     volumes:
-    - ${USER_DIR}/deluge/config:/config
-    - /mnt/raid/media/downloads:/root/Downloads
+      - ${USER_DIR}/deluge/config:/config
+      - /mnt/raid/media/downloads:/root/Downloads
     ports:
-    # Web UI
-    - 8112:8112
-    # Incoming Connections (Used for seeding)
-    - 53160:53160
-    - 53160:53160/udp
-    # Daemon remote port (Used for GTK applications)
-    - 58846:58846
+      # Web UI
+      - 8112:8112
+      # Incoming Connections (Used for seeding)
+      - 53160:53160
+      - 53160:53160/udp
+      # Daemon remote port (Used for GTK applications)
+      - 58846:58846
     labels:
-    - diun.enable=true
+      - diun.enable=true

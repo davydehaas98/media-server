@@ -11,24 +11,24 @@ services:
     cpus: 1
     mem_limit: 1G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/xteve/config:/config:rw
+      - ${USER_DIR}/xteve/config:/config:rw
     ports:
-    - "34400:34400"
-    - "1900:1900"
+      - 34400:34400
+      - 1900:1900
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.xteve.entrypoints=websecure
-    - traefik.http.routers.xteve.tls=true
-    - traefik.http.routers.xteve.rule=Host(`xteve.${DOMAIN_NAME}`,`dvr.${DOMAIN_NAME}`)
-    - traefik.http.routers.xteve.middlewares=chain-authelia@file
-    - traefik.http.services.xteve.loadbalancer.server.port=34400
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.xteve.entrypoints=websecure
+      - traefik.http.routers.xteve.tls=true
+      - traefik.http.routers.xteve.rule=Host(`xteve.${DOMAIN_NAME}`,`dvr.${DOMAIN_NAME}`)
+      - traefik.http.routers.xteve.middlewares=chain-authelia@file
+      - traefik.http.services.xteve.loadbalancer.server.port=34400
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true

@@ -8,31 +8,31 @@ services:
     cpus: 1
     mem_limit: 2G
     environment:
-    - PGID=${PGID}
-    - PUID=${PUID}
-    - TZ=${TZ}
+      - PGID=${PGID}
+      - PUID=${PUID}
+      - TZ=${TZ}
     volumes:
-    - ${USER_DIR}/sonarr/config:/config
-    - /mnt/raid/media/downloads/completed:/downloads/completed
-    - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-    - /mnt/raid/media/series:/series
+      - ${USER_DIR}/sonarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/series:/series
     expose:
-    - 8989
-    # healthcheck:
-    #   test: ["CMD-SHELL", "curl -f https://series.${DOMAIN_NAME}/api/system/status?apikey=${API_KEY_SONARR} || exit 1"]
-    #   interval: 60s
-    #   timeout: 10s
-    #   retries: 2
+      - 8989
+      # healthcheck:
+      #   test: ["CMD-SHELL", "curl -f https://series.${DOMAIN_NAME}/api/system/status?apikey=${API_KEY_SONARR} || exit 1"]
+      #   interval: 60s
+      #   timeout: 10s
+      #   retries: 2
     labels:
-    - diun.enable=true
-    - traefik.enable=true
-    - traefik.http.routers.sonarr.entrypoints=websecure
-    - traefik.http.routers.sonarr.tls=true
-    - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN_NAME}`,`series.${DOMAIN_NAME}`)
-    - traefik.http.routers.sonarr.middlewares=chain-authelia@file
-    - traefik.http.services.sonarr.loadbalancer.server.port=8989
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.sonarr.entrypoints=websecure
+      - traefik.http.routers.sonarr.tls=true
+      - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN_NAME}`,`series.${DOMAIN_NAME}`)
+      - traefik.http.routers.sonarr.middlewares=chain-authelia@file
+      - traefik.http.services.sonarr.loadbalancer.server.port=8989
     networks:
-    - reverse-proxy
+      - reverse-proxy
 networks:
   reverse-proxy:
     external: true
