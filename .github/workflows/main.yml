@@ -34,8 +34,10 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: enabled/docker-compose.*.yml
         target: ${{ env.TARGET_DIR }}
-        strip_components: 1 # strip /enabled
-        rm: true # remove target folder before uploading data
+        # strip /enabled
+        strip_components: 1
+        # remove target folder before uploading data
+        rm: true
     - name: SSH | Start containers
       uses: appleboy/ssh-action@v0.1.7
       with:

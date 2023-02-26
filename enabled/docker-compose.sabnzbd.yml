@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   sabnzbd:
-    image: linuxserver/sabnzbd:latest
+    image: linuxserver/sabnzbd:3.7.2
     container_name: sabnzbd
     restart: unless-stopped
     cpus: 1

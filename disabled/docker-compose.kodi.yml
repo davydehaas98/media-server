@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Media stream service
   kodi:
-    image: celedhrim/kodi-server:leia
+    image: celedhrim/kodi-server:matrix
     container_name: kodi
     restart: unless-stopped
     cpus: 4
