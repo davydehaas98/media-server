@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Subtitles downloader and manager
   bazarr:
-    image: linuxserver/bazarr:1.1.4
+    image: linuxserver/bazarr:1.2.0
     container_name: bazarr
     restart: unless-stopped
     cpus: 1
