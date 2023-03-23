@@ -3,6 +3,6 @@
     "github>davydehaas98/renovate-config:default.json",
   ],
   "baseBranches": [
-    "develop",
+    "main",
   ],
 }
