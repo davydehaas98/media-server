@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   tdarr:
-    image: haveagitgat/tdarr:2.00.19
+    image: haveagitgat/tdarr:2.00.20
     container_name: tdarr
     restart: unless-stopped
     cpus: 1
