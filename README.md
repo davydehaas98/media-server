@@ -1,44 +1,5 @@
 # Dockerized Plex Media Server on Linux
 
-## Install Docker Community Edition (Docker CE) on Ubuntu
-Because the Ubuntu repository does not always has the latest version that is available, you can add the latest Docker repository yourself to always be up to date.
-
-Prepare the System to add the Docker repository:
-
-`sudo apt-get install apt-transport-https ca-certificates curl software-properties-common`
-
-Docker repository's GDPG key for verification of the repository:
-
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-
-Add the Docker repository:
-
-`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"`
-
-Refresh the Ubuntu packages list:
-
-`sudo apt-get update`
-
-Install Docker Community Edition:
-
-`sudo apt-get install docker-ce -y`
-
-You can check the installed version using the following command:
-
-`docker --version`
-
-You can test your docker setup by using the following command:
-
-`sudo docker run hello-world`
-
-This command will download and run a test container.
-## Install Docker Compose on Ubuntu
-Install the latest release of Docker Compose that is available using the curl command on GitHub [here](https://github.com/docker/compose/releases).
-
-You can check the installed version using the following command:
-
-`docker-compose --version`
-
 ## Create Linux User for Docker usage
 You need to create a seperate user and add it to the `docker` group, because some containers will not run secure and properly when using the root user.
 You can create a new non-root user by using the command seen below. Change `<name>` to whatever you want. I personally named the user that will own everything related to Docker just `docker`.

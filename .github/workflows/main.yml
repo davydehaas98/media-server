@@ -1,23 +1,18 @@
-name: Deploy media-server
-
+name: main
 on:
   push:
     branches: 
     - main
-
-# Ensures that only one deploy task per branch/environment will run at a time.
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: false
-
 env:
-  TARGET_DIR: /opt/compose/media-server/
   PGID: 1000
   PUID: 1000
   TZ: Etc/UTC
+  TARGET_DIR: /opt/compose/media-server/
   USER_DIR: /opt/appdata/media-server/
   DOMAIN_NAME: davydehaas.nl
-
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -36,7 +31,6 @@ jobs:
         target: ${{ env.TARGET_DIR }}
         # strip /enabled
         strip_components: 1
-        # remove target folder before uploading data
         rm: true
     - name: SSH | Start containers
       uses: appleboy/ssh-action@v0.1.9
