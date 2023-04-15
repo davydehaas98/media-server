@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Media stream service
   emby:
-    image: linuxserver/emby:4.7.11
+    image: linuxserver/emby:6.7.0
     container_name: emby
     restart: unless-stopped
     cpus: 4
