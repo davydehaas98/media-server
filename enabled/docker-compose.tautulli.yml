@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Plex monitor
   tautulli:
-    image: linuxserver/tautulli:2.12.4
+    image: linuxserver/tautulli:2.12.5
     container_name: tautulli
     restart: unless-stopped
     cpus: 1
