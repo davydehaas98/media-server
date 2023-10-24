@@ -5,8 +5,8 @@ services:
     image: linuxserver/prowlarr:1.4.1.3258-ls17
     container_name: prowlarr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 1G
+    cpus: 0.1
+    mem_limit: 1024m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

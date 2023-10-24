@@ -5,8 +5,8 @@ services:
     image: linuxserver/lidarr:1.3.5
     container_name: lidarr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 1G
+    cpus: 0.1
+    mem_limit: 256m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

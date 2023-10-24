@@ -5,8 +5,8 @@ services:
     image: linuxserver/plex:1.32.6
     container_name: plex
     restart: unless-stopped
-    cpus: 4
-    mem_limit: 8G
+    cpus: 6
+    mem_limit: 8192m
     hostname: plex
     environment:
       - PGID=${PGID}

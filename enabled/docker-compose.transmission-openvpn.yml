@@ -5,8 +5,8 @@ services:
     image: haugene/transmission-openvpn:5.2
     container_name: transmission
     restart: unless-stopped
-    cpus: 2
-    mem_limit: 4G
+    cpus: 6
+    mem_limit: 4096m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

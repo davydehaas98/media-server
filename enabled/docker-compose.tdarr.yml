@@ -4,8 +4,8 @@ services:
     image: haveagitgat/tdarr:2.10.02
     container_name: tdarr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 1G
+    cpus: 0.1
+    mem_limit: 2048m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}
@@ -41,7 +41,7 @@ services:
     container_name: tdarr-node
     restart: unless-stopped
     cpus: 6
-    mem_limit: 4G
+    mem_limit: 8192m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

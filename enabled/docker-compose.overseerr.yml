@@ -5,8 +5,8 @@ services:
     image: linuxserver/overseerr:1.33.2
     container_name: overseerr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 1G
+    cpus: 0.1
+    mem_limit: 512m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

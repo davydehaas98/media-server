@@ -5,8 +5,8 @@ services:
     image: linuxserver/sonarr:3.0.10
     container_name: sonarr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 2G
+    cpus: 0.1
+    mem_limit: 2048m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

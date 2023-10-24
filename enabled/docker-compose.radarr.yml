@@ -5,8 +5,8 @@ services:
     image: linuxserver/radarr:4.7.5
     container_name: radarr
     restart: unless-stopped
-    cpus: 1
-    mem_limit: 2G
+    cpus: 0.1
+    mem_limit: 2048m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}
