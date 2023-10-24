@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   tdarr:
-    image: haveagitgat/tdarr:2.10.02
+    image: haveagitgat/tdarr:2.13.01
     container_name: tdarr
     restart: unless-stopped
     cpus: 0.1
@@ -37,7 +37,7 @@ services:
     networks:
       - reverse-proxy
   tdarr-node:
-    image: haveagitgat/tdarr_node:2.10.02
+    image: haveagitgat/tdarr_node:2.13.01
     container_name: tdarr-node
     restart: unless-stopped
     cpus: 6
