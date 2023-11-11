@@ -37,7 +37,7 @@ services:
     networks:
       - reverse-proxy
   tdarr-node:
-    image: haveagitgat/tdarr_node:2.14.02
+    image: haveagitgat/tdarr_node:2.15.01
     container_name: tdarr-node
     restart: unless-stopped
     cpus: 6
