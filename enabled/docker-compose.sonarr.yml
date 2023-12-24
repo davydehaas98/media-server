@@ -6,7 +6,7 @@ services:
     container_name: sonarr
     restart: unless-stopped
     cpus: 1
-    mem_limit: 2048m
+    mem_limit: 4096m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

@@ -5,8 +5,8 @@ services:
     image: linuxserver/tautulli:2.13.4
     container_name: tautulli
     restart: unless-stopped
-    cpus: 0.1
-    mem_limit: 512m
+    cpus: 2
+    mem_limit: 2048m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}
