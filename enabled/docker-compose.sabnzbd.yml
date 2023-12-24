@@ -4,8 +4,8 @@ services:
     image: linuxserver/sabnzbd:4.1.0
     container_name: sabnzbd
     restart: unless-stopped
-    cpus: 0.1
-    mem_limit: 256m
+    cpus: 1
+    mem_limit: 1024m
     environment:
       - PGID=${PGID}
       - PUID=${PUID}

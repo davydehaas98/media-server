@@ -2,10 +2,10 @@ version: "3.9"
 services:
   # Proxy Server for Sonarr and prowlarr search queries
   prowlarr:
-    image: linuxserver/prowlarr:1.4.1.3258-ls17
+    image: linuxserver/prowlarr:1.10.5
     container_name: prowlarr
     restart: unless-stopped
-    cpus: 0.1
+    cpus: 1
     mem_limit: 1024m
     environment:
       - PGID=${PGID}
