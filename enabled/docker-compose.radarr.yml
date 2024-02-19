@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Movie downloader and manager
   radarr:
-    image: linuxserver/radarr:5.2.6
+    image: linuxserver/radarr:5.3.6
     container_name: radarr
     restart: unless-stopped
     cpus: 1
