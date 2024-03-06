@@ -1,6 +1,6 @@
 {
   "extends": [
-    "github>davydehaas98/renovate-config:default.json5"
+    "github>davydehaas98/renovate-config"
   ],
   "baseBranches": [
     "main"
