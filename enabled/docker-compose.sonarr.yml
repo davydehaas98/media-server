@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Serie downloader and manager
   sonarr:
-    image: linuxserver/sonarr:4.0.2
+    image: linuxserver/sonarr:4.0.2@sha256:86122cfebc3bdb59cc9c49e531bc79bf26e8f6aec2df2172c9aadb09f3d589b0
     container_name: sonarr
     restart: unless-stopped
     cpus: 1

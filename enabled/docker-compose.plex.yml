@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Media stream service
   plex:
-    image: linuxserver/plex:1.40.0
+    image: linuxserver/plex:1.40.0@sha256:1242180c3f80dcaa6f15d481b3056ae62dfb25afcb0d3cd080c2fb6243f5cddd
     container_name: plex
     restart: unless-stopped
     cpus: 8

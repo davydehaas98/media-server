@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Torrent client with VPN
   transmission:
-    image: haugene/transmission-openvpn:5.3
+    image: haugene/transmission-openvpn:5.3@sha256:a128b49e29379895c5815e8bea3c1b5eb42ccbef4ab9e5109a72b97d8fd7c0b0
     container_name: transmission
     restart: unless-stopped
     cpus: 6
