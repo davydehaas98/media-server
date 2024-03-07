@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Plex requests and user management system
   overseerr:
-    image: linuxserver/overseerr:1.33.2@sha256:2178bbe6e6d5aad150094854806e6e171e3ec154f6ee254703fa0f475ff15a7b
+    image: linuxserver/overseerr:1.33.2@sha256:254ed3aeff632f3c6ebf72ff220d5c36bf1459feb3f0a2d9efd3f2f0fa5dd01e
     container_name: overseerr
     restart: unless-stopped
     cpus: 0.1
