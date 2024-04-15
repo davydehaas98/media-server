@@ -2,7 +2,7 @@ version: "3.9"
 services:
   # Music downloader and manager
   lidarr:
-    image: linuxserver/lidarr:2.1.7@sha256:b85fb54c63c41be6b7c4dd35681e040c34457f6fd46f59e3e7995d67f3ee1d11
+    image: linuxserver/lidarr:2.2.5@sha256:130b956c43969854ca039a0ec804f4af32fc71ee62e7687895ae76918dda1750
     container_name: lidarr
     restart: unless-stopped
     cpus: 0.1
