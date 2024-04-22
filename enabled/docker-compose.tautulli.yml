@@ -1,7 +1,7 @@
 services:
   # Plex monitor
   tautulli:
-    image: linuxserver/tautulli:2.13.4@sha256:586e22a48e8a2cfea679b619f1d797cd8e5f019a6317a2b441a004706e679f6c
+    image: linuxserver/tautulli:2.13.4@sha256:d070d1b9d60c9b6bc8b07357529e01024fa568f0efe9317ce19936ca30eea57c
     container_name: tautulli
     restart: unless-stopped
     cpus: 4
