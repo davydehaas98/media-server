@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   # Movie downloader and manager
   radarr:

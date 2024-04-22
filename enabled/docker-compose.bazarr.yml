@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   # Subtitles downloader and manager
   bazarr:

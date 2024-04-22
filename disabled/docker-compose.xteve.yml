@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   # M3U Proxy for Plex DVR and Emby Live TV
   # https://github.com/xteve-project/xTeVe

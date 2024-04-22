@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   tdarr:
     image: haveagitgat/tdarr:2.17.01

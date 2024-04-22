@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   # Plex requests and user management system
   overseerr:
