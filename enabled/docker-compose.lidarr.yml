@@ -27,7 +27,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.lidarr.entrypoints=websecure
       - traefik.http.routers.lidarr.tls=true
-      - traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN_NAME}`,`music.${DOMAIN_NAME}`)
+      - traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN_NAME}`) || Host(`music.${DOMAIN_NAME}`)
       - traefik.http.routers.lidarr.middlewares=chain-authelia@file
       - traefik.http.services.lidarr.loadbalancer.server.port=8686
     networks:
