@@ -24,7 +24,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.ombi.entrypoints=websecure
       - traefik.http.routers.ombi.tls=true
-      - traefik.http.routers.ombi.rule=Host(`requests.${DOMAIN_NAME}`,`ombi.${DOMAIN_NAME}`)
+      - traefik.http.routers.ombi.rule=Host(`requests.${DOMAIN_NAME}`) || Host(`ombi.${DOMAIN_NAME}`)
       - traefik.http.routers.ombi.middlewares=chain-authelia@file
       - traefik.http.services.ombi.loadbalancer.server.port=3579
     networks:
