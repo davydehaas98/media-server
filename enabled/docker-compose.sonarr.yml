@@ -1,7 +1,7 @@
 services:
   # Serie downloader and manager
   sonarr:
-    image: linuxserver/sonarr:4.0.5@sha256:30432d9faf9e8fbb7c6336806ee061ed426204e1f9718d9659a2642a6e3a7c59
+    image: linuxserver/sonarr:4.0.6@sha256:3f193d343c1225676c1ea0547c5022fd83c4459a493870179dff9e87c54dbbc9
     container_name: sonarr
     restart: unless-stopped
     cpus: 1
