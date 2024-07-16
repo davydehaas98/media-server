@@ -1,7 +1,7 @@
 services:
   # Plex requests and user management system
   ombi:
-    image: linuxserver/ombi:4.43.5@sha256:5c0fab7eba38c0561b74a1ef3d817074609175181f507a8fa1739902295e5a75
+    image: linuxserver/ombi:4.43.5@sha256:b85407d9f13163dfdd9d8d38ed71a292898150e8863bd6d8fa13e39d31ec7ed6
     container_name: ombi
     restart: unless-stopped
     cpus: 0.1
