@@ -12,10 +12,9 @@ services:
       - TZ=${TZ}
       - CREATE_TUN_DEVICE=true
       - DROP_DEFAULT_ROUTE=true
-      - HEALTH_CHECK_HOST=twitter.com
+      - HEALTH_CHECK_HOST=github.com
       # Get access to the WebUI without VPN
       - LOCAL_NETWORK=192.168.0.0/24
-      #- OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
       # Set these variables to the preferred VPN
       - OPENVPN_OPTS=--inactive 3600 --ping 10 --ping-exit 60
       - OPENVPN_USERNAME=${VPN_USERNAME}
