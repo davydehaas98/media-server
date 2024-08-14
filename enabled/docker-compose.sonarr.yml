@@ -28,7 +28,7 @@ services:
       - traefik.http.routers.sonarr.entrypoints=websecure
       - traefik.http.routers.sonarr.tls=true
       - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN_NAME}`) || Host(`series.${DOMAIN_NAME}`)
-      - traefik.http.routers.sonarr.middlewares=chain-authelia@file
+      - traefik.http.routers.sonarr.middlewares=chain-no-auth@file
       - traefik.http.services.sonarr.loadbalancer.server.port=8989
     networks:
       - reverse-proxy
