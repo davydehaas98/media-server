@@ -13,7 +13,8 @@ services:
       - TZ=${TZ}
       - HOSTNAME=Yggdrasil
       - VERSION=docker
-      # - PLEX_CLAIM=<claim> #https://www.plex.tv/claim/
+      # https://www.plex.tv/claim/
+      # - PLEX_CLAIM=<claim>
     volumes:
       - ${USER_DIR}/plex/config:/config
       - ${USER_DIR}/plex/data:/data
