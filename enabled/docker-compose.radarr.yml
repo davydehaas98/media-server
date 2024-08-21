@@ -1,7 +1,7 @@
 services:
   # Movie downloader and manager
   radarr:
-    image: linuxserver/radarr:5.8.3@sha256:938281e82a91da0115d0f8b0a2260acf0f07052c8c78dfaf7e407c843ae242f5
+    image: linuxserver/radarr:5.9.1@sha256:b034531ff81d3e5e1f9fd70c969746040b40e6484c88981ea5d0dee732c10bc3
     container_name: radarr
     restart: unless-stopped
     cpus: 1
