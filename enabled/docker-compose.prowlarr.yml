@@ -1,7 +1,7 @@
 services:
   # Proxy Server for Sonarr and prowlarr search queries
   prowlarr:
-    image: linuxserver/prowlarr:1.21.2@sha256:c80a2dcfefd85c62da2373c5bf0138bb9d1c647c4b3d8f994ce263f5e8b1db81
+    image: linuxserver/prowlarr:1.21.2@sha256:c93f075dc5afb74dc7a0a55e90974f81425a5d3c5d293022c5416431f4963ce9
     container_name: prowlarr
     restart: unless-stopped
     cpus: 1
