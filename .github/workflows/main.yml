@@ -2,7 +2,7 @@ name: main
 on:
   push:
     branches: 
-    - main
+      - main
 concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: false
@@ -15,49 +15,49 @@ env:
   DOMAIN_NAME: davydehaas.nl
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
-    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-    - name: SSH SCP | Copy docker-compose.yml
-      uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        port: ${{ secrets.SSH_PORT }}
-        username: ${{ secrets.SSH_USERNAME }}
-        #password: ${{ secrets.SSH_PASSWORD }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: enabled/docker-compose.*.yml
-        target: ${{ env.TARGET_DIR }}
-        # strip /enabled
-        strip_components: 1
-        rm: true
-    - name: SSH | Start containers
-      uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        port: ${{ secrets.SSH_PORT }}
-        username: ${{ secrets.SSH_USERNAME }}
-        #password: ${{ secrets.SSH_PASSWORD }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        script: |
-          cd ${{ env.TARGET_DIR }}
-          
-          echo 'PGID=${{ env.PGID }}' >> .env
-          echo 'PUID=${{ env.PUID }}' >> .env
-          echo 'TZ=${{ env.TZ }}' >> .env
-          echo 'USER_DIR=${{ env.USER_DIR }}' >> .env
-          echo 'DOMAIN_NAME=${{ env.DOMAIN_NAME }}' >> .env
-          
-          echo 'TORRENT_USERNAME=${{ secrets.TORRENT_USERNAME }}' >> .env
-          echo 'TORRENT_PASSWORD=${{ secrets.TORRENT_PASSWORD }}' >> .env
-          echo 'VPN_USERNAME=${{ secrets.VPN_USERNAME }}' >> .env
-          echo 'VPN_PASSWORD=${{ secrets.VPN_PASSWORD }}' >> .env
-          
-          echo 'API_KEY_BAZARR=${{ secrets.API_KEY_BAZARR }}' >> .env
-          echo 'API_KEY_LIDARR=${{ secrets.API_KEY_LIDARR }}' >> .env
-          echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
-          echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
-
-          docker compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d --remove-orphans
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: SSH SCP | Copy docker-compose.yml
+        uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          #password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          source: enabled/docker-compose.*.yml
+          target: ${{ env.TARGET_DIR }}
+          # strip /enabled
+          strip_components: 1
+          rm: true
+      - name: SSH | Start containers
+        uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
+          #password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd ${{ env.TARGET_DIR }}
+            
+            echo 'PGID=${{ env.PGID }}' >> .env
+            echo 'PUID=${{ env.PUID }}' >> .env
+            echo 'TZ=${{ env.TZ }}' >> .env
+            echo 'USER_DIR=${{ env.USER_DIR }}' >> .env
+            echo 'DOMAIN_NAME=${{ env.DOMAIN_NAME }}' >> .env
+            
+            echo 'TORRENT_USERNAME=${{ secrets.TORRENT_USERNAME }}' >> .env
+            echo 'TORRENT_PASSWORD=${{ secrets.TORRENT_PASSWORD }}' >> .env
+            echo 'VPN_USERNAME=${{ secrets.VPN_USERNAME }}' >> .env
+            echo 'VPN_PASSWORD=${{ secrets.VPN_PASSWORD }}' >> .env
+            
+            echo 'API_KEY_BAZARR=${{ secrets.API_KEY_BAZARR }}' >> .env
+            echo 'API_KEY_LIDARR=${{ secrets.API_KEY_LIDARR }}' >> .env
+            echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
+            echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
+  
+            docker compose $(find docker-compose.*.yml | sed -e 's/^/-f /') up -d --remove-orphans
