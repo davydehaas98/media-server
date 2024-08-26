@@ -1,7 +1,7 @@
 services:
   # Media stream service
   plex:
-    image: linuxserver/plex:1.40.5@sha256:1b7e8833b689c70daaa76d1b75a80df6415d58635d905f1018d4f21a7ea580b3
+    image: linuxserver/plex:1.40.5@sha256:4bc88efb49059e0d98254c4fcf680de996873b2c5d732604ebbccc4ac952fec9
     container_name: plex
     restart: unless-stopped
     cpus: 8
