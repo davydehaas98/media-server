@@ -1,0 +1,34 @@
+services: 
+  jellyfin:
+    image: jellyfin/jellyfin:10.9.11
+    container_name: jellyfin
+    restart: unless-stopped
+    cpus: 4
+    mem_limit: 8192m
+    user: ${PUID}:${PGID}
+    environment:
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+    volumes:
+      - ${USER_DIR}/jellyfin:/config
+      - /mnt/raid/media/movies:/movies:ro
+      - /mnt/raid/media/music:/music:ro
+      - /mnt/raid/media/series:/series:ro
+      - /dev/shm:/data/transcode
+    ports:
+      - 8096:8096
+    devices:
+      - /dev/dri:/dev/dri
+    labels:
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.jellyfin.entrypoints=websecure
+      - traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN_NAME}`)
+      - traefik.http.routers.radarr.middlewares=chain-no-auth@file
+      - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+    networks:
+      - reverse-proxy
+networks:
+  reverse-proxy:
+    external: true
+    name: reverse-proxy_default
