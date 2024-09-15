@@ -7,6 +7,8 @@ services:
     mem_limit: 8192m
     user: ${PUID}:${PGID}
     environment:
+      - PGID=${PGID}
+      - PUID=${PUID}
       - TZ=${TZ}
       - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
     volumes:
