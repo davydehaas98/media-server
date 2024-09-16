@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     cpus: 4
     mem_limit: 8G
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     environment:
       - PGID=${GID}
       - PUID=${UID}
@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
     cpus: 1
     mem_limit: 1G
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     environment:
       - PGID=${GID}
       - PUID=${UID}

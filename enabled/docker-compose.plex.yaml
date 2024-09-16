@@ -7,7 +7,7 @@ services:
     cpus: 8
     mem_limit: 8192m
     hostname: plex
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     environment:
       - PGID=${GID}
       - PUID=${UID}
