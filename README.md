@@ -4,11 +4,12 @@
 You need to create a seperate user and add it to the `docker` group, because some containers will not run secure and properly when using the root user.
 You can create a new non-root user by using the command seen below. Change `<name>` to whatever you want. I personally named the user that will own everything related to Docker just `docker`.
 
-`useradd -r -g docker <name>`
+`sudo groupadd homelab --gid 1400`
+`sudo useradd homelab --uid 1400 --gid 1400 --create-home`
 
 These commands will make sure your user can properly access the mediaserver files:
 
-`chown -R <name>:docker /mnt/raid/media-server`
+`chown -R homelab:homelab /mnt/raid/media-server`
 
 `chmod -R 0755 /mnt/raid/media-server`
 
@@ -28,8 +29,8 @@ Create and edit the environmental variables file using the following command:
 Add the following as separate lines at the end of the file:
 
 ```
-GID=113
-UID=999
+GID=1400
+UID=1400
 TZ="America/New_York"
 OPENVPN_USERNAME="username"
 OPENVPN_PASSWORD="password"
