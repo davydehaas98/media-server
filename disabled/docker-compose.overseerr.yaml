@@ -1,14 +1,15 @@
 services:
   # Plex requests and user management system
   overseerr:
-    image: linuxserver/overseerr:1.33.2@sha256:aaba9e51b62a17e914de79e8eda4616f12e9bf4bce115cda6d0ad8178daea102
+    image: lscr.io/linuxserver/overseerr:1.33.2@sha256:aaba9e51b62a17e914de79e8eda4616f12e9bf4bce115cda6d0ad8178daea102
     container_name: overseerr
     restart: unless-stopped
     cpus: 0.1
     mem_limit: 512m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/overseerr/config:/config

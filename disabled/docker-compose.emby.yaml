@@ -1,14 +1,15 @@
 services:
   # Media stream service
   emby:
-    image: linuxserver/emby:4.7.11
+    image: lscr.io/linuxserver/emby:4.7.11
     container_name: emby
     restart: unless-stopped
     cpus: 4
     mem_limit: 8G
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/emby/config:/config
@@ -34,14 +35,15 @@ services:
     labels:
       - diun.enable=true
   embystat:
-    image: linuxserver/embystat:latest
+    image: lscr.io/linuxserver/embystat:latest
     container_name: embystat
     restart: unless-stopped
     cpus: 1
     mem_limit: 1G
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/embystat/config:/config

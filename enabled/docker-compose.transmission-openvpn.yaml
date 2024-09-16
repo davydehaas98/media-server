@@ -6,9 +6,8 @@ services:
     restart: unless-stopped
     cpus: 6
     mem_limit: 4096m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
       - TZ=${TZ}
       - CREATE_TUN_DEVICE=true
       - DROP_DEFAULT_ROUTE=true

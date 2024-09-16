@@ -1,15 +1,16 @@
 services:
   # Media stream service
   plex:
-    image: linuxserver/plex:1.41.0@sha256:0c4e1981b23c3bdf2892cb9b85c299137af55390044dd5cfdd33bdbc4e32ee1f
+    image: lscr.io/linuxserver/plex:1.41.0@sha256:0c4e1981b23c3bdf2892cb9b85c299137af55390044dd5cfdd33bdbc4e32ee1f
     container_name: plex
     restart: unless-stopped
     cpus: 8
     mem_limit: 8192m
     hostname: plex
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
       - HOSTNAME=Yggdrasil
       - VERSION=docker

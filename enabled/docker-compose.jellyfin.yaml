@@ -5,12 +5,10 @@ services:
     restart: unless-stopped
     cpus: 4
     mem_limit: 8192m
-    user: ${PUID}:${PGID}
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
       - TZ=${TZ}
-      - DOCKER_MODS=linuxserver/mods:jellyfin-opencl-intel
+      - DOCKER_MODS=lscr.io/linuxserver/mods:jellyfin-opencl-intel
     volumes:
       - ${USER_DIR}/jellyfin/config:/config
       - ${USER_DIR}/jellyfin/cache:/cache

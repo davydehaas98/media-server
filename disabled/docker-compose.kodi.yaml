@@ -6,9 +6,10 @@ services:
     restart: unless-stopped
     cpus: 4
     mem_limit: 8G
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/kodi/config:/config/.kodi

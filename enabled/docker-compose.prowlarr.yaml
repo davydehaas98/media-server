@@ -1,14 +1,15 @@
 services:
   # Proxy Server for Sonarr and prowlarr search queries
   prowlarr:
-    image: linuxserver/prowlarr:1.23.1@sha256:c1318191d5211ac7462c754422eafe350ed0de61c4160065a420896068ec1ccc
+    image: lscr.io/linuxserver/prowlarr:1.23.1@sha256:c1318191d5211ac7462c754422eafe350ed0de61c4160065a420896068ec1ccc
     container_name: prowlarr
     restart: unless-stopped
     cpus: 1
     mem_limit: 1024m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/prowlarr/config:/config

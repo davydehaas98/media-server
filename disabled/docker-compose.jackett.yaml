@@ -1,14 +1,15 @@
 services:
   # Proxy Server for Sonarr and Radarr search queries
   jackett:
-    image: linuxserver/jackett:0.20.3870
+    image: lscr.io/linuxserver/jackett:0.20.3870
     container_name: jackett
     restart: unless-stopped
     cpus: 1
     mem_limit: 1G
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/jackett/config:/config/Jackett

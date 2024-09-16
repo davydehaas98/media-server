@@ -1,14 +1,15 @@
 services:
   # Torrent client without VPN
   deluge:
-    image: linuxserver/deluge:2.1.1
+    image: lscr.io/linuxserver/deluge:2.1.1
     container_name: deluge
     restart: unless-stopped
     cpus: 1
     mem_limit: 1G
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
       - DELUGE_LOGLEVEL=error
     volumes:

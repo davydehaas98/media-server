@@ -28,8 +28,8 @@ Create and edit the environmental variables file using the following command:
 Add the following as separate lines at the end of the file:
 
 ```
-PGID=113
-PUID=999
+GID=113
+UID=999
 TZ="America/New_York"
 OPENVPN_USERNAME="username"
 OPENVPN_PASSWORD="password"
@@ -37,7 +37,7 @@ TORRENT_USERNAME="username"
 TORRENT_PASSWORD="password"
 ```
 
-`PGID` and `PUID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file. See more information about `PGID` and `PUID` [here](https://docs.linuxserver.io/general/understanding-puid-and-pgid).
+`GID` and `UID` are the user ID of the linux user, who you want to run the home server apps as, and group ID of docker. These can be obtained using the `id` command. Look for the uid=(<name>) and the groups=(docker) variables and fill them in your /etc/environment file. See more information about `PGID` and `PUID` [here](https://docs.linuxserver.io/general/understanding-puid-and-pgid).
 
 `TZ` is the timezone that you want to set for your containers. Get your TZ from this [Timezone Database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 

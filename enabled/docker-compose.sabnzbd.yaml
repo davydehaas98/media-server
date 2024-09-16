@@ -1,13 +1,14 @@
 services:
   sabnzbd:
-    image: linuxserver/sabnzbd:4.3.3@sha256:cf7743af338e1cdfc97f6e6c605c8c45d737a4f268ab96ba6cec565134cea5e1
+    image: lscr.io/linuxserver/sabnzbd:4.3.3@sha256:cf7743af338e1cdfc97f6e6c605c8c45d737a4f268ab96ba6cec565134cea5e1
     container_name: sabnzbd
     restart: unless-stopped
     cpus: 4
     mem_limit: 4096m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/sabnzbd:/config

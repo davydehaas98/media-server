@@ -5,9 +5,8 @@ services:
     restart: unless-stopped
     cpus: 0.1
     mem_limit: 2048m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
       - TZ=${TZ}
       - UMASK_SET=002
       - serverIP=tdarr
@@ -41,9 +40,8 @@ services:
     restart: unless-stopped
     cpus: 6
     mem_limit: 8192m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
       - TZ=${TZ}
       - UMASK_SET=002
       - nodeID=MainNode

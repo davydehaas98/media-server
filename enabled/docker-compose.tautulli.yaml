@@ -1,14 +1,15 @@
 services:
   # Plex monitor
   tautulli:
-    image: linuxserver/tautulli:2.14.4@sha256:752f03dd1b4ee742cb87b36b2f38eb16efa34401df2d292df5cfd842c2650854
+    image: lscr.io/linuxserver/tautulli:2.14.4@sha256:752f03dd1b4ee742cb87b36b2f38eb16efa34401df2d292df5cfd842c2650854
     container_name: tautulli
     restart: unless-stopped
     cpus: 4
     mem_limit: 2048m
+    user: ${UID}:${GID}
     environment:
-      - PGID=${PGID}
-      - PUID=${PUID}
+      - PGID=${GID}
+      - PUID=${UID}
       - TZ=${TZ}
     volumes:
       - ${USER_DIR}/plex/config:/plex/config:ro
