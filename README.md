@@ -5,7 +5,7 @@ You need to create a seperate user and add it to the `docker` group, because som
 You can create a new non-root user by using the command seen below. Change `<name>` to whatever you want. I personally named the user that will own everything related to Docker just `docker`.
 
 ```shell
-sudo groupadd homelab --gid 1400`
+sudo groupadd homelab --gid 1400
 sudo useradd homelab --uid 1400 --gid 1400 --create-home
 ```
 
