@@ -4,14 +4,17 @@
 You need to create a seperate user and add it to the `docker` group, because some containers will not run secure and properly when using the root user.
 You can create a new non-root user by using the command seen below. Change `<name>` to whatever you want. I personally named the user that will own everything related to Docker just `docker`.
 
-`sudo groupadd homelab --gid 1400`
-`sudo useradd homelab --uid 1400 --gid 1400 --create-home`
+```shell
+sudo groupadd homelab --gid 1400`
+sudo useradd homelab --uid 1400 --gid 1400 --create-home
+```
 
 These commands will make sure your user can properly access the mediaserver files:
 
-`chown -R homelab:homelab /mnt/raid/media-server`
-
-`chmod -R 0755 /mnt/raid/media-server`
+```shell
+chown -R homelab:homelab /mnt/raid/media-server
+chmod -R 0755 /mnt/raid/media-server
+```
 
 ## Add Linux User to Docker Group
 Running and managing Docker containers requires sudo privileges. You can give the user these priviliges by using the following command:
@@ -28,7 +31,7 @@ Create and edit the environmental variables file using the following command:
 
 Add the following as separate lines at the end of the file:
 
-```
+```shell
 GID=1400
 UID=1400
 TZ="America/New_York"
