@@ -7,11 +7,11 @@ concurrency:
   group: ${{ github.ref }}
   cancel-in-progress: false
 env:
-  GID: 1000
-  UID: 1000
+  GID: 1400
+  UID: 1400
   TZ: Etc/UTC
-  TARGET_DIR: /opt/compose/media-server/
-  USER_DIR: /opt/appdata/media-server/
+  TARGET_DIR: /home/homelab/compose/media-server/
+  USER_DIR: /home/homelab/media-server/
   DOMAIN_NAME: davydehaas.nl
 jobs:
   deploy:
@@ -25,7 +25,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
-          #password: ${{ secrets.SSH_PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: enabled/docker-compose.*.yaml
