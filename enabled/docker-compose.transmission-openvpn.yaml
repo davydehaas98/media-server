@@ -66,6 +66,8 @@ services:
       - 51413:51413/udp
     cap_add:
       - NET_ADMIN
+    device:
+      - /dev/net/tun
     dns:
       - 1.1.1.1
       - 1.0.0.1
