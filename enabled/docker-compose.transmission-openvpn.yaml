@@ -9,7 +9,7 @@ services:
     user: ${UID}:${GID}
     environment:
       - TZ=${TZ}
-      - CREATE_TUN_DEVICE=true
+      # - CREATE_TUN_DEVICE=true
       - DROP_DEFAULT_ROUTE=true
       - HEALTH_CHECK_HOST=github.com
       # Get access to the WebUI without VPN
