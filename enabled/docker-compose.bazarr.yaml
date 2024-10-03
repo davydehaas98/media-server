@@ -1,7 +1,7 @@
 services:
   # Subtitles downloader and manager
   bazarr:
-    image: lscr.io/linuxserver/bazarr:1.4.4@sha256:71f545e4a6cfda02798fd531bfc27b14cbf7345bb28fe503467fb1ab13c3bfbc
+    image: lscr.io/linuxserver/bazarr:1.4.4@sha256:5015144d4a1e28851d0b7eee5a85ff9a8a5e0bc5135ee2147ae0c511d6c5a9f1
     container_name: bazarr
     restart: unless-stopped
     cpus: 0.1
