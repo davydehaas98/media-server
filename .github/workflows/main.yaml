@@ -19,29 +19,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
-      - name: SCP | Copy docker-compose.yaml
-        uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: enabled/docker-compose.*.yaml
-          target: ${{ env.TARGET_DIR }}
-          # strip /enabled
-          strip_components: 1
-          rm: true
+      - name: Setup SSH
+        run: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+            chmod 600 ~/.ssh/id_ed25519
+            ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: SCP | Copy files
+        run: |
+          scp -r ./enabled/docker-compose.*.yaml ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ env.TARGET_DIR }}
       - name: SSH | Start containers
-        uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          username: ${{ secrets.SSH_USERNAME }}
-          #password: ${{ secrets.SSH_PASSWORD }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: |
+        run: |
+          ssh homelab@${{ secrets.SSH_HOST }} /bin/bash <<EOF
             cd ${{ env.TARGET_DIR }}
             
             echo 'GID=${{ env.GID }}' >> .env
@@ -59,5 +48,10 @@ jobs:
             echo 'API_KEY_LIDARR=${{ secrets.API_KEY_LIDARR }}' >> .env
             echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
             echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
-  
-            docker compose $(find docker-compose.*.yaml | sed -e 's/^/-f /') up -d --remove-orphans
+            
+            for filename in docker-compose.*.yaml;
+            do
+              args="\$args -f \$filename"
+            done
+            docker compose -p home-server \$args up -d --remove-orphans;
+          EOF
