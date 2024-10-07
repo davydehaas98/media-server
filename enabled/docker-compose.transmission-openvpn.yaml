@@ -11,7 +11,7 @@ services:
     dns:
       - 1.1.1.1
       - 1.0.0.1
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     environment:
       - TZ=${TZ}
       - CREATE_TUN_DEVICE=true
