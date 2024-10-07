@@ -19,7 +19,7 @@ services:
     expose:
       - 8989
     healthcheck:
-      test: ["CMD", "curl", "--fail", "https://sonarr:8989/ping"]
+      test: ["CMD", "curl", "--fail", "http://sonarr:8989/ping"]
       interval: 30s
       timeout: 10s
       retries: 3

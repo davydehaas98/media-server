@@ -20,7 +20,7 @@ services:
       # HTTPS
       - 9090
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://sabnzbd:8080/ping"]
+      test: ["CMD", "curl", "--fail", "http://sabnzbd:8080"]
       interval: 30s
       timeout: 10s
       retries: 3
