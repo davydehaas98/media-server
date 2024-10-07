@@ -44,11 +44,6 @@ jobs:
             echo 'VPN_USERNAME=${{ secrets.VPN_USERNAME }}' >> .env
             echo 'VPN_PASSWORD=${{ secrets.VPN_PASSWORD }}' >> .env
             
-            echo 'API_KEY_BAZARR=${{ secrets.API_KEY_BAZARR }}' >> .env
-            echo 'API_KEY_LIDARR=${{ secrets.API_KEY_LIDARR }}' >> .env
-            echo 'API_KEY_RADARR=${{ secrets.API_KEY_RADARR }}' >> .env
-            echo 'API_KEY_SONARR=${{ secrets.API_KEY_SONARR }}' >> .env
-            
             for filename in docker-compose.*.yaml;
             do
               args="\$args -f \$filename"

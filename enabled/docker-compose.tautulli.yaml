@@ -17,6 +17,13 @@ services:
       - ${USER_DIR}/tautulli/logs:/logs
     expose:
       - 8181
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://tautulli:8181/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
       # healthcheck:
       #   test: ["CMD-SHELL", "wget --quiet --tries=1 --spider https://tautulli.${DOMAIN_NAME}/status || exit 1"]
       #   interval: 60s

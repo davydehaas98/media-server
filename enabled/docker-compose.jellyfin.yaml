@@ -19,7 +19,7 @@ services:
     ports:
       - 8096:8096
     devices:
-      - /dev/dri:/dev/dri
+      - /dev/dri:/dev/dri # Intel/AMD GPU
     labels:
       - diun.enable=true
       - traefik.enable=true
