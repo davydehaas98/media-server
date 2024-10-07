@@ -30,11 +30,6 @@ services:
       - NORDVPN_PROTOCOL=tcp
       #- TRANSMISSION_DOWNLOAD_QUEUE_SIZE=10
       - TRANSMISSION_ENCRYPTION=2 # Require encrypted connections
-      - TRANSMISSION_RPC_AUTHENTICATION_REQUIRED=true
-      - TRANSMISSION_RPC_HOST_WHITELIST=127.0.0.1,192.168.*.*
-      - TRANSMISSION_RPC_HOST_WHITELIST_ENABLED=true
-      - TRANSMISSION_RPC_USERNAME=${TORRENT_USERNAME}
-      - TRANSMISSION_RPC_PASSWORD=${TORRENT_PASSWORD}
       - TRANSMISSION_SPEED_LIMIT_UP=0
       - TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true
       - TRANSMISSION_SPEED_LIMIT_DOWN=5000
@@ -70,6 +65,7 @@ services:
       - 51413:51413
       - 51413:51413/udp
     healthcheck:
+      disable: true
       test: ["CMD", "curl", "--fail", "http://transmission:9091"]
       interval: 30s
       timeout: 10s
