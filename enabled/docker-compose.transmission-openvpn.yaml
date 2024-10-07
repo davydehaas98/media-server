@@ -6,10 +6,15 @@ services:
     restart: unless-stopped
     cpus: 6
     mem_limit: 4096m
+    cap_add:
+      - NET_ADMIN
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
     user: ${UID}:${GID}
     environment:
       - TZ=${TZ}
-      # - CREATE_TUN_DEVICE=true
+      - CREATE_TUN_DEVICE=true
       - DROP_DEFAULT_ROUTE=true
       - HEALTH_CHECK_HOST=github.com
       # Get access to the WebUI without VPN
@@ -65,19 +70,12 @@ services:
       - 51413:51413
       - 51413:51413/udp
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://transmission:9091/ping"]
+      test: ["CMD", "curl", "--fail", "http://transmission:9091"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 10s
       start_interval: 5s
-    cap_add:
-      - NET_ADMIN
-    devices:
-      - /dev/net/tun
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
     labels:
       - diun.enable=true
       - traefik.enable=true
