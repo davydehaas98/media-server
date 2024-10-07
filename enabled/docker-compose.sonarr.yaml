@@ -19,10 +19,12 @@ services:
     expose:
       - 8989
     healthcheck:
-      test: ["curl --fail http://sonarr:8989 || exit 1"]
+      test: ["CMD", "curl", "--fail", "http://sonarr:8989"
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 10s
+      start_interval: 5s
     labels:
       - diun.enable=true
       - traefik.enable=true
