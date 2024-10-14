@@ -10,8 +10,8 @@ env:
   GID: 1400
   UID: 1400
   TZ: Etc/UTC
-  TARGET_DIR: /home/homelab/compose/media-server/
-  USER_DIR: /home/homelab/media-server/
+  TARGET_DIR: /home/homelab/compose/media-server
+  USER_DIR: /home/homelab/media-server
   DOMAIN_NAME: davydehaas.nl
 jobs:
   deploy:
