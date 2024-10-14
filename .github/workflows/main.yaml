@@ -25,9 +25,9 @@ jobs:
             echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
             chmod 600 ~/.ssh/id_ed25519
             ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-      - name: SCP | Copy files
+      - name: SCP | Copy 'compose.*.yaml' files
         run: |
-          scp -r ./enabled/docker-compose.*.yaml ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ env.TARGET_DIR }}
+          scp -r ./enabled/compose.*.yaml ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:${{ env.TARGET_DIR }}
       - name: SSH | Start containers
         run: |
           ssh homelab@${{ secrets.SSH_HOST }} /bin/bash << ENDSSH
@@ -45,10 +45,9 @@ jobs:
           VPN_PASSWORD=${{ secrets.VPN_PASSWORD }}
           EOF
           
-          for filename in docker-compose.*.yaml;
-          do
-            args="\$args -f \$filename"
-          done
-          docker compose \$args up -d --remove-orphans;
+          for filename in compose.*.yaml; do
+            args="\$args -f \$filename";
+          done;
           
+          docker compose \$args up -d --remove-orphans
           ENDSSH
