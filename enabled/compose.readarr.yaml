@@ -1,0 +1,39 @@
+networks:
+  reverse-proxy:
+    external: true
+
+services:
+  # Book collection manager
+  readarr:
+    image: lscr.io/linuxserver/readarr:0.4.1-develop
+    container_name: readarr
+    cpus: 1
+    mem_limit: 4096m
+    restart: unless-stopped
+    expose:
+      - 8787
+    networks:
+      - reverse-proxy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://readarr:8787/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
+    volumes:
+      - ${USER_DIR}/readarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/books:/books
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
+    labels:
+      - diun.enable=true
+      - traefik.enable=true
+      - traefik.http.routers.readarr.entrypoints=websecure
+      - traefik.http.routers.readarr.rule=Host(`readarr.${DOMAIN_NAME}`) || Host(`books.${DOMAIN_NAME}`)
+      - traefik.http.routers.readarr.middlewares=chain-no-auth@file
+      - traefik.http.services.readarr.loadbalancer.server.port=7878
