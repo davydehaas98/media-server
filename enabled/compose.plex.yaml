@@ -20,7 +20,7 @@ services:
       # Plex DLNA Server
       - 1900:1900/udp
       # Older Bonjour/Avahi network discovery
-      # - 5353:5353/udp
+      #- 5353:5353/udp
       # Plex for Roku via Plex Companion
       - 8324:8324
       # GDM network discovery
@@ -42,7 +42,7 @@ services:
     devices:
       # Intel/AMD GPU
       - /dev/dri:/dev/dri
-      - /dev/dvb:/dev/dvb
+      #- /dev/dvb:/dev/dvb
       #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
       #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
       #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
