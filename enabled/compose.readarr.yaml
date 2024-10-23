@@ -5,7 +5,7 @@ networks:
 services:
   # Book collection manager
   readarr:
-    image: lscr.io/linuxserver/readarr:0.4.1-develop
+    image: lscr.io/linuxserver/readarr:0.4.1-develop@sha256:d5f61297510518ae1838b91cf21bb4137c05b7fba93733b2d41d4e41831f9f50
     container_name: readarr
     cpus: 1
     mem_limit: 4096m
