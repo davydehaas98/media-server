@@ -20,7 +20,7 @@ services:
       # Plex DLNA Server
       - 1900:1900/udp
       # Older Bonjour/Avahi network discovery
-      - 5353:5353/udp
+      # - 5353:5353/udp
       # Plex for Roku via Plex Companion
       - 8324:8324
       # GDM network discovery
