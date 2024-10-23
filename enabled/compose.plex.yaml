@@ -1,21 +1,52 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   # Media stream service
+  # https://hub.docker.com/r/linuxserver/plex
   plex:
     image: lscr.io/linuxserver/plex:1.41.0@sha256:c8e5ab6336b20f89b4106945fa2ee035c0d0e8e9ad13a24b7e14b924b5c68090
     container_name: plex
-    restart: unless-stopped
     cpus: 8
     mem_limit: 8192m
-    hostname: plex
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-      - HOSTNAME=Yggdrasil
-      - VERSION=docker
-      # https://www.plex.tv/claim/
-      # - PLEX_CLAIM=<claim>
+    restart: unless-stopped
+    expose:
+    - 32400
+    ports:
+      # See: https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/
+      # Plex Media Server
+      - 32400:32400
+      # Plex DLNA Server
+      - 1900:1900/udp
+      # Older Bonjour/Avahi network discovery
+      - 5353:5353/udp
+      # Plex for Roku via Plex Companion
+      - 8324:8324
+      # GDM network discovery
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      # Plex DLNA Server
+      - 32469:32469
+    networks:
+      - reverse-proxy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://plex:32400/identity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
+    devices:
+      # Intel/AMD GPU
+      - /dev/dri:/dev/dri
+      - /dev/dvb:/dev/dvb
+      #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
+      #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
+      #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
+      #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
     volumes:
       - ${USER_DIR}/plex/config:/config
       - ${USER_DIR}/plex/data:/data
@@ -24,39 +55,14 @@ services:
       - /mnt/raid/media/music:/music:ro
       - /mnt/raid/media/series:/series:ro
       - /mnt/raid/media/dvr:/dvr
-    # expose:
-    # - 32400
-    ports:
-      # Plex Media Server
-      - 32400:32400
-      # Plex DLNA Server
-      - 1900:1900/udp
-      - 32469:32469
-      # Plex Home Theater via Plex Companion
-      - 3005:3005
-      # Older Bonjour/Avahi network discovery
-      #- 5353:5353/udp
-      # Plex for Roku via Plex Companion
-      - 8324:8324
-      # GDM network discovery
-      - 32469:32469/udp
-      - 32410:32410/udp
-      - 32412:32412/udp
-      - 32413:32413/udp
-      - 32414:32414/udp
-    devices:
-      - /dev/dri:/dev/dri # Intel/AMD GPU
-      #- /dev/vchiq:/dev/vchiq # Raspberry Pi OpenMAX
-      #- /dev/video10:/dev/video10 # Raspberry Pi V4L2
-      #- /dev/video11:/dev/video11 # Raspberry Pi V4L2
-      #- /dev/video12:/dev/video12 # Raspberry Pi V4L2
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://plex:32400/identity"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-      start_interval: 5s
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
+      - HOSTNAME=Yggdrasil
+      - VERSION=docker
+      # https://www.plex.tv/claim/
+      # - PLEX_CLAIM=<claim>
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -65,8 +71,3 @@ services:
       - traefik.http.routers.plex.rule=Host(`plex.${DOMAIN_NAME}`)
       - traefik.http.routers.plex.middlewares=chain-no-auth@file
       - traefik.http.services.plex.loadbalancer.server.port=32400
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

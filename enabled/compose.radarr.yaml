@@ -1,23 +1,19 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
-  # Movie downloader and manager
+  # Movie collection manager
   radarr:
     image: lscr.io/linuxserver/radarr:5.12.2@sha256:e0045d420eaf298a9449e12ed1cce654f171cc1043311f0f1cadaf2afeabe795
     container_name: radarr
-    restart: unless-stopped
     cpus: 1
     mem_limit: 4096m
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/radarr/config:/config
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-      - /mnt/raid/media/movies:/movies
+    restart: unless-stopped
     expose:
       - 7878
+    networks:
+      - reverse-proxy
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://radarr:7878/ping"]
       interval: 30s
@@ -25,15 +21,20 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+    volumes:
+      - ${USER_DIR}/radarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/movies:/movies
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
     labels:
       - diun.enable=true
       - traefik.enable=true
       - traefik.http.routers.radarr.entrypoints=websecure
+      - traefik.http.routers.radarr.tls=true
       - traefik.http.routers.radarr.rule=Host(`radarr.${DOMAIN_NAME}`) || Host(`movies.${DOMAIN_NAME}`)
       - traefik.http.routers.radarr.middlewares=chain-no-auth@file
       - traefik.http.services.radarr.loadbalancer.server.port=7878
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

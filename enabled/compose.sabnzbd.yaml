@@ -1,19 +1,14 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:4.3.3@sha256:ab4fc46cb5e2702f640b28bdc9b460c98b73a9898dd61f7068229f140c26409a
     container_name: sabnzbd
-    restart: unless-stopped
     cpus: 4
     mem_limit: 4096m
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/sabnzbd:/config
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    restart: unless-stopped
     expose:
       # HTTP
       - 8080
@@ -26,6 +21,14 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+    volumes:
+      - ${USER_DIR}/sabnzbd:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -36,6 +39,3 @@ services:
       - traefik.http.services.sabnzbd.loadbalancer.server.port=8080
     networks:
       - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

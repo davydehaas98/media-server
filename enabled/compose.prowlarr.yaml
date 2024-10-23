@@ -1,22 +1,19 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
-  # Proxy Server for Sonarr and prowlarr search queries
+  # Proxy server for Sonarr and Radarr search queries
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:1.25.4@sha256:1e2fffd859ecd260e4aae4798cf5be75938cd602161d21b1d58122afb397c864
     container_name: prowlarr
-    restart: unless-stopped
     cpus: 1
     mem_limit: 1024m
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/prowlarr/config:/config
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    restart: unless-stopped
     expose:
       - 9696
+    networks:
+      - reverse-proxy
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://prowlarr:9696/ping"]
       interval: 30s
@@ -24,6 +21,14 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+    volumes:
+      - ${USER_DIR}/prowlarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -32,8 +37,3 @@ services:
       - traefik.http.routers.prowlarr.rule=Host(`prowlarr.${DOMAIN_NAME}`)
       - traefik.http.routers.prowlarr.middlewares=chain-authelia@file
       - traefik.http.services.prowlarr.loadbalancer.server.port=9696
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

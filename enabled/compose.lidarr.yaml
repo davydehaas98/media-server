@@ -1,23 +1,19 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
-  # Music downloader and manager
+  # Music collection manager
   lidarr:
     image: lscr.io/linuxserver/lidarr:2.6.4@sha256:41743a3f1f3c2d511314d0b887cc23c6ae0d0aa11cd0bc32ff973f10e183078e
     container_name: lidarr
-    restart: unless-stopped
     cpus: 0.1
     mem_limit: 256m
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/lidarr/config:/config
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-      - /mnt/raid/media/music:/music
+    restart: unless-stopped
     expose:
       - 8686
+    networks:
+      - reverse-proxy
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://lidarr:8686/ping"]
       interval: 30s
@@ -25,6 +21,15 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+    volumes:
+      - ${USER_DIR}/lidarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/music:/music
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -33,8 +38,3 @@ services:
       - traefik.http.routers.lidarr.rule=Host(`lidarr.${DOMAIN_NAME}`) || Host(`music.${DOMAIN_NAME}`)
       - traefik.http.routers.lidarr.middlewares=chain-authelia@file
       - traefik.http.services.lidarr.loadbalancer.server.port=8686
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

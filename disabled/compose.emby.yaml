@@ -1,28 +1,22 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   # Media stream service
   emby:
     image: lscr.io/linuxserver/emby:4.7.11
     container_name: emby
-    restart: unless-stopped
     cpus: 4
     mem_limit: 8G
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/emby/config:/config
-      - ${USER_DIR}/emby/transcode:/transcode
-      - /mnt/raid/media/movies:/movies:ro
-      - /mnt/raid/media/music:/music:ro
-      - /mnt/raid/media/series:/series:ro
-      # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
+    restart: unless-stopped
     expose:
       # HTTP Web UI
       - 8096
       # HTTPS Web UI
       - 8920
+    networks:
+      - reverse-proxy
     devices:
       # Intel/AMD GPU
       - /dev/dri:/dev/dri
@@ -32,22 +26,16 @@ services:
       #- /dev/video10:/dev/video10
       #- /dev/video11:/dev/video11
       #- /dev/video12:/dev/video12
-    labels:
-      - diun.enable=true
-  embystat:
-    image: lscr.io/linuxserver/embystat:latest
-    container_name: embystat
-    restart: unless-stopped
-    cpus: 1
-    mem_limit: 1G
-    # user: ${UID}:${GID}
+    volumes:
+      - ${USER_DIR}/emby/config:/config
+      - ${USER_DIR}/emby/transcode:/transcode
+      - /mnt/raid/media/movies:/movies:ro
+      - /mnt/raid/media/music:/music:ro
+      - /mnt/raid/media/series:/series:ro
+      # - /opt/vc/lib:/opt/vc/lib # OpenMAX lib
     environment:
       - PGID=${GID}
       - PUID=${UID}
       - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/embystat/config:/config
-    expose:
-      - 6555
     labels:
       - diun.enable=true

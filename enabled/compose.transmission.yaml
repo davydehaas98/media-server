@@ -1,19 +1,47 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   # Torrent client with VPN
   transmission:
     image: haugene/transmission-openvpn:5.3@sha256:a128b49e29379895c5815e8bea3c1b5eb42ccbef4ab9e5109a72b97d8fd7c0b0
     container_name: transmission
-    restart: unless-stopped
     cpus: 6
     mem_limit: 4096m
+    restart: unless-stopped
     cap_add:
       - NET_ADMIN
     dns:
       - 1.1.1.1
       - 1.0.0.1
-    # user: ${UID}:${GID}
+    expose:
+    # Web UI
+      - 9091
+    ports:
+    # Torrent Ports
+      - 51413:51413
+      - 51413:51413/udp
+    networks:
+      - reverse-proxy
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+    healthcheck:
+      disable: true
+      test: ["CMD", "curl", "--fail", "http://transmission:9091"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
+    volumes:
+      - ${USER_DIR}/transmission/config:/config
+      - /mnt/raid/media-server/transmission/data:/data
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
     environment:
-      - TZ=${TZ}
       - CREATE_TUN_DEVICE=true
       - DROP_DEFAULT_ROUTE=true
       - HEALTH_CHECK_HOST=github.com
@@ -48,30 +76,6 @@ services:
       # combustion, kettu, transmission-web-control, flood-for-transmission or shift
       - TRANSMISSION_WEB_UI=flood-for-transmission
       - WEBPROXY_ENABLED=false
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-    volumes:
-      - ${USER_DIR}/transmission/config:/config
-      - /mnt/raid/media-server/transmission/data:/data
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-    expose:
-    # Web UI
-      - 9091
-    ports:
-    # Torrent Ports
-      - 51413:51413
-      - 51413:51413/udp
-    healthcheck:
-      disable: true
-      test: ["CMD", "curl", "--fail", "http://transmission:9091"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
-      start_interval: 5s
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -80,8 +84,3 @@ services:
       - traefik.http.routers.transmission-openvpn.rule=Host(`transmission.${DOMAIN_NAME}`) || Host(`torrent.${DOMAIN_NAME}`)
       - traefik.http.routers.transmission-openvpn.middlewares=chain-authelia@file
       - traefik.http.services.transmission-openvpn.loadbalancer.server.port=9091
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

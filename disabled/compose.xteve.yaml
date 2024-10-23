@@ -1,3 +1,7 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   # M3U Proxy for Plex DVR and Emby Live TV
   # https://github.com/xteve-project/xTeVe
@@ -6,19 +10,21 @@ services:
   xteve:
     image: alturismo/xteve:latest
     container_name: xteve
-    restart: unless-stopped
     cpus: 1
-    mem_limit: 1G
+    mem_limit: 4096m
     user: ${UID}:${GID}
+    restart: unless-stopped
+    ports:
+      - 34400:34400
+      - 1900:1900
+    networks:
+      - reverse-proxy
+    volumes:
+      - ${USER_DIR}/xteve/config:/config:rw
     environment:
       - PGID=${GID}
       - PUID=${UID}
       - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/xteve/config:/config:rw
-    ports:
-      - 34400:34400
-      - 1900:1900
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -27,8 +33,3 @@ services:
       - traefik.http.routers.xteve.rule=Host(`xteve.${DOMAIN_NAME}`,`dvr.${DOMAIN_NAME}`)
       - traefik.http.routers.xteve.middlewares=chain-authelia@file
       - traefik.http.services.xteve.loadbalancer.server.port=34400
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

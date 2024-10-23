@@ -1,14 +1,30 @@
-services: 
+networks:
+  reverse-proxy:
+    external: true
+
+services:
+  # Media stream service
   jellyfin:
     image: jellyfin/jellyfin:10.9.11@sha256:fc1b51f4be3fba725e42dae2022d9c6a5b069acce01bef04d32fdee025dc511e
     container_name: jellyfin
-    restart: unless-stopped
     cpus: 4
     mem_limit: 8192m
+    restart: unless-stopped
     user: ${UID}:${GID}
-    environment:
-      - TZ=${TZ}
-      - DOCKER_MODS=lscr.io/linuxserver/mods:jellyfin-opencl-intel
+    expose:
+      - 8096
+    networks:
+      - reverse-proxy
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://jellyfin:8096/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+      start_interval: 5s
+    devices:
+      # Intel/AMD GPU
+      - /dev/dri:/dev/dri
     volumes:
       - ${USER_DIR}/jellyfin/config:/config
       - ${USER_DIR}/jellyfin/cache:/cache
@@ -16,10 +32,9 @@ services:
       - /mnt/raid/media/music:/music:ro
       - /mnt/raid/media/series:/series:ro
       - /dev/shm:/data/transcode
-    ports:
-      - 8096:8096
-    devices:
-      - /dev/dri:/dev/dri # Intel/AMD GPU
+    environment:
+      - TZ=${TZ}
+      - DOCKER_MODS=lscr.io/linuxserver/mods:jellyfin-opencl-intel
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -27,8 +42,3 @@ services:
       - traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN_NAME}`)
       - traefik.http.routers.jellyfin.middlewares=chain-no-auth@file
       - traefik.http.services.jellyfin.loadbalancer.server.port=8096
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

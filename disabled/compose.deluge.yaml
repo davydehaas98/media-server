@@ -3,18 +3,9 @@ services:
   deluge:
     image: lscr.io/linuxserver/deluge:2.1.1
     container_name: deluge
-    restart: unless-stopped
     cpus: 1
-    mem_limit: 1G
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-      - DELUGE_LOGLEVEL=error
-    volumes:
-      - ${USER_DIR}/deluge/config:/config
-      - /mnt/raid/media/downloads:/root/Downloads
+    mem_limit: 1024m
+    restart: unless-stopped
     ports:
       # Web UI
       - 8112:8112
@@ -23,5 +14,15 @@ services:
       - 53160:53160/udp
       # Daemon remote port (Used for GTK applications)
       - 58846:58846
+    networks:
+      - reverse-proxy
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
+      - DELUGE_LOGLEVEL=error
+    volumes:
+      - ${USER_DIR}/deluge/config:/config
+      - /mnt/raid/media/downloads:/root/Downloads
     labels:
       - diun.enable=true

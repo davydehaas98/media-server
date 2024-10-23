@@ -1,17 +1,23 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
   tdarr:
     image: haveagitgat/tdarr:2.17.01
     container_name: tdarr
-    restart: unless-stopped
     cpus: 0.1
     mem_limit: 2048m
+    restart: unless-stopped
     user: ${UID}:${GID}
-    environment:
-      - TZ=${TZ}
-      - UMASK_SET=002
-      - serverIP=tdarr
-      - serverPort=8266
-      - webUIPort=8265
+    ports:
+      - 8266:8266
+      - 8265:8265
+      - 8267:8267
+    expose:
+      - 8265
+    networks:
+      - reverse-proxy
     volumes:
       - ${USER_DIR}/tdarr/config:/app/configs
       - ${USER_DIR}/tdarr/logs:/app/logs
@@ -19,12 +25,12 @@ services:
       - ${USER_DIR}/tdarr/transcode_cache:/temp
       - /mnt/raid/media/movies:/movies
       - /mnt/raid/media/series:/series
-    ports:
-      - 8266:8266
-      - 8265:8265
-      - 8267:8267
-    expose:
-      - 8265
+    environment:
+      - TZ=${TZ}
+      - UMASK_SET=002
+      - serverIP=tdarr
+      - serverPort=8266
+      - webUIPort=8265
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -32,15 +38,21 @@ services:
       - traefik.http.routers.tdarr.rule=Host(`tdarr.${DOMAIN_NAME}`,`transcoder.${DOMAIN_NAME}`)
       - traefik.http.routers.tdarr.middlewares=chain-authelia@file
       - traefik.http.services.tdarr.loadbalancer.server.port=8265
-    networks:
-      - reverse-proxy
   tdarr-node:
     image: haveagitgat/tdarr_node:2.17.01
     container_name: tdarr-node
-    restart: unless-stopped
     cpus: 6
     mem_limit: 8192m
+    restart: unless-stopped
     user: ${UID}:${GID}
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - ${USER_DIR}/tdarr/config:/app/configs
+      - ${USER_DIR}/tdarr/logs:/app/logs
+      - ${USER_DIR}/tdarr/transcode_cache:/temp
+      - /mnt/raid/media/movies:/movies
+      - /mnt/raid/media/series:/series
     environment:
       - TZ=${TZ}
       - UMASK_SET=002
@@ -51,18 +63,7 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - serverIP=tdarr
       - serverPort=8266
-    volumes:
-      - ${USER_DIR}/tdarr/config:/app/configs
-      - ${USER_DIR}/tdarr/logs:/app/logs
-      - ${USER_DIR}/tdarr/transcode_cache:/temp
-      - /mnt/raid/media/movies:/movies
-      - /mnt/raid/media/series:/series
-    devices:
-      - /dev/dri:/dev/dri
     labels:
       - diun.enable=true
     networks:
       - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

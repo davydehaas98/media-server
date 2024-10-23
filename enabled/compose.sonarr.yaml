@@ -1,23 +1,19 @@
+networks:
+  reverse-proxy:
+    external: true
+
 services:
-  # Serie downloader and manager
+  # TV series collection manager
   sonarr:
     image: lscr.io/linuxserver/sonarr:4.0.9@sha256:db80ed8022dd15143644752a57db0553e48e23e3da54bdb9833d28ff89206a3c
     container_name: sonarr
-    restart: unless-stopped
     cpus: 1
     mem_limit: 4096m
-    # user: ${UID}:${GID}
-    environment:
-      - PGID=${GID}
-      - PUID=${UID}
-      - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/sonarr/config:/config
-      - /mnt/raid/media/downloads/completed:/downloads/completed
-      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
-      - /mnt/raid/media/series:/series
+    restart: unless-stopped
     expose:
       - 8989
+    networks:
+      - reverse-proxy
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://sonarr:8989/ping"]
       interval: 30s
@@ -25,6 +21,15 @@ services:
       retries: 3
       start_period: 10s
       start_interval: 5s
+    volumes:
+      - ${USER_DIR}/sonarr/config:/config
+      - /mnt/raid/media/downloads/completed:/downloads/completed
+      - /mnt/raid/media/downloads/incomplete:/downloads/incomplete
+      - /mnt/raid/media/series:/series
+    environment:
+      - PGID=${GID}
+      - PUID=${UID}
+      - TZ=${TZ}
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -33,8 +38,3 @@ services:
       - traefik.http.routers.sonarr.rule=Host(`sonarr.${DOMAIN_NAME}`) || Host(`series.${DOMAIN_NAME}`)
       - traefik.http.routers.sonarr.middlewares=chain-no-auth@file
       - traefik.http.services.sonarr.loadbalancer.server.port=8989
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true

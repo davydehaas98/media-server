@@ -1,20 +1,25 @@
+networks:
+  reverse-proxy:
+    external: true
+    
 services:
   # Plex requests and user management system
   overseerr:
     image: lscr.io/linuxserver/overseerr:1.33.2@sha256:aaba9e51b62a17e914de79e8eda4616f12e9bf4bce115cda6d0ad8178daea102
     container_name: overseerr
-    restart: unless-stopped
     cpus: 0.1
     mem_limit: 512m
-    # user: ${UID}:${GID}
+    restart: unless-stopped
+    expose:
+      - 5055
+    networks:
+      - reverse-proxy
+    volumes:
+      - ${USER_DIR}/overseerr/config:/config
     environment:
       - PGID=${GID}
       - PUID=${UID}
       - TZ=${TZ}
-    volumes:
-      - ${USER_DIR}/overseerr/config:/config
-    expose:
-      - 5055
     labels:
       - diun.enable=true
       - traefik.enable=true
@@ -23,8 +28,3 @@ services:
       - traefik.http.routers.overseerr.rule=Host(`overseerr.${DOMAIN_NAME}`)
       - traefik.http.routers.overseerr.middlewares=chain-authelia@file
       - traefik.http.services.overseerr.loadbalancer.server.port=5055
-    networks:
-      - reverse-proxy
-networks:
-  reverse-proxy:
-    external: true
